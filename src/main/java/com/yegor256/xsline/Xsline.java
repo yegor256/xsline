@@ -69,6 +69,7 @@ public final class Xsline {
     /**
      * With this new shift.
      * @param shift The shift
+     * @return New instance of this class
      */
     public Xsline with(final Shift shift) {
         final Collection<Shift> list = new ArrayList<>(this.shifts.size() + 1);

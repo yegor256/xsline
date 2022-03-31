@@ -47,7 +47,7 @@ public final class XslineTest {
         final XML output = new Xsline()
             .with(
                 new StRepeated(
-                    new StXSL(xsl),
+                    new StLogged(new StXSL(xsl)),
                     xml -> xml.nodes("/x[starts-with(., '{{')]").isEmpty()
                 )
             )

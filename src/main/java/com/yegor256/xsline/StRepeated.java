@@ -54,6 +54,11 @@ public final class StRepeated implements Shift {
     }
 
     @Override
+    public String toString() {
+        return this.origin.toString();
+    }
+
+    @Override
     public XML apply(final int position, final XML xml) {
         XML before = xml;
         XML after;

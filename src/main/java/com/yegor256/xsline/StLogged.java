@@ -23,38 +23,55 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
-import com.jcabi.xml.XMLDocument;
-import com.jcabi.xml.XSL;
 
 /**
- * Simple shift through a single XSL.
+ * A shift that logs the process through Slf4j.
  *
  * @since 0.1.0
- * @checkstyle AbbreviationAsWordInNameCheck (3 lines)
  */
-public final class StXSL implements Shift {
+public final class StLogged implements Shift {
 
     /**
-     * The XSL sheet.
+     * The original shift.
      */
-    private final XSL sheet;
+    private final Shift origin;
 
     /**
      * Ctor.
-     * @param xsl The XSL
+     * @param shift The shift
      */
-    public StXSL(final XSL xsl) {
-        this.sheet = xsl;
+    public StLogged(final Shift shift) {
+        this.origin = shift;
     }
 
     @Override
     public String toString() {
-        return new XMLDocument(this.sheet.toString()).xpath("/*/@id").get(0);
+        return this.origin.toString();
     }
 
     @Override
     public XML apply(final int position, final XML xml) {
-        return this.sheet.transform(xml);
+        try {
+            final XML after = this.origin.apply(position, xml);
+            Logger.debug(
+                this,
+                "Shift #%d via '%s' produced:\n%s<EOF>",
+                position,
+                this.origin,
+                xml.toString()
+                    .replace("\n", "\\n\n")
+                    .replace("\t", "\\t\t")
+                    .replace("\r", "\\r\r")
+            );
+            return after;
+        } catch (final IllegalArgumentException ex) {
+            Logger.error(this, "The error happened here:%n%s", xml);
+            throw new IllegalArgumentException(
+                String.format("Shift '%s' failed", this.origin),
+                ex
+            );
+        }
     }
 }
