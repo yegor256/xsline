@@ -28,6 +28,13 @@ You add this to your `pom.xml`:
 Use it like this:
 
 ```java
+import com.jcabi.xml.XML;
+import com.jcabi.xml.XMLDocument;
+import com.jcabi.xml.XSLDocument;
+import com.yegor256.xsline.Xsline;
+import com.yegor256.xsline.StXSL;
+
+XML input = new XMLDocument("<hello/>");
 XML output = new Xsline()
   .with(StXSL(new XSLDocument("first.xsl")));
   .with(StXSL(new XSLDocument("second.xsl")));
