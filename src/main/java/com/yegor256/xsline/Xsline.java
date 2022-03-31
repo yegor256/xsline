@@ -23,6 +23,7 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -83,7 +84,9 @@ public final class Xsline {
      * @param input The input XML
      * @return The output XML
      */
+    @SuppressWarnings("PMD.GuardLogStatement")
     public XML pass(final XML input) {
+        final long start = System.currentTimeMillis();
         XML before = input;
         XML after = before;
         int pos = 0;
@@ -92,6 +95,11 @@ public final class Xsline {
             ++pos;
             before = after;
         }
+        Logger.debug(
+            this, "Transformed XML through %d shifts in %[ms]s",
+            this.shifts.size(),
+            System.currentTimeMillis() - start
+        );
         return after;
     }
 

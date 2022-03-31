@@ -42,9 +42,18 @@ public final class XslineTest {
     @Test
     public void simpleScenario() throws IOException {
         final XSL xsl = new XSLDocument(
-            this.getClass().getResource("/com/yegor256/xsline/add-brackets.xsl")
+            this.getClass().getResource("add-brackets.xsl")
         );
         final XML output = new Xsline()
+            .with(
+                new StLogged(
+                    new StXSL(
+                        new XSLDocument(
+                            this.getClass().getResource("void.xsl")
+                        )
+                    )
+                )
+            )
             .with(
                 new StRepeated(
                     new StLogged(new StXSL(xsl)),

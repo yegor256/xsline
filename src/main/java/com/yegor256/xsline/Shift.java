@@ -39,4 +39,5 @@ public interface Shift {
      * @return New XML
      */
     XML apply(int position, XML xml);
+
 }

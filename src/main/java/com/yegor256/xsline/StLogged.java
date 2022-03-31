@@ -54,18 +54,28 @@ public final class StLogged implements Shift {
     @Override
     public XML apply(final int position, final XML xml) {
         try {
-            final XML after = this.origin.apply(position, xml);
-            Logger.debug(
-                this,
-                "Shift #%d via '%s' produced:\n%s<EOF>",
-                position,
-                this.origin,
-                xml.toString()
-                    .replace("\n", "\\n\n")
-                    .replace("\t", "\\t\t")
-                    .replace("\r", "\\r\r")
-            );
-            return after;
+            final String before = xml.toString();
+            final XML out = this.origin.apply(position, xml);
+            final String after = out.toString();
+            if (before.equals(after)) {
+                Logger.debug(
+                    this,
+                    "Shift #%d via '%s' made no changes",
+                    position, this.origin
+                );
+            } else {
+                Logger.debug(
+                    this,
+                    "Shift #%d via '%s' produced:\n%s<EOF>",
+                    position,
+                    this.origin,
+                    after
+                        .replace("\n", "\\n\n")
+                        .replace("\t", "\\t\t")
+                        .replace("\r", "\\r\r")
+                );
+            }
+            return out;
         } catch (final IllegalArgumentException ex) {
             Logger.error(this, "The error happened here:%n%s", xml);
             throw new IllegalArgumentException(
