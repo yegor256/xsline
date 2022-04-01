@@ -23,45 +23,49 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.matchers.XhtmlMatchers;
-import com.jcabi.xml.XML;
-import com.jcabi.xml.XMLDocument;
 import com.jcabi.xml.XSL;
-import com.jcabi.xml.XSLDocument;
-import java.io.IOException;
-import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.Test;
+import java.util.Iterator;
 
 /**
- * Test case for {@link Xsline}.
+ * Train that accets many types.
  *
  * @since 0.1.0
  */
-public final class XslineTest {
+public final class TrSmart implements Train<Shift> {
 
-    @Test
-    public void simpleScenario() throws IOException {
-        final XSL xsl = new XSLDocument(
-            this.getClass().getResource("add-brackets.xsl")
+    /**
+     * The original train.
+     */
+    private final Train<Shift> origin;
+
+    /**
+     * Ctor.
+     * @param train Original
+     */
+    public TrSmart(final Train<Shift> train) {
+        this.origin = train;
+    }
+
+    @Override
+    public Train<Shift> with(final Shift element) {
+        return new TrSmart(
+            this.origin.with(new StLogged(element))
         );
-        final Train<Shift> train = new TrSmart(new TrLogged(new TrDefault<>()))
-            .with(
-                new XSLDocument(
-                    this.getClass().getResource("void.xsl")
-                )
-            )
-            .with(
-                new StRepeated(
-                    xsl,
-                    xml -> xml.nodes("/x[starts-with(., '{{')]").isEmpty()
-                )
-            );
-        final XML output = new Xsline(train).pass(
-            new XMLDocument("<x>hello</x>")
-        );
-        MatcherAssert.assertThat(
-            output,
-            XhtmlMatchers.hasXPaths("/x[.='{{hello}}']")
+    }
+
+    @Override
+    public Iterator<Shift> iterator() {
+        return this.origin.iterator();
+    }
+
+    /**
+     * With this XSL.
+     * @param xsl New XSL
+     * @return New train
+     */
+    public Train<Shift> with(final XSL xsl) {
+        return new TrSmart(
+            this.origin.with(new StXSL(xsl))
         );
     }
 

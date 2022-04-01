@@ -24,6 +24,7 @@
 package com.yegor256.xsline;
 
 import com.jcabi.xml.XML;
+import com.jcabi.xml.XSL;
 import java.util.function.Function;
 
 /**
@@ -42,6 +43,15 @@ public final class StRepeated implements Shift {
      * The predicate (repeats if it's TRUE).
      */
     private final Function<XML, Boolean> predicate;
+
+    /**
+     * Ctor.
+     * @param xsl The XSL
+     * @param fun The predicate
+     */
+    public StRepeated(final XSL xsl, final Function<XML, Boolean> fun) {
+        this(new StXSL(xsl), fun);
+    }
 
     /**
      * Ctor.
