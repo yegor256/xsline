@@ -23,61 +23,37 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.log.Logger;
-import com.jcabi.xml.XML;
+import java.util.Iterator;
 
 /**
- * Chain of XSL transformations.
- *
- * <p>Use it like this:
- *
- * <pre> XML output = new Xsline()
- *   .with(StXSL(new XSLDocument("...")));
- *   .with(StXSL(new XSLDocument("...")));
- *   .pass(input);
- * </pre>
- *
- * <p>See all implementations of {@link Shift} to learn the functionality
- * this package provides.</p>
+ * Train that logs all shifts.
  *
  * @since 0.1.0
  */
-public final class Xsline {
+public final class TrLogged implements Train<Shift> {
 
     /**
-     * Collection of shifts.
+     * The original train.
      */
-    private final Iterable<Shift> shifts;
+    private final Train<Shift> origin;
 
     /**
      * Ctor.
-     * @param list List of shifts
+     * @param train Original
      */
-    public Xsline(final Iterable<Shift> list) {
-        this.shifts = list;
+    public TrLogged(final Train<Shift> train) {
+        this.origin = train;
     }
 
-    /**
-     * Run it all with the given XML.
-     * @param input The input XML
-     * @return The output XML
-     */
-    @SuppressWarnings("PMD.GuardLogStatement")
-    public XML pass(final XML input) {
-        final long start = System.currentTimeMillis();
-        XML before = input;
-        XML after = before;
-        int pos = 0;
-        for (final Shift shift : this.shifts) {
-            after = shift.apply(pos, before);
-            ++pos;
-            before = after;
-        }
-        Logger.debug(
-            this, "Transformed XML through %d shift(s) in %[ms]s",
-            pos, System.currentTimeMillis() - start
+    @Override
+    public Train<Shift> with(final Shift element) {
+        return new TrLogged(
+            this.origin.with(new StLogged(element))
         );
-        return after;
     }
 
+    @Override
+    public Iterator<Shift> iterator() {
+        return this.origin.iterator();
+    }
 }

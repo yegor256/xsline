@@ -23,61 +23,51 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.log.Logger;
-import com.jcabi.xml.XML;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
- * Chain of XSL transformations.
+ * Default train.
  *
- * <p>Use it like this:
- *
- * <pre> XML output = new Xsline()
- *   .with(StXSL(new XSLDocument("...")));
- *   .with(StXSL(new XSLDocument("...")));
- *   .pass(input);
- * </pre>
- *
- * <p>See all implementations of {@link Shift} to learn the functionality
- * this package provides.</p>
- *
+ * @param <T> Type of element
  * @since 0.1.0
  */
-public final class Xsline {
+public final class TrDefault<T> implements Train<T> {
 
     /**
-     * Collection of shifts.
+     * The list of elements.
      */
-    private final Iterable<Shift> shifts;
+    private final Iterable<T> list;
 
     /**
      * Ctor.
-     * @param list List of shifts
      */
-    public Xsline(final Iterable<Shift> list) {
-        this.shifts = list;
+    public TrDefault() {
+        this(new ArrayList<>(0));
     }
 
     /**
-     * Run it all with the given XML.
-     * @param input The input XML
-     * @return The output XML
+     * Ctor.
+     * @param items Items
      */
-    @SuppressWarnings("PMD.GuardLogStatement")
-    public XML pass(final XML input) {
-        final long start = System.currentTimeMillis();
-        XML before = input;
-        XML after = before;
-        int pos = 0;
-        for (final Shift shift : this.shifts) {
-            after = shift.apply(pos, before);
-            ++pos;
-            before = after;
-        }
-        Logger.debug(
-            this, "Transformed XML through %d shift(s) in %[ms]s",
-            pos, System.currentTimeMillis() - start
-        );
-        return after;
+    private TrDefault(final Iterable<T> items) {
+        this.list = items;
     }
 
+    @Override
+    public Train<T> with(final T element) {
+        final Collection<T> items = new LinkedList<>();
+        for (final T item : this.list) {
+            items.add(item);
+        }
+        items.add(element);
+        return new TrDefault<>(items);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return this.list.iterator();
+    }
 }
