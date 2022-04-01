@@ -23,58 +23,30 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.matchers.XhtmlMatchers;
+import com.jcabi.xml.XMLDocument;
 import com.jcabi.xml.XSL;
-import java.util.Iterator;
+import com.jcabi.xml.XSLDocument;
+import java.io.IOException;
+import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Test;
 
 /**
- * Train that accepts many types.
+ * Test case for {@link StEndless}.
  *
- * @since 0.3.0
+ * @since 0.1.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-public final class TrSmart implements Train<Shift> {
+public final class StEndlessTest {
 
-    /**
-     * The original train.
-     */
-    private final Train<Shift> origin;
-
-    /**
-     * Ctor.
-     * @param train Original
-     */
-    public TrSmart(final Train<Shift> train) {
-        this.origin = train;
-    }
-
-    @Override
-    public Train<Shift> with(final Shift element) {
-        return this.origin.with(new StLogged(element));
-    }
-
-    @Override
-    public Iterator<Shift> iterator() {
-        return this.origin.iterator();
-    }
-
-    /**
-     * Add this shift.
-     * @param shift New shift
-     * @return New smart train
-     */
-    public TrSmart add(final Shift shift) {
-        return new TrSmart(
-            this.origin.with(shift)
+    @Test
+    public void simpleScenario() throws IOException {
+        final XSL xsl = new XSLDocument(
+            this.getClass().getResource("void.xsl")
         );
-    }
-
-    /**
-     * With this XSL.
-     * @param xsl New XSL
-     * @return New train
-     */
-    public TrSmart add(final XSL xsl) {
-        return new TrSmart(
-            this.origin.with(new StXSL(xsl))
+        MatcherAssert.assertThat(
+            new StEndless(xsl).apply(0, new XMLDocument("<hello/>")),
+            XhtmlMatchers.hasXPaths("/hello")
         );
     }
 

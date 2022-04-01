@@ -36,6 +36,7 @@ import org.junit.jupiter.api.Test;
  * Test case for {@link Xsline}.
  *
  * @since 0.1.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 public final class XslineTest {
 
@@ -45,12 +46,14 @@ public final class XslineTest {
             this.getClass().getResource("add-brackets.xsl")
         );
         final Train<Shift> train = new TrSmart(new TrLogged(new TrDefault<>()))
-            .with(
-                new XSLDocument(
-                    this.getClass().getResource("void.xsl")
+            .add(
+                new StEndless(
+                    new XSLDocument(
+                        this.getClass().getResource("void.xsl")
+                    )
                 )
             )
-            .with(
+            .add(
                 new StRepeated(
                     xsl,
                     xml -> xml.nodes("/x[starts-with(., '{{')]").isEmpty()

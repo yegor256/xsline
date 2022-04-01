@@ -24,57 +24,31 @@
 package com.yegor256.xsline;
 
 import com.jcabi.xml.XSL;
-import java.util.Iterator;
+import com.jcabi.xml.XSLDocument;
+import java.io.IOException;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
 /**
- * Train that accepts many types.
+ * Test case for {@link TrSmart}.
  *
- * @since 0.3.0
+ * @since 0.1.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-public final class TrSmart implements Train<Shift> {
+public final class TrSmartTest {
 
-    /**
-     * The original train.
-     */
-    private final Train<Shift> origin;
-
-    /**
-     * Ctor.
-     * @param train Original
-     */
-    public TrSmart(final Train<Shift> train) {
-        this.origin = train;
-    }
-
-    @Override
-    public Train<Shift> with(final Shift element) {
-        return this.origin.with(new StLogged(element));
-    }
-
-    @Override
-    public Iterator<Shift> iterator() {
-        return this.origin.iterator();
-    }
-
-    /**
-     * Add this shift.
-     * @param shift New shift
-     * @return New smart train
-     */
-    public TrSmart add(final Shift shift) {
-        return new TrSmart(
-            this.origin.with(shift)
+    @Test
+    public void simpleScenario() throws IOException {
+        final XSL xsl = new XSLDocument(
+            this.getClass().getResource("add-brackets.xsl")
         );
-    }
-
-    /**
-     * With this XSL.
-     * @param xsl New XSL
-     * @return New train
-     */
-    public TrSmart add(final XSL xsl) {
-        return new TrSmart(
-            this.origin.with(new StXSL(xsl))
+        final Train<Shift> train = new TrSmart(new TrDefault<>())
+            .add(xsl)
+            .add(new StEndless(xsl));
+        MatcherAssert.assertThat(
+            train,
+            Matchers.iterableWithSize(2)
         );
     }
 

@@ -23,59 +23,52 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.xml.XML;
 import com.jcabi.xml.XSL;
-import java.util.Iterator;
 
 /**
- * Train that accepts many types.
+ * A shift repeated a few times, until changes are happening.
  *
- * @since 0.3.0
+ * @since 0.4.0
  */
-public final class TrSmart implements Train<Shift> {
+public final class StEndless implements Shift {
 
     /**
-     * The original train.
+     * The original shift.
      */
-    private final Train<Shift> origin;
+    private final Shift origin;
 
     /**
      * Ctor.
-     * @param train Original
+     * @param xsl The XSL
      */
-    public TrSmart(final Train<Shift> train) {
-        this.origin = train;
-    }
-
-    @Override
-    public Train<Shift> with(final Shift element) {
-        return this.origin.with(new StLogged(element));
-    }
-
-    @Override
-    public Iterator<Shift> iterator() {
-        return this.origin.iterator();
+    public StEndless(final XSL xsl) {
+        this(new StXSL(xsl));
     }
 
     /**
-     * Add this shift.
-     * @param shift New shift
-     * @return New smart train
+     * Ctor.
+     * @param shift The shift
      */
-    public TrSmart add(final Shift shift) {
-        return new TrSmart(
-            this.origin.with(shift)
-        );
+    public StEndless(final Shift shift) {
+        this.origin = shift;
     }
 
-    /**
-     * With this XSL.
-     * @param xsl New XSL
-     * @return New train
-     */
-    public TrSmart add(final XSL xsl) {
-        return new TrSmart(
-            this.origin.with(new StXSL(xsl))
-        );
+    @Override
+    public String toString() {
+        return this.origin.toString();
     }
 
+    @Override
+    public XML apply(final int position, final XML xml) {
+        XML before = xml;
+        XML after;
+        boolean more;
+        do {
+            after = this.origin.apply(position, before);
+            more = !after.toString().equals(before.toString());
+            before = after;
+        } while (more);
+        return after;
+    }
 }
