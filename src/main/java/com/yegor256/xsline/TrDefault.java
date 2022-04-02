@@ -76,6 +76,11 @@ public final class TrDefault<T> implements Train<T> {
     }
 
     @Override
+    public Train<T> empty() {
+        return new TrDefault<>();
+    }
+
+    @Override
     public Iterator<T> iterator() {
         return this.list.iterator();
     }

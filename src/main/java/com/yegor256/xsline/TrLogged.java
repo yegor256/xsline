@@ -23,37 +23,23 @@
  */
 package com.yegor256.xsline;
 
-import java.util.Iterator;
-
 /**
  * Train that logs all shifts.
  *
  * @since 0.1.0
  */
-public final class TrLogged implements Train<Shift> {
-
-    /**
-     * The original train.
-     */
-    private final Train<Shift> origin;
+public final class TrLogged extends TrEnvelope {
 
     /**
      * Ctor.
      * @param train Original
      */
     public TrLogged(final Train<Shift> train) {
-        this.origin = train;
-    }
-
-    @Override
-    public Train<Shift> with(final Shift element) {
-        return new TrLogged(
-            this.origin.with(new StLogged(element))
+        super(
+            new TrLambda(
+                train,
+                StLogged::new
+            )
         );
-    }
-
-    @Override
-    public Iterator<Shift> iterator() {
-        return this.origin.iterator();
     }
 }

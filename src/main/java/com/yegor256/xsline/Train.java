@@ -38,4 +38,10 @@ public interface Train<T> extends Iterable<T> {
      */
     Train<T> with(T element);
 
+    /**
+     * Return an empty train.
+     * @return New train
+     */
+    Train<T> empty();
+
 }

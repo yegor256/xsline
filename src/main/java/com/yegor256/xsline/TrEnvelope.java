@@ -51,6 +51,11 @@ public class TrEnvelope implements Train<Shift> {
     }
 
     @Override
+    public final Train<Shift> empty() {
+        return this.origin.empty();
+    }
+
+    @Override
     public final Iterator<Shift> iterator() {
         return this.origin.iterator();
     }

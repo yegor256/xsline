@@ -23,15 +23,15 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.xml.XSL;
 import java.util.Iterator;
+import java.util.function.Function;
 
 /**
- * Train that accepts many types.
+ * Train with a lambda expression.
  *
- * @since 0.3.0
+ * @since 0.1.0
  */
-public final class TrSmart implements Train<Shift> {
+public final class TrLambda implements Train<Shift> {
 
     /**
      * The original train.
@@ -39,48 +39,32 @@ public final class TrSmart implements Train<Shift> {
     private final Train<Shift> origin;
 
     /**
+     * The function.
+     */
+    private final Function<Shift, Shift> lambda;
+
+    /**
      * Ctor.
      * @param train Original
+     * @param fun The function
      */
-    public TrSmart(final Train<Shift> train) {
+    public TrLambda(final Train<Shift> train, final Function<Shift, Shift> fun) {
         this.origin = train;
+        this.lambda = fun;
     }
 
     @Override
     public Train<Shift> with(final Shift element) {
-        return this.origin.with(element);
+        return new TrLambda(this.origin.with(this.lambda.apply(element)), this.lambda);
     }
 
     @Override
     public Train<Shift> empty() {
-        return this.origin.empty();
+        return new TrLambda(this.origin.empty(), this.lambda);
     }
 
     @Override
     public Iterator<Shift> iterator() {
         return this.origin.iterator();
     }
-
-    /**
-     * Add this shift.
-     * @param shift New shift
-     * @return New smart train
-     */
-    public TrSmart add(final Shift shift) {
-        return new TrSmart(
-            this.origin.with(shift)
-        );
-    }
-
-    /**
-     * With this XSL.
-     * @param xsl New XSL
-     * @return New train
-     */
-    public TrSmart add(final XSL xsl) {
-        return new TrSmart(
-            this.origin.with(new StXSL(xsl))
-        );
-    }
-
 }
