@@ -23,28 +23,30 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.xml.ClasspathSources;
+import com.jcabi.xml.XSLDocument;
 import java.io.IOException;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link TrSmart}.
+ * Simple shift from a path in classpath.
  *
- * @since 0.1.0
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
+ * @since 0.4.0
+ * @checkstyle AbbreviationAsWordInNameCheck (3 lines)
  */
-public final class TrSmartTest {
+public final class StClasspath extends StEnvelope {
 
-    @Test
-    public void simpleScenario() throws IOException {
-        final Shift shift = new StClasspath("add-brackets.xsl");
-        final Train<Shift> train = new TrSmart(new TrDefault<>())
-            .add(shift)
-            .add(new StEndless(shift));
-        MatcherAssert.assertThat(
-            train,
-            Matchers.iterableWithSize(2)
+    /**
+     * Ctor.
+     * @param path Path in classpath
+     * @throws IOException If fails
+     */
+    public StClasspath(final String path) throws IOException {
+        super(
+            new StXSL(
+                new XSLDocument(
+                    StClasspath.class.getResource(path)
+                ).with(new ClasspathSources())
+            )
         );
     }
 
