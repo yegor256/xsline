@@ -25,6 +25,7 @@ package com.yegor256.xsline;
 
 import com.jcabi.xml.XML;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 /**
  * A shift that executes the provided bi-function.
@@ -32,6 +33,11 @@ import java.util.function.BiFunction;
  * @since 0.4.0
  */
 public final class StLambda implements Shift {
+
+    /**
+     * The UID.
+     */
+    private final Supplier<String> name;
 
     /**
      * The function.
@@ -43,12 +49,39 @@ public final class StLambda implements Shift {
      * @param fun The function
      */
     public StLambda(final BiFunction<Integer, XML, XML> fun) {
+        this(
+            new Supplier<String>() {
+                @Override
+                public String get() {
+                    return String.format("λ-%x", this.hashCode());
+                }
+            },
+            fun
+        );
+    }
+
+    /**
+     * Ctor.
+     * @param uid The ID
+     * @param fun The function
+     */
+    public StLambda(final String uid, final BiFunction<Integer, XML, XML> fun) {
+        this(() -> uid, fun);
+    }
+
+    /**
+     * Ctor.
+     * @param uid The ID
+     * @param fun The function
+     */
+    public StLambda(final Supplier<String> uid, final BiFunction<Integer, XML, XML> fun) {
+        this.name = uid;
         this.lambda = fun;
     }
 
     @Override
     public String uid() {
-        return "lambda";
+        return this.name.get();
     }
 
     @Override
