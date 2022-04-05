@@ -46,8 +46,8 @@ public class StEnvelope implements Shift {
     }
 
     @Override
-    public final String toString() {
-        return this.origin.toString();
+    public final String uid() {
+        return this.origin.uid();
     }
 
     @Override

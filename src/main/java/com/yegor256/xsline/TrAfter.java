@@ -26,9 +26,10 @@ package com.yegor256.xsline;
 import java.util.Iterator;
 
 /**
- * Train with a post-processing shift.
+ * Train with a post-processing shifts inserted automatically
+ * after each shift, which you add to it.
  *
- * @since 0.1.0
+ * @since 0.3.0
  */
 public final class TrAfter implements Train<Shift> {
 
@@ -56,8 +57,10 @@ public final class TrAfter implements Train<Shift> {
     public Train<Shift> with(final Shift element) {
         return new TrAfter(
             this.origin.with(
-                (position, xml) -> this.shift.apply(
-                    position, element.apply(position, xml)
+                new StLambda(
+                    (position, xml) -> this.shift.apply(
+                        position, element.apply(position, xml)
+                    )
                 )
             ),
             this.shift

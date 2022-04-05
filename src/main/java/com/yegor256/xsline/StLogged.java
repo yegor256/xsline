@@ -47,8 +47,8 @@ public final class StLogged implements Shift {
     }
 
     @Override
-    public String toString() {
-        return this.origin.toString();
+    public String uid() {
+        return this.origin.uid();
     }
 
     @Override

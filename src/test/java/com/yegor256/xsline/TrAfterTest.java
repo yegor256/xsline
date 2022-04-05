@@ -25,8 +25,6 @@ package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
-import com.jcabi.xml.XSL;
-import com.jcabi.xml.XSLDocument;
 import java.io.IOException;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
@@ -43,17 +41,16 @@ public final class TrAfterTest {
 
     @Test
     public void simpleScenario() throws IOException {
-        final XSL xsl = new XSLDocument(
-            this.getClass().getResource("add-brackets.xsl")
-        );
         final Train<Shift> train = new TrAfter(
             new TrDefault<>(),
-            (position, xml) -> new XMLDocument(
-                new Xembler(
-                    new Directives().xpath("/*").attr("a", 1).set("boom")
-                ).applyQuietly(xml.node())
+            new StLambda(
+                (position, xml) -> new XMLDocument(
+                    new Xembler(
+                        new Directives().xpath("/*").attr("a", 1).set("boom")
+                    ).applyQuietly(xml.node())
+                )
             )
-        ).with(new StXSL(xsl));
+        ).with(new StClasspath("add-brackets.xsl"));
         MatcherAssert.assertThat(
             new Xsline(train).pass(new XMLDocument("<x>test</x>")),
             XhtmlMatchers.hasXPaths("/x[@a and .='boom']")

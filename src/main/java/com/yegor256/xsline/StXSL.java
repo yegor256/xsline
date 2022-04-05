@@ -49,7 +49,7 @@ public final class StXSL implements Shift {
     }
 
     @Override
-    public String toString() {
+    public String uid() {
         return new XMLDocument(this.sheet.toString()).xpath("/*/@id").get(0);
     }
 

@@ -26,9 +26,10 @@ package com.yegor256.xsline;
 import java.util.Iterator;
 
 /**
- * Train with a pre-processing shift.
+ * Train with a pre-processing shift being inserted before each
+ * shift you add to the train.
  *
- * @since 0.1.0
+ * @since 0.3.0
  */
 public final class TrBefore implements Train<Shift> {
 
@@ -56,8 +57,10 @@ public final class TrBefore implements Train<Shift> {
     public Train<Shift> with(final Shift element) {
         return new TrBefore(
             this.origin.with(
-                (position, xml) -> element.apply(
-                    position, this.shift.apply(position, xml)
+                new StLambda(
+                    (position, xml) -> element.apply(
+                        position, this.shift.apply(position, xml)
+                    )
                 )
             ),
             this.shift

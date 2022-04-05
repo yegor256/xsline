@@ -33,6 +33,12 @@ import com.jcabi.xml.XML;
 public interface Shift {
 
     /**
+     * Unique (as much as it's possible) ID of the shift.
+     * @return Unique name of the shift
+     */
+    String uid();
+
+    /**
      * Apply it to an XML and get a new one back.
      * @param position The position of this shift run in the line
      * @param xml The XML document

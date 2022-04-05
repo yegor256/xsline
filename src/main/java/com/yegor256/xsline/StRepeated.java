@@ -64,8 +64,8 @@ public final class StRepeated implements Shift {
     }
 
     @Override
-    public String toString() {
-        return this.origin.toString();
+    public String uid() {
+        return this.origin.uid();
     }
 
     @Override

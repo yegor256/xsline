@@ -24,51 +24,35 @@
 package com.yegor256.xsline;
 
 import com.jcabi.xml.XML;
-import com.jcabi.xml.XSL;
+import java.util.function.BiFunction;
 
 /**
- * A shift repeated a few times, until changes are happening.
+ * A shift that executes the provided bi-function.
  *
  * @since 0.4.0
  */
-public final class StEndless implements Shift {
+public final class StLambda implements Shift {
 
     /**
-     * The original shift.
+     * The function.
      */
-    private final Shift origin;
-
-    /**
-     * Ctor.
-     * @param xsl The XSL
-     */
-    public StEndless(final XSL xsl) {
-        this(new StXSL(xsl));
-    }
+    private final BiFunction<Integer, XML, XML> lambda;
 
     /**
      * Ctor.
-     * @param shift The shift
+     * @param fun The function
      */
-    public StEndless(final Shift shift) {
-        this.origin = shift;
+    public StLambda(final BiFunction<Integer, XML, XML> fun) {
+        this.lambda = fun;
     }
 
     @Override
     public String uid() {
-        return this.origin.uid();
+        return "lambda";
     }
 
     @Override
     public XML apply(final int position, final XML xml) {
-        XML before = xml;
-        XML after;
-        boolean more;
-        do {
-            after = this.origin.apply(position, before);
-            more = !after.toString().equals(before.toString());
-            before = after;
-        } while (more);
-        return after;
+        return this.lambda.apply(position, xml);
     }
 }
