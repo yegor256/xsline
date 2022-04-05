@@ -61,14 +61,14 @@ public final class StLogged implements Shift {
                 Logger.debug(
                     this,
                     "Shift #%d via '%s' made no changes",
-                    position, this.origin
+                    position, this.uid()
                 );
             } else {
                 Logger.debug(
                     this,
                     "Shift #%d via '%s' produced:\n%s<EOF>",
                     position,
-                    this.origin,
+                    this.uid(),
                     after
                         .replace("\n", "\\n\n")
                         .replace("\t", "\\t\t")
