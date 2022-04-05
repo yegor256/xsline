@@ -50,10 +50,13 @@ public final class TrAfterTest {
                     ).applyQuietly(xml.node())
                 )
             )
-        ).with(new StClasspath("add-brackets.xsl"));
+        ).with(new StClasspath("add-id.xsl")).with(new StClasspath("add-brackets.xsl"));
         MatcherAssert.assertThat(
             new Xsline(train).pass(new XMLDocument("<x>test</x>")),
-            XhtmlMatchers.hasXPaths("/x[@a and .='boom']")
+            XhtmlMatchers.hasXPaths(
+                "/x[@a and .='boom']",
+                "/x[@id]"
+            )
         );
     }
 
