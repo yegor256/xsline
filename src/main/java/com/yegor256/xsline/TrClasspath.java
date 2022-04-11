@@ -23,15 +23,14 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.xml.XSL;
 import java.util.Iterator;
 
 /**
- * Train that accepts many types.
+ * Train that accepts classpath paths.
  *
- * @since 0.3.0
+ * @since 0.4.0
  */
-public final class TrSmart implements Train<Shift> {
+public final class TrClasspath implements Train<String> {
 
     /**
      * The original train.
@@ -42,58 +41,33 @@ public final class TrSmart implements Train<Shift> {
      * Ctor.
      * @param train Original
      */
-    public TrSmart(final Train<Shift> train) {
+    public TrClasspath(final Train<Shift> train) {
         this.origin = train;
     }
 
     @Override
-    public Train<Shift> with(final Shift element) {
-        return this.origin.with(element);
+    public TrClasspath with(final String path) {
+        return new TrClasspath(this.origin.with(new StClasspath(path)));
     }
 
     @Override
-    public Train<Shift> empty() {
-        return this.origin.empty();
+    public TrClasspath empty() {
+        return new TrClasspath(this.origin.empty());
     }
 
     @Override
-    public Iterator<Shift> iterator() {
-        return this.origin.iterator();
-    }
-
-    /**
-     * Add this shift.
-     * @param shift New shift
-     * @return New smart train
-     */
-    public TrSmart add(final Shift shift) {
-        return new TrSmart(
-            this.origin.with(shift)
+    public Iterator<String> iterator() {
+        throw new UnsupportedOperationException(
+            "Don't iterate here, call back() first"
         );
     }
 
     /**
-     * With this XSL.
-     * @param xsl New XSL
-     * @return New train
+     * Get back to original train.
+     * @return Original train
      */
-    public TrSmart add(final XSL xsl) {
-        return new TrSmart(
-            this.origin.with(new StXSL(xsl))
-        );
-    }
-
-    /**
-     * With all these XSL.
-     * @param list New XSLs
-     * @return New train
-     */
-    public TrSmart addAll(final Iterable<Shift> list) {
-        Train<Shift> after = this.origin;
-        for (final Shift shift : list) {
-            after = after.with(shift);
-        }
-        return new TrSmart(after);
+    public Train<Shift> back() {
+        return this.origin;
     }
 
 }

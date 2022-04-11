@@ -23,49 +23,53 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.matchers.XhtmlMatchers;
-import com.jcabi.xml.XML;
-import com.jcabi.xml.XMLDocument;
 import com.jcabi.xml.XSL;
-import com.jcabi.xml.XSLDocument;
-import java.io.IOException;
-import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.Test;
+import java.util.Iterator;
 
 /**
- * Test case for {@link Xsline}.
+ * Train that accepts XSL.
  *
- * @since 0.1.0
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
+ * @since 0.3.0
+ * @checkstyle AbbreviationAsWordInNameCheck (10 lines)
  */
-public final class XslineTest {
+public final class TrXSL implements Train<XSL> {
 
-    @Test
-    public void simpleScenario() throws IOException {
-        final XSL xsl = new XSLDocument(
-            this.getClass().getResource("add-brackets.xsl")
+    /**
+     * The original train.
+     */
+    private final Train<Shift> origin;
+
+    /**
+     * Ctor.
+     * @param train Original
+     */
+    public TrXSL(final Train<Shift> train) {
+        this.origin = train;
+    }
+
+    @Override
+    public TrXSL with(final XSL element) {
+        return new TrXSL(this.origin.with(new StXSL(element)));
+    }
+
+    @Override
+    public TrXSL empty() {
+        return new TrXSL(this.origin.empty());
+    }
+
+    @Override
+    public Iterator<XSL> iterator() {
+        throw new UnsupportedOperationException(
+            "Don't iterate here, call back() first"
         );
-        final Train<Shift> train = new TrLogged(new TrDefault<>())
-            .with(
-                new StEndless(
-                    new XSLDocument(
-                        this.getClass().getResource("void.xsl")
-                    )
-                )
-            )
-            .with(
-                new StRepeated(
-                    xsl,
-                    xml -> xml.nodes("/x[starts-with(., '{{')]").isEmpty()
-                )
-            );
-        final XML output = new Xsline(train).pass(
-            new XMLDocument("<x>hello</x>")
-        );
-        MatcherAssert.assertThat(
-            output,
-            XhtmlMatchers.hasXPaths("/x[.='{{hello}}']")
-        );
+    }
+
+    /**
+     * Get back to original train.
+     * @return Original train
+     */
+    public Train<Shift> back() {
+        return this.origin;
     }
 
 }

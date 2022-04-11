@@ -28,19 +28,19 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link TrSmart}.
+ * Test case for {@link TrXSL}.
  *
  * @since 0.1.0
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-public final class TrSmartTest {
+public final class TrClasspathTest {
 
     @Test
     public void simpleScenario() {
-        final Shift shift = new StClasspath("add-brackets.xsl");
-        final Train<Shift> train = new TrSmart(new TrDefault<>())
-            .add(shift)
-            .add(new StEndless(shift));
+        final Train<Shift> train = new TrClasspath(new TrDefault<>())
+            .with("add-brackets.xsl")
+            .back()
+            .with(new StEndless(new StClasspath("void.xsl")));
         MatcherAssert.assertThat(
             train,
             Matchers.iterableWithSize(2)
