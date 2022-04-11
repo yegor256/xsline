@@ -23,66 +23,28 @@
  */
 package com.yegor256.xsline;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
 /**
- * Default train.
+ * Test case for {@link TrDefault}.
  *
- * @param <T> Type of element
- * @since 0.1.0
+ * @since 0.4.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-public final class TrDefault<T> implements Train<T> {
+public final class TrDefaultTest {
 
-    /**
-     * The list of elements.
-     */
-    private final Iterable<T> list;
-
-    /**
-     * Ctor.
-     */
-    public TrDefault() {
-        this(new ArrayList<>(0));
+    @Test
+    public void startWithMany() {
+        final Train<Shift> train = new TrDefault<>(
+            new StClasspath("add-id.xsl"),
+            new StClasspath("add-brackets.xsl")
+        );
+        MatcherAssert.assertThat(
+            train,
+            Matchers.iterableWithSize(2)
+        );
     }
 
-    /**
-     * Ctor.
-     * @param items Items
-     */
-    @SafeVarargs
-    public TrDefault(final T... items) {
-        this(Arrays.asList(items));
-    }
-
-    /**
-     * Ctor.
-     * @param items Items
-     */
-    public TrDefault(final Iterable<T> items) {
-        this.list = items;
-    }
-
-    @Override
-    public Train<T> with(final T element) {
-        final Collection<T> items = new LinkedList<>();
-        for (final T item : this.list) {
-            items.add(item);
-        }
-        items.add(element);
-        return new TrDefault<>(items);
-    }
-
-    @Override
-    public Train<T> empty() {
-        return new TrDefault<>();
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return this.list.iterator();
-    }
 }
