@@ -32,7 +32,7 @@ import java.util.Iterator;
  * @since 0.3.0
  * @checkstyle AbbreviationAsWordInNameCheck (10 lines)
  */
-public final class TrXSL implements Train<XSL> {
+public final class TrXSL implements Train<XSL>, Train.Temporary {
 
     /**
      * The original train.
@@ -64,10 +64,7 @@ public final class TrXSL implements Train<XSL> {
         );
     }
 
-    /**
-     * Get back to original train.
-     * @return Original train
-     */
+    @Override
     public Train<Shift> back() {
         return this.origin;
     }

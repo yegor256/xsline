@@ -44,4 +44,17 @@ public interface Train<T> extends Iterable<T> {
      */
     Train<T> empty();
 
+    /**
+     * Temporary train.
+     *
+     * @since 0.4.0
+     */
+    interface Temporary {
+        /**
+         * Return the original one.
+         * @return Original train
+         */
+        Train<Shift> back();
+    }
+
 }

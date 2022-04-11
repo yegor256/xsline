@@ -30,7 +30,7 @@ import java.util.Iterator;
  *
  * @since 0.4.0
  */
-public final class TrClasspath implements Train<String> {
+public final class TrClasspath implements Train<String>, Train.Temporary {
 
     /**
      * The original train.
@@ -62,10 +62,7 @@ public final class TrClasspath implements Train<String> {
         );
     }
 
-    /**
-     * Get back to original train.
-     * @return Original train
-     */
+    @Override
     public Train<Shift> back() {
         return this.origin;
     }
