@@ -25,7 +25,6 @@ package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
-import java.io.IOException;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 
@@ -37,15 +36,35 @@ import org.junit.jupiter.api.Test;
  */
 public final class TrLambdaTest {
 
+    /**
+     * The shift to be used in tests.
+     */
+    private static final Shift SHIFT = new StClasspath("add-id.xsl");
+
     @Test
-    public void simpleScenario() throws IOException {
+    public void simpleScenario() {
         final Train<Shift> train = new TrLambda(
             new TrDefault<>(),
             StLogged::new
-        ).with(new StClasspath("add-id.xsl"));
+        ).with(TrLambdaTest.SHIFT);
         MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<x>test</x>")),
+            new Xsline(train).pass(new XMLDocument("<x>foo</x>")),
             XhtmlMatchers.hasXPaths("/x[@id]")
+        );
+    }
+
+    @Test
+    public void withStLambda() {
+        final Train<Shift> train = new TrLambda(
+            new TrDefault<>(),
+            shift -> new StLambda(
+                shift::uid,
+                (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
+            )
+        ).with(TrLambdaTest.SHIFT);
+        MatcherAssert.assertThat(
+            new Xsline(train).pass(new XMLDocument("<a>test</a>")),
+            XhtmlMatchers.hasXPaths("/a[@id]")
         );
     }
 

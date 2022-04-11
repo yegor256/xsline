@@ -24,8 +24,10 @@
 package com.yegor256.xsline;
 
 import com.jcabi.xml.ClasspathSources;
+import com.jcabi.xml.XSL;
 import com.jcabi.xml.XSLDocument;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Simple shift from a path in classpath.
@@ -34,20 +36,33 @@ import java.io.IOException;
  * @checkstyle AbbreviationAsWordInNameCheck (3 lines)
  */
 public final class StClasspath extends StEnvelope {
-
     /**
      * Ctor.
      * @param path Path in classpath
-     * @throws IOException If fails
      */
-    public StClasspath(final String path) throws IOException {
-        super(
-            new StXSL(
-                new XSLDocument(
-                    StClasspath.class.getResource(path)
-                ).with(new ClasspathSources())
-            )
-        );
+    public StClasspath(final String path) {
+        super(new StXSL(StClasspath.make(path)));
+    }
+
+    /**
+     * Make XSL safely.
+     * @param path Path in classpath
+     * @return XSL
+     */
+    private static XSL make(final String path) {
+        final URL url = StClasspath.class.getResource(path);
+        if (url == null) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "Path '%s' not found in classpath", path
+                )
+            );
+        }
+        try {
+            return new XSLDocument(url).with(new ClasspathSources());
+        } catch (final IOException ex) {
+            throw new IllegalStateException(ex);
+        }
     }
 
 }
