@@ -56,13 +56,7 @@ public final class TrBefore implements Train<Shift> {
     @Override
     public Train<Shift> with(final Shift element) {
         return new TrBefore(
-            this.origin.with(
-                new StLambda(
-                    (position, xml) -> element.apply(
-                        position, this.shift.apply(position, xml)
-                    )
-                )
-            ),
+            this.origin.with(new StBefore(element, this.shift)),
             this.shift
         );
     }

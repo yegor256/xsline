@@ -56,13 +56,7 @@ public final class TrAfter implements Train<Shift> {
     @Override
     public Train<Shift> with(final Shift element) {
         return new TrAfter(
-            this.origin.with(
-                new StLambda(
-                    (position, xml) -> this.shift.apply(
-                        position, element.apply(position, xml)
-                    )
-                )
-            ),
+            this.origin.with(new StAfter(element, this.shift)),
             this.shift
         );
     }

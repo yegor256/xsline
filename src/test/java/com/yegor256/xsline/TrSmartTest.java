@@ -23,7 +23,6 @@
  */
 package com.yegor256.xsline;
 
-import java.io.IOException;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -37,7 +36,7 @@ import org.junit.jupiter.api.Test;
 public final class TrSmartTest {
 
     @Test
-    public void simpleScenario() throws IOException {
+    public void simpleScenario() {
         final Shift shift = new StClasspath("add-brackets.xsl");
         final Train<Shift> train = new TrSmart(new TrDefault<>())
             .add(shift)

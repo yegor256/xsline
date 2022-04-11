@@ -25,7 +25,6 @@ package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
-import java.io.IOException;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import org.xembly.Directives;
@@ -40,7 +39,7 @@ import org.xembly.Xembler;
 public final class TrAfterTest {
 
     @Test
-    public void simpleScenario() throws IOException {
+    public void simpleScenario() {
         final Train<Shift> train = new TrAfter(
             new TrDefault<>(),
             new StLambda(

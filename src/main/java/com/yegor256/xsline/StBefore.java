@@ -23,37 +23,42 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.matchers.XhtmlMatchers;
-import com.jcabi.xml.XMLDocument;
-import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.Test;
-import org.xembly.Directives;
-import org.xembly.Xembler;
+import com.jcabi.xml.XML;
 
 /**
- * Test case for {@link TrBefore}.
+ * A shift that makes another shift before itself.
  *
  * @since 0.4.0
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-public final class TrBeforeTest {
+public final class StBefore implements Shift {
 
-    @Test
-    public void simpleScenario() {
-        final Train<Shift> train = new TrBefore(
-            new TrDefault<>(),
-            new StLambda(
-                (position, xml) -> new XMLDocument(
-                    new Xembler(
-                        new Directives().xpath("/*").attr("a", 1).set("boom")
-                    ).applyQuietly(xml.node())
-                )
-            )
-        ).with(new StClasspath("add-brackets.xsl"));
-        MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<x>test</x>")),
-            XhtmlMatchers.hasXPaths("/x[@a and .='{boom}']")
-        );
+    /**
+     * The original shift.
+     */
+    private final Shift origin;
+
+    /**
+     * The shift before.
+     */
+    private final Shift before;
+
+    /**
+     * Ctor.
+     * @param shift Original shift
+     * @param prev Previous one
+     */
+    public StBefore(final Shift shift, final Shift prev) {
+        this.origin = shift;
+        this.before = prev;
     }
 
+    @Override
+    public String uid() {
+        return this.origin.uid();
+    }
+
+    @Override
+    public XML apply(final int position, final XML xml) {
+        return this.origin.apply(position, this.before.apply(position, xml));
+    }
 }
