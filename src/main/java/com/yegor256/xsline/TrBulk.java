@@ -23,39 +23,57 @@
  */
 package com.yegor256.xsline;
 
+import java.util.Iterator;
+
 /**
- * Immutable extendable vector.
+ * Train that accepts collections instead of individual elements.
  *
- * @param <T> Type of element
- * @since 0.1.0
+ * @param <T> Type of elements inside
+ * @param <R> Type of returning train
+ * @since 0.3.0
+ * @checkstyle AbbreviationAsWordInNameCheck (10 lines)
  */
-public interface Train<T> extends Iterable<T> {
+public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, Train.Temporary<T> {
 
     /**
-     * Add new element and return a new train.
-     * @param element New element
-     * @return New train
+     * The original train.
      */
-    Train<T> with(T element);
+    private final R origin;
 
     /**
-     * Return an empty train.
-     * @return New train
+     * Ctor.
+     * @param train Original
      */
-    Train<T> empty();
+    public TrBulk(final R train) {
+        this.origin = train;
+    }
 
-    /**
-     * Temporary train.
-     *
-     * @param <X> Type of elements inside
-     * @since 0.4.0
-     */
-    interface Temporary<X> {
-        /**
-         * Return the original one.
-         * @return Original train
-         */
-        Train<X> back();
+    @Override
+    @SuppressWarnings("unchecked")
+    public TrBulk<T, R> with(final Iterable<T> bulk) {
+        R after = this.origin;
+        for (final T shift : bulk) {
+            after = (R) after.with(shift);
+        }
+        return new TrBulk<>(after);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public TrBulk<T, R> empty() {
+        return new TrBulk<>((R) this.origin.empty());
+    }
+
+    @Override
+    public Iterator<Iterable<T>> iterator() {
+        throw new UnsupportedOperationException(
+            "Don't iterate here, call back() first"
+        );
+    }
+
+    @Override
+    public R back() {
+        return this.origin;
     }
 
 }

@@ -28,31 +28,33 @@ import java.util.Iterator;
 /**
  * Train that accepts classpath paths.
  *
+ * @param <T> Type of elements inside
  * @since 0.4.0
  */
-public final class TrClasspath implements Train<String>, Train.Temporary {
+public final class TrClasspath<T extends Shift> implements Train<String>, Train.Temporary<T> {
 
     /**
      * The original train.
      */
-    private final Train<Shift> origin;
+    private final Train<T> origin;
 
     /**
      * Ctor.
      * @param train Original
      */
-    public TrClasspath(final Train<Shift> train) {
+    public TrClasspath(final Train<T> train) {
         this.origin = train;
     }
 
     @Override
-    public TrClasspath with(final String path) {
-        return new TrClasspath(this.origin.with(new StClasspath(path)));
+    @SuppressWarnings("unchecked")
+    public TrClasspath<T> with(final String path) {
+        return new TrClasspath<>(this.origin.with((T) new StClasspath(path)));
     }
 
     @Override
-    public TrClasspath empty() {
-        return new TrClasspath(this.origin.empty());
+    public TrClasspath<T> empty() {
+        return new TrClasspath<>(this.origin.empty());
     }
 
     @Override
@@ -63,7 +65,7 @@ public final class TrClasspath implements Train<String>, Train.Temporary {
     }
 
     @Override
-    public Train<Shift> back() {
+    public Train<T> back() {
         return this.origin;
     }
 

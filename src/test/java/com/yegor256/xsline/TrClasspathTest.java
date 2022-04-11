@@ -37,7 +37,7 @@ public final class TrClasspathTest {
 
     @Test
     public void simpleScenario() {
-        final Train<Shift> train = new TrClasspath(new TrDefault<>())
+        final Train<Shift> train = new TrClasspath<>(new TrDefault<>())
             .with("add-brackets.xsl")
             .back()
             .with(new StEndless(new StClasspath("void.xsl")));

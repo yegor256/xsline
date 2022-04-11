@@ -23,39 +23,31 @@
  */
 package com.yegor256.xsline;
 
+import java.util.Arrays;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+
 /**
- * Immutable extendable vector.
+ * Test case for {@link TrBulk}.
  *
- * @param <T> Type of element
- * @since 0.1.0
+ * @since 0.4.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-public interface Train<T> extends Iterable<T> {
+public final class TrBulkTest {
 
-    /**
-     * Add new element and return a new train.
-     * @param element New element
-     * @return New train
-     */
-    Train<T> with(T element);
-
-    /**
-     * Return an empty train.
-     * @return New train
-     */
-    Train<T> empty();
-
-    /**
-     * Temporary train.
-     *
-     * @param <X> Type of elements inside
-     * @since 0.4.0
-     */
-    interface Temporary<X> {
-        /**
-         * Return the original one.
-         * @return Original train
-         */
-        Train<X> back();
+    @Test
+    public void simpleScenario() {
+        final Train<Shift> train = new TrBulk<>(new TrClasspath<>(new TrDefault<>()))
+            .with(Arrays.asList("add-brackets.xsl", "void.xsl"))
+            .back()
+            .back()
+            .with(new StEndless(new StClasspath("add-id.xsl")));
+        MatcherAssert.assertThat(
+            train,
+            // @checkstyle MagicNumber (1 line)
+            Matchers.iterableWithSize(3)
+        );
     }
 
 }

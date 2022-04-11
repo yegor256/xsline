@@ -29,32 +29,34 @@ import java.util.Iterator;
 /**
  * Train that accepts XSL.
  *
+ * @param <T> Type of elements inside
  * @since 0.3.0
  * @checkstyle AbbreviationAsWordInNameCheck (10 lines)
  */
-public final class TrXSL implements Train<XSL>, Train.Temporary {
+public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary<T> {
 
     /**
      * The original train.
      */
-    private final Train<Shift> origin;
+    private final Train<T> origin;
 
     /**
      * Ctor.
      * @param train Original
      */
-    public TrXSL(final Train<Shift> train) {
+    public TrXSL(final Train<T> train) {
         this.origin = train;
     }
 
     @Override
-    public TrXSL with(final XSL element) {
-        return new TrXSL(this.origin.with(new StXSL(element)));
+    @SuppressWarnings("unchecked")
+    public TrXSL<T> with(final XSL element) {
+        return new TrXSL<>(this.origin.with((T) new StXSL(element)));
     }
 
     @Override
-    public TrXSL empty() {
-        return new TrXSL(this.origin.empty());
+    public TrXSL<T> empty() {
+        return new TrXSL<>(this.origin.empty());
     }
 
     @Override
@@ -65,7 +67,7 @@ public final class TrXSL implements Train<XSL>, Train.Temporary {
     }
 
     @Override
-    public Train<Shift> back() {
+    public Train<T> back() {
         return this.origin;
     }
 
