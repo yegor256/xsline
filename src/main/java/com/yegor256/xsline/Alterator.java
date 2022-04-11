@@ -27,47 +27,40 @@ import java.util.Iterator;
 import java.util.function.Function;
 
 /**
- * Train with a lambda expression.
+ * Iterator that modifies its items on retrieval.
  *
- * @since 0.1.0
+ * @param <T> Type of items
+ * @since 0.4.0
  */
-public final class TrLambda implements Train<Shift> {
+final class Alterator<T> implements Iterator<T> {
 
     /**
-     * The original train.
+     * The original iterator.
      */
-    private final Train<Shift> origin;
+    private final Iterator<T> origin;
 
     /**
      * The function.
      */
-    private final Function<Shift, Shift> lambda;
+    private final Function<T, T> lambda;
 
     /**
      * Ctor.
-     * @param train Original
+     * @param iterator Original
      * @param fun The function
      */
-    public TrLambda(final Train<Shift> train, final Function<Shift, Shift> fun) {
-        this.origin = train;
+    Alterator(final Iterator<T> iterator, final Function<T, T> fun) {
+        this.origin = iterator;
         this.lambda = fun;
     }
 
     @Override
-    public Train<Shift> with(final Shift element) {
-        return new TrLambda(this.origin.with(element), this.lambda);
+    public boolean hasNext() {
+        return this.origin.hasNext();
     }
 
     @Override
-    public Train<Shift> empty() {
-        return new TrLambda(this.origin.empty(), this.lambda);
-    }
-
-    @Override
-    public Iterator<Shift> iterator() {
-        return new Alterator<>(
-            this.origin.iterator(),
-            this.lambda
-        );
+    public T next() {
+        return this.lambda.apply(this.origin.next());
     }
 }

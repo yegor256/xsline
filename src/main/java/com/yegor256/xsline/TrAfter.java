@@ -56,7 +56,7 @@ public final class TrAfter implements Train<Shift> {
     @Override
     public Train<Shift> with(final Shift element) {
         return new TrAfter(
-            this.origin.with(new StAfter(element, this.shift)),
+            this.origin.with(element),
             this.shift
         );
     }
@@ -68,6 +68,9 @@ public final class TrAfter implements Train<Shift> {
 
     @Override
     public Iterator<Shift> iterator() {
-        return this.origin.iterator();
+        return new Alterator<>(
+            this.origin.iterator(),
+            next -> new StAfter(next, this.shift)
+        );
     }
 }
