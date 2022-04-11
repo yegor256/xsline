@@ -88,7 +88,7 @@ public final class TrSmart implements Train<Shift> {
      * @param list New XSLs
      * @return New train
      */
-    public TrSmart add(final Iterable<Shift> list) {
+    public TrSmart addAll(final Iterable<Shift> list) {
         Train<Shift> after = this.origin;
         for (final Shift shift : list) {
             after = after.with(shift);
