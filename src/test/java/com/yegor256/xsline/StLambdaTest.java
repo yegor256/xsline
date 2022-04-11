@@ -23,64 +23,45 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.matchers.XhtmlMatchers;
-import com.jcabi.xml.XMLDocument;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 /**
- * Test case for {@link TrLambda}.
+ * Test case for {@link StLambda}.
  *
- * @since 0.4.0
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
+ * @since 0.4.0
  */
-public final class TrLambdaTest {
-
-    /**
-     * The shift to be used in tests.
-     */
-    private static final Shift SHIFT = new StClasspath("add-id.xsl");
+class StLambdaTest {
 
     @Test
-    public void simpleScenario() {
-        final Train<Shift> train = new TrLambda(
-            new TrDefault<>(),
-            StLogged::new
-        ).with(TrLambdaTest.SHIFT);
+    void shouldReturnFormattedUid() {
+        final Shift lambda = new StLambda((integer, xml) -> xml);
+
+        final String uid = lambda.uid();
+
         MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<x>foo</x>")),
-            XhtmlMatchers.hasXPaths("/x[@id]")
+                "should start with specific symbol",
+                uid.startsWith("λ-"),
+                Matchers.is(true)
         );
     }
 
     @Test
-    public void withStLambda() {
-        final Train<Shift> train = new TrLambda(
-            new TrDefault<>(),
-            shift -> new StLambda(
-                shift::uid,
-                (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
-            )
-        ).with(TrLambdaTest.SHIFT);
+    void shouldReturnUidFromCtor() {
+        final String uuid = UUID.randomUUID().toString();
+        final Shift lambda = new StLambda(uuid, (integer, xml) -> xml);
+
+        final String uidFromLambda = lambda.uid();
+
         MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<a>test</a>")),
-            XhtmlMatchers.hasXPaths("/a[@id]")
+                "should match with UUID",
+                uuid,
+                Matchers.is(uidFromLambda)
         );
-    }
-
-    @Test
-    void shouldReturnEmptyTrain() {
-        final Train<Shift> train = new TrLambda(
-                new TrDefault<>(),
-                shift -> new StLambda(
-                        shift::uid,
-                        (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
-                )
-        ).with(TrLambdaTest.SHIFT)
-         .empty();
-
-        MatcherAssert.assertThat(train, Matchers.iterableWithSize(0));
     }
 
 }
