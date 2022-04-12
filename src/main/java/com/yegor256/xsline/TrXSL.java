@@ -29,6 +29,24 @@ import java.util.Iterator;
 /**
  * Train that accepts XSL.
  *
+ * <p>This supplementary class may be convenient when you need to add many
+ * XSL stylesheets to the train, which are all instances of {@link XSL}. Instead
+ * of doing this:</p>
+ *
+ * <pre> Train&lt;Shift&gt; train = new TrDefault()
+ * .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")))
+ * .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")));</pre>
+ *
+ * <p>you can do this:</p>
+ *
+ * <pre> Train&lt;Shift&gt; train = new TrDefault()
+ * .with(new XSLDocument("&lt;stylesheet&gt;..."))
+ * .with(new XSLDocument("&lt;stylesheet&gt;..."))
+ * .back();</pre>
+ *
+ * <p>The method {@link TrXSL#back()} is required in order to get
+ * back to the original type of the train.</p>
+ *
  * @param <T> Type of elements inside
  * @since 0.3.0
  * @checkstyle AbbreviationAsWordInNameCheck (10 lines)

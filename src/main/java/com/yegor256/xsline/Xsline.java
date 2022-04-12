@@ -29,7 +29,7 @@ import com.jcabi.xml.XML;
 /**
  * Chain of XSL transformations.
  *
- * <p>Use it like this:
+ * <p>Use it like this:</p>
  *
  * <pre> XML output = new Xsline()
  *   .with(StXSL(new XSLDocument("...")));
