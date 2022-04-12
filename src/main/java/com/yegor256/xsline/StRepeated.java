@@ -32,17 +32,7 @@ import java.util.function.Function;
  *
  * @since 0.1.0
  */
-public final class StRepeated implements Shift {
-
-    /**
-     * The original shift.
-     */
-    private final Shift origin;
-
-    /**
-     * The predicate (repeats if it's TRUE).
-     */
-    private final Function<XML, Boolean> predicate;
+public final class StRepeated extends StEnvelope {
 
     /**
      * Ctor.
@@ -56,28 +46,25 @@ public final class StRepeated implements Shift {
     /**
      * Ctor.
      * @param shift The shift
-     * @param fun The predicate
+     * @param pred The predicate
      */
-    public StRepeated(final Shift shift, final Function<XML, Boolean> fun) {
-        this.origin = shift;
-        this.predicate = fun;
+    public StRepeated(final Shift shift, final Function<XML, Boolean> pred) {
+        super(
+            new StLambda(
+                shift::uid,
+                (position, xml) -> {
+                    XML before = xml;
+                    XML after;
+                    boolean more;
+                    do {
+                        after = shift.apply(position, before);
+                        more = pred.apply(after);
+                        before = after;
+                    } while (more);
+                    return after;
+                }
+            )
+        );
     }
 
-    @Override
-    public String uid() {
-        return this.origin.uid();
-    }
-
-    @Override
-    public XML apply(final int position, final XML xml) {
-        XML before = xml;
-        XML after;
-        boolean more;
-        do {
-            after = this.origin.apply(position, before);
-            more = this.predicate.apply(after);
-            before = after;
-        } while (more);
-        return after;
-    }
 }

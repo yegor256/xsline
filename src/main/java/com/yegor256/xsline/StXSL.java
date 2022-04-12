@@ -23,7 +23,6 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import com.jcabi.xml.XSL;
 
@@ -33,28 +32,19 @@ import com.jcabi.xml.XSL;
  * @since 0.1.0
  * @checkstyle AbbreviationAsWordInNameCheck (3 lines)
  */
-public final class StXSL implements Shift {
-
-    /**
-     * The XSL sheet.
-     */
-    private final XSL sheet;
+public final class StXSL extends StEnvelope {
 
     /**
      * Ctor.
      * @param xsl The XSL
      */
     public StXSL(final XSL xsl) {
-        this.sheet = xsl;
+        super(
+            new StLambda(
+                () -> new XMLDocument(xsl.toString()).xpath("/*/@id").get(0),
+                (integer, xml) -> xsl.transform(xml)
+            )
+        );
     }
 
-    @Override
-    public String uid() {
-        return new XMLDocument(this.sheet.toString()).xpath("/*/@id").get(0);
-    }
-
-    @Override
-    public XML apply(final int position, final XML xml) {
-        return this.sheet.transform(xml);
-    }
 }
