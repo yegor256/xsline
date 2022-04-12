@@ -23,30 +23,26 @@
  */
 package com.yegor256.xsline;
 
+import java.util.UUID;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
 /**
  * Test case for {@link StLambda}.
  *
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  * @since 0.4.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 class StLambdaTest {
 
     @Test
     void shouldReturnFormattedUid() {
         final Shift lambda = new StLambda((integer, xml) -> xml);
-
         final String uid = lambda.uid();
-
         MatcherAssert.assertThat(
-                "should start with specific symbol",
-                uid.startsWith("λ-"),
-                Matchers.is(true)
+            uid.startsWith("λ-"),
+            Matchers.is(true)
         );
     }
 
@@ -54,13 +50,9 @@ class StLambdaTest {
     void shouldReturnUidFromCtor() {
         final String uuid = UUID.randomUUID().toString();
         final Shift lambda = new StLambda(uuid, (integer, xml) -> xml);
-
-        final String uidFromLambda = lambda.uid();
-
         MatcherAssert.assertThat(
-                "should match with UUID",
-                uuid,
-                Matchers.is(uidFromLambda)
+            uuid,
+            Matchers.is(lambda.uid())
         );
     }
 

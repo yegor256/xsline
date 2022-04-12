@@ -21,53 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.yegor256.xsline;
 
 import com.jcabi.xml.XSL;
 import com.jcabi.xml.XSLDocument;
+import java.io.IOException;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 /**
  * Test case for {@link TrXSL}.
  *
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  * @since 0.4.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-class TrXSLTest {
+class TrXslTest {
 
     @Test
-    void shouldAddShiftToTrainPipe() throws IOException {
-        final XSL xsl = new XSLDocument(
-                this.getClass().getResource("void.xsl")
-        );
-
+    void testPipe() throws IOException {
+        final XSL xsl = new XSLDocument(this.getClass().getResource("void.xsl"));
         final Train<Shift> train = new TrXSL<>(new TrDefault<>())
-                .with(xsl)
-                .back();
-
+            .with(xsl)
+            .back();
         MatcherAssert.assertThat(train, Matchers.iterableWithSize(1));
     }
 
     @Test
-    void shouldThrowIfIterate() throws IOException {
-        final XSL xsl = new XSLDocument(
-                this.getClass().getResource("add-brackets.xsl")
-        );
-
-        assertThrows(
-                UnsupportedOperationException.class,
-                () -> new TrXSL<>(new TrDefault<>())
-                        .with(xsl)
-                        .iterator(),
-                "should throw exception"
-        );
+    void shouldThrow() throws IOException {
+        final XSL xsl = new XSLDocument(this.getClass().getResource("add-brackets.xsl"));
+        try {
+            new TrXSL<>(new TrDefault<>())
+                .with(xsl)
+                .iterator();
+            throw new IllegalStateException("Assertion failed");
+        } catch (final UnsupportedOperationException exception) {
+            MatcherAssert.assertThat(
+                exception.getMessage(),
+                Matchers.is("Don't iterate here, call back() first")
+            );
+        }
     }
 
 }

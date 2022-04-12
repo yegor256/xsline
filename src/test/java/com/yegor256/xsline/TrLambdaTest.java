@@ -72,14 +72,12 @@ public final class TrLambdaTest {
     @Test
     void shouldReturnEmptyTrain() {
         final Train<Shift> train = new TrLambda(
-                new TrDefault<>(),
-                shift -> new StLambda(
-                        shift::uid,
-                        (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
-                )
+            new TrDefault<>(), shift -> new StLambda(
+                shift::uid,
+                (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
+            )
         ).with(TrLambdaTest.SHIFT)
-         .empty();
-
+            .empty();
         MatcherAssert.assertThat(train, Matchers.iterableWithSize(0));
     }
 

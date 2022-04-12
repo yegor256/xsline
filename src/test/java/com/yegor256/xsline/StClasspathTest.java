@@ -23,16 +23,15 @@
  */
 package com.yegor256.xsline;
 
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
 /**
  * Test case for {@link StLambda}.
  *
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  * @since 0.4.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 class StClasspathTest {
 
@@ -41,11 +40,10 @@ class StClasspathTest {
         try {
             new StClasspath("not-found");
             throw new IllegalStateException("assert failed");
-        } catch (IllegalArgumentException e) {
-            assertThat(
-                    "exception message should match",
-                    e.getMessage(),
-                    is("Path 'not-found' not found in classpath")
+        } catch (final IllegalArgumentException exception) {
+            MatcherAssert.assertThat(
+                exception.getMessage(),
+                Matchers.is("Path 'not-found' not found in classpath")
             );
         }
     }
