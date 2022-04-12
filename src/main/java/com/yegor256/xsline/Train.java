@@ -24,7 +24,7 @@
 package com.yegor256.xsline;
 
 /**
- * Immutable extendable vector.
+ * Immutable extendable vector of shifts (or maybe not).
  *
  * @param <T> Type of element
  * @since 0.1.0
@@ -33,14 +33,22 @@ public interface Train<T> extends Iterable<T> {
 
     /**
      * Add new element and return a new train.
+     *
      * @param element New element
      * @return New train
      */
     Train<T> with(T element);
 
     /**
-     * Return an empty train.
-     * @return New train
+     * Return an empty train, with no elements inside.
+     *
+     * <p>The returned train will have all the properties of the original
+     * one, but won't have any elements inside. This may be useful, when
+     * a train is already configured, but the elements inside must be
+     * replaced with new ones. Instead of creating of a new train, just
+     * make an empty one using this method.</p>
+     *
+     * @return New train, an empty one
      */
     Train<T> empty();
 
@@ -53,6 +61,7 @@ public interface Train<T> extends Iterable<T> {
     interface Temporary<X> {
         /**
          * Return the original one.
+         *
          * @return Original train
          */
         Train<X> back();

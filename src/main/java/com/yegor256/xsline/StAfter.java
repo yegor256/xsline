@@ -23,24 +23,12 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.xml.XML;
-
 /**
  * A shift that makes another shift after itself.
  *
  * @since 0.4.0
  */
-public final class StAfter implements Shift {
-
-    /**
-     * The original shift.
-     */
-    private final Shift origin;
-
-    /**
-     * The shift after.
-     */
-    private final Shift after;
+public final class StAfter extends StEnvelope {
 
     /**
      * Ctor.
@@ -48,17 +36,12 @@ public final class StAfter implements Shift {
      * @param next Next one
      */
     public StAfter(final Shift shift, final Shift next) {
-        this.origin = shift;
-        this.after = next;
+        super(
+            new StLambda(
+                shift::uid,
+                (position, xml) -> next.apply(position, shift.apply(position, xml))
+            )
+        );
     }
 
-    @Override
-    public String uid() {
-        return this.origin.uid();
-    }
-
-    @Override
-    public XML apply(final int position, final XML xml) {
-        return this.after.apply(position, this.origin.apply(position, xml));
-    }
 }
