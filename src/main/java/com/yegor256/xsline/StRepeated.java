@@ -28,7 +28,7 @@ import com.jcabi.xml.XSL;
 import java.util.function.Function;
 
 /**
- * A shift repeated a few times.
+ * A shift repeated a few times, until the provided predicate is true.
  *
  * @since 0.1.0
  */

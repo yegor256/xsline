@@ -26,8 +26,14 @@ package com.yegor256.xsline;
 import com.jcabi.xml.XML;
 
 /**
- * A shift envelope.
+ * An envelope for {@link Shift}.
  *
+ * <p>This supplementary class helps making new classes implementing
+ * interface {@link Shift} without writing too much of code. See how
+ * {@link StBefore}, {@link StClasspath}, and {@link StXSL} are using
+ * this class.</p>
+ *
+ * @see <a href="https://www.yegor256.com/2017/01/31/decorating-envelopes.html">Blog post about "Decorating Envelopes"</a>
  * @since 0.4.0
  */
 public class StEnvelope implements Shift {

@@ -28,6 +28,24 @@ import java.util.Iterator;
 /**
  * Train that accepts collections instead of individual elements.
  *
+ * <p>This class may be useful when you need to add many elements
+ * to a train and don't want to do this with a sequence of calls to
+ * {@link Train#with(Object)}. The following code will add many
+ * XSL shifts from classpath to a train:</p>
+ *
+ * <pre> Train&lt;Shift&gt; empty = new TrClasspath&lt;&gt;(new TrDefault());
+ *   Train&lt;Shift&gt; full = new TrBulk&lt;&gt;(empty).with(
+ *   Arrays.asList(
+ *     "/foo/test/first.xsl",
+ *     "/foo/test/second.xsl",
+ *   )
+ * ).back();</pre>
+ *
+ * <p>Here, the method {@link Train.Temporary#back()} is used to get the
+ * train which was extended with shifts by {@link TrBulk}. In the example
+ * above, {@code full} train will be a {@link Train} of {@link Shift}
+ * objects.</p>
+ *
  * @param <T> Type of elements inside
  * @param <R> Type of returning train
  * @since 0.3.0
@@ -42,7 +60,7 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
 
     /**
      * Ctor.
-     * @param train Original
+     * @param train The train to start with
      */
     public TrBulk(final R train) {
         this.origin = train;

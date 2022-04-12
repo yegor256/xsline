@@ -24,7 +24,7 @@
 package com.yegor256.xsline;
 
 /**
- * Immutable extendable vector of shifts (or maybe not).
+ * An immutable extendable vector of shifts (or maybe not).
  *
  * @param <T> Type of element
  * @since 0.1.0
