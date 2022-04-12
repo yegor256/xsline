@@ -71,4 +71,14 @@ public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary
         return this.origin;
     }
 
+    /**
+     * Add shift.
+     * @param shift The shift to add
+     * @return New train
+     */
+    @SuppressWarnings("unchecked")
+    public TrXSL<T> with(final Shift shift) {
+        return new TrXSL<>(this.origin.with((T) shift));
+    }
+
 }
