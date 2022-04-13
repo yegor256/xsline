@@ -28,15 +28,16 @@ import com.jcabi.xml.XSLDocument;
 import java.io.IOException;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrXSL}.
  *
- * @since 0.4.0
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
+ * @since 0.6.0
+ * @checkstyle AbbreviationAsWordInNameCheck (500 lines)
  */
-class TrXslTest {
+class TrXSLTest {
 
     @Test
     void testPipe() throws IOException {
@@ -50,17 +51,12 @@ class TrXslTest {
     @Test
     void shouldThrow() throws IOException {
         final XSL xsl = new XSLDocument(this.getClass().getResource("add-brackets.xsl"));
-        try {
-            new TrXSL<>(new TrDefault<>())
+        Assertions.assertThrows(
+            UnsupportedOperationException.class,
+            () -> new TrXSL<>(new TrDefault<>())
                 .with(xsl)
-                .iterator();
-            throw new IllegalStateException("Assertion failed");
-        } catch (final UnsupportedOperationException exception) {
-            MatcherAssert.assertThat(
-                exception.getMessage(),
-                Matchers.is("Don't iterate here, call back() first")
-            );
-        }
+                .iterator()
+        );
     }
 
 }

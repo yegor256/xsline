@@ -23,29 +23,23 @@
  */
 package com.yegor256.xsline;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link StLambda}.
+ * Test case for {@link StClasspath}.
  *
- * @since 0.4.0
+ * @since 0.6.0
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 class StClasspathTest {
 
     @Test
     void shouldThrowIfResourceIsAbsent() {
-        try {
-            new StClasspath("not-found");
-            throw new IllegalStateException("assert failed");
-        } catch (final IllegalArgumentException exception) {
-            MatcherAssert.assertThat(
-                exception.getMessage(),
-                Matchers.is("Path 'not-found' not found in classpath")
-            );
-        }
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new StClasspath("not-found")
+        );
     }
 
 }
