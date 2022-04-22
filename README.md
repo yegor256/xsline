@@ -33,11 +33,11 @@ import com.yegor256.xsline.Xsline;
 import com.yegor256.xsline.StXSL;
 import java.io.File;
 
-XML input = new XMLDocument("<hello/>");
-XML output = new Xsline()
-  .with(StXSL(new XSLDocument(new File("first.xsl"))));
+Train<Shift> train = new TrDefault()
+  .with(StXSL(new XSLDocument(new File("first.xsl"))))
   .with(StXSL(new XSLDocument(new File("second.xsl"))));
-  .pass(input);
+XML input = new XMLDocument("<hello/>");
+XML output = new Xsline(train).pass(input);
 ```
 
 This will transform your `input` XML document through two XSL stylesheets.
