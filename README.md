@@ -29,8 +29,10 @@ Use it like this:
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import com.jcabi.xml.XSLDocument;
+import com.yegor256.xsline.Shift;
 import com.yegor256.xsline.StXSL;
 import com.yegor256.xsline.TrDefault;
+import com.yegor256.xsline.Train;
 import com.yegor256.xsline.Xsline;
 import java.io.File;
 
