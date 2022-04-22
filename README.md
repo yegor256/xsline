@@ -29,13 +29,14 @@ Use it like this:
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import com.jcabi.xml.XSLDocument;
-import com.yegor256.xsline.Xsline;
 import com.yegor256.xsline.StXSL;
+import com.yegor256.xsline.TrDefault;
+import com.yegor256.xsline.Xsline;
 import java.io.File;
 
 Train<Shift> train = new TrDefault()
-  .with(StXSL(new XSLDocument(new File("first.xsl"))))
-  .with(StXSL(new XSLDocument(new File("second.xsl"))));
+  .with(new StXSL(new XSLDocument(new File("first.xsl"))))
+  .with(new StXSL(new XSLDocument(new File("second.xsl"))));
 XML input = new XMLDocument("<hello/>");
 XML output = new Xsline(train).pass(input);
 ```
