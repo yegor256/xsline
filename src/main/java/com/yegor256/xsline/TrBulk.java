@@ -33,7 +33,7 @@ import java.util.Iterator;
  * {@link Train#with(Object)}. The following code will add many
  * XSL shifts from classpath to a train:</p>
  *
- * <pre> Train&lt;Shift&gt; empty = new TrClasspath&lt;&gt;(new TrDefault&lt;&gt;());
+ * <pre> Train&lt;String&gt; empty = new TrClasspath&lt;&gt;(new TrDefault&lt;&gt;());
  * Train&lt;Shift&gt; full = new TrBulk&lt;&gt;(empty).with(
  *   Arrays.asList(
  *     "/foo/test/first.xsl",
