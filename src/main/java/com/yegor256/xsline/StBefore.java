@@ -26,6 +26,11 @@ package com.yegor256.xsline;
 /**
  * A shift that makes another shift before itself.
  *
+ * <p>This decorator may be useful if you need to do the same shift
+ * over and over again before your other shifts. You can decorate
+ * your {@link Train} with {@link TrBefore}, which will use this
+ * shift inside. We don't recommend using this decorator directly.</p>
+ *
  * @since 0.4.0
  */
 public final class StBefore extends StEnvelope {

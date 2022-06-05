@@ -30,6 +30,10 @@ import java.util.function.Supplier;
 /**
  * A shift that executes the provided bi-function.
  *
+ * <p>This decorator may be useful if you don't want to create a new
+ * class for your shift, but just want a simple piece of code to
+ * do the transformation.</p>
+ *
  * @since 0.4.0
  */
 public final class StLambda implements Shift {
