@@ -87,14 +87,4 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
         return this.origin;
     }
 
-    /**
-     * Add shift.
-     * @param shift The shift to add
-     * @return New train
-     */
-    @SuppressWarnings("unchecked")
-    public TrClasspath<T> with(final Shift shift) {
-        return new TrClasspath<>(this.origin.with((T) shift));
-    }
-
 }
