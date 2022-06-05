@@ -29,6 +29,14 @@ import com.jcabi.xml.XML;
 /**
  * A shift that logs the process through Slf4j.
  *
+ * <p>The decorator logs all transformations with {@code DEBUG} logging
+ * level. It also prints the entire content of the produced XML to the log.
+ * This may be pretty verbose, be careful when using this class.</p>
+ *
+ * <p>The decorator catches all children of {@link RuntimeException},
+ * logs them, and then re-throws as instances of
+ * {@link IllegalArgumentException}.</p>
+ *
  * @since 0.1.0
  */
 public final class StLogged implements Shift {
@@ -52,6 +60,7 @@ public final class StLogged implements Shift {
     }
 
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public XML apply(final int position, final XML xml) {
         try {
             final String before = xml.toString();
@@ -66,9 +75,10 @@ public final class StLogged implements Shift {
             } else {
                 Logger.debug(
                     this,
-                    "Shift #%d via '%s' produced:\n%s<EOF>",
+                    "Shift #%d via '%s' produced (%d chars):\n%s<EOF>",
                     position,
                     this.uid(),
+                    after.length(),
                     after
                         .replace("\n", "\\n\n")
                         .replace("\t", "\\t\t")
@@ -76,7 +86,8 @@ public final class StLogged implements Shift {
                 );
             }
             return out;
-        } catch (final IllegalArgumentException ex) {
+        // @checkstyle IllegalCatchCheck (1 line)
+        } catch (final RuntimeException ex) {
             Logger.error(this, "The error happened here:%n%s", xml);
             throw new IllegalArgumentException(
                 String.format("Shift '%s' failed", this.origin),

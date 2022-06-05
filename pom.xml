@@ -34,12 +34,12 @@ SOFTWARE.
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>xsline</name>
-  <description>Chain of XSL Transformations</description>
+  <description>Declarative Chain of XSL Transformations</description>
   <url>https://github.com/yegor256/xsline</url>
   <inceptionYear>2022</inceptionYear>
   <organization>
-    <name>EO</name>
-    <url>https://github.com/yegor256/xsline</url>
+    <name>yegor256</name>
+    <url>https://www.yegor256.com</url>
   </organization>
   <licenses>
     <license>
@@ -73,7 +73,7 @@ SOFTWARE.
   </scm>
   <ciManagement>
     <system>rultor</system>
-    <url>https://www.rultor.com/s/xsline</url>
+    <url>https://www.rultor.com/s/yegor256/xsline</url>
   </ciManagement>
   <distributionManagement>
     <site>
