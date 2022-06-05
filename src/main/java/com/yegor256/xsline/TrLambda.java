@@ -29,6 +29,11 @@ import java.util.function.Function;
 /**
  * Train with a lambda expression.
  *
+ * <p>It's a decorator of an existing {@link Train}. The decorator makes
+ * sure that all shifts will be passed through the provided lambda function
+ * before their usage. Basically, it uses {@link StLambda} with the
+ * provided lambda function and all shifts in the train.</p>
+ *
  * @since 0.1.0
  */
 public final class TrLambda implements Train<Shift> {

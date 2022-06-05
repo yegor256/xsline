@@ -32,6 +32,13 @@ import java.util.LinkedList;
 /**
  * Default train.
  *
+ * <p>This is the default implementation of {@link Train}. You are supposed
+ * to use it almost always, for example like this:</p>
+ *
+ * <pre> Train&lt;Shift&gt; train = new TrDefault&lt;&gt;()
+ * .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")))
+ * .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")));</pre>
+ *
  * @param <T> Type of element
  * @since 0.1.0
  */

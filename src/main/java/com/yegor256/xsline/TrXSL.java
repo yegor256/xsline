@@ -33,7 +33,7 @@ import java.util.Iterator;
  * XSL stylesheets to the train, which are all instances of {@link XSL}. Instead
  * of doing this:</p>
  *
- * <pre> Train&lt;Shift&gt; train = new TrDefault()
+ * <pre> Train&lt;Shift&gt; train = new TrDefault&lt;&gt;()
  * .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")))
  * .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")));</pre>
  *

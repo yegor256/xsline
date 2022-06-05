@@ -12,7 +12,16 @@
 ![Lines of code](https://img.shields.io/tokei/lines/github/yegor256/xsline)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/xsline/blob/master/LICENSE.txt)
 
-It's a chain of XSL transformations in Java.
+It's an declarative chain of XSL transformations in Java, 
+which is more convenient than an imperative routine application 
+of transformations one by one. [EO compiler](https://github.com/objectionary/eo) 
+is an example use case: the source code compiles to XML and then has
+to go through a few dozen transformations written in XSL. Each transformation
+has to be logged, validated, and in general be flexibly configurable. We started
+with a series of consecutive instantiations and executions of 
+[XSLDocument](https://www.javadoc.io/doc/com.jcabi/jcabi-xml/0.21.5/com/jcabi/xml/XSLDocument.html),
+but then realized the necessity to turn this workflow into something more
+object-oriented. This is how this library was born.
 
 You add this to your `pom.xml`:
 
@@ -36,7 +45,7 @@ import com.yegor256.xsline.Train;
 import com.yegor256.xsline.Xsline;
 import java.io.File;
 
-Train<Shift> train = new TrDefault()
+Train<Shift> train = new TrDefault<>()
   .with(new StXSL(new XSLDocument(new File("first.xsl"))))
   .with(new StXSL(new XSLDocument(new File("second.xsl"))));
 XML input = new XMLDocument("<hello/>");

@@ -31,10 +31,12 @@ import com.jcabi.xml.XML;
  *
  * <p>Use it like this:</p>
  *
- * <pre> XML output = new Xsline()
- *   .with(StXSL(new XSLDocument("...")));
- *   .with(StXSL(new XSLDocument("...")));
- *   .pass(input);
+ * <pre> XML input = new XMLDocument("&lt;test/&gt;");
+ * XML output = new Xsline(
+ *   new TrDefault&lt;&gt;()
+ *     .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")))
+ *     .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")))
+ * ).pass(input);
  * </pre>
  *
  * <p>See all implementations of {@link Shift} to learn the functionality

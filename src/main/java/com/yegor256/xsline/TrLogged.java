@@ -26,6 +26,10 @@ package com.yegor256.xsline;
 /**
  * Train that logs all shifts.
  *
+ * <p>It is a decorator of an existing {@link Train}. The decorator makes
+ * sure that all shifts in the train will be decorated with {@link StLogged},
+ * which will log all successful and failed calls to SLF4J.</p>
+ *
  * @since 0.1.0
  */
 public final class TrLogged extends TrEnvelope {

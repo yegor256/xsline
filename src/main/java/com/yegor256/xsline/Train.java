@@ -24,7 +24,16 @@
 package com.yegor256.xsline;
 
 /**
- * An immutable extendable vector of shifts (or maybe not).
+ * An immutable extendable vector of shifts (or maybe not only them).
+ *
+ * <p>You are not supposed to implement this interface
+ * (even though you can), but instead use already existing
+ * instances of it. For example, you can
+ * use {@link TrDefault} to build a train of XSL shifts:</p>
+ *
+ * <pre> Train&lt;Shift&gt; train = new TrDefault&lt;&gt;()
+ * .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")))
+ * .with(new StXSL(new XSLDocument("&lt;stylesheet&gt;...")));</pre>
  *
  * @param <T> Type of element
  * @since 0.1.0
