@@ -47,7 +47,7 @@ import com.yegor256.xsline.Train;
 import com.yegor256.xsline.Xsline;
 import java.io.File;
 
-Train<Shift> train = new TrDefault<>()
+Train<Shift> train = new TrDefault<Shift>()
   .with(new StXSL(new XSLDocument(new File("first.xsl"))))
   .with(new StXSL(new XSLDocument(new File("second.xsl"))));
 XML input = new XMLDocument("<hello/>");
