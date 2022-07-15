@@ -62,30 +62,34 @@ public final class StLogged implements Shift {
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public XML apply(final int position, final XML xml) {
+        final XML out;
         try {
-            final String before = xml.toString();
-            final XML out = this.origin.apply(position, xml);
-            final String after = out.toString();
-            if (before.equals(after)) {
-                Logger.debug(
-                    this,
-                    "Shift #%d via '%s' made no changes",
-                    position, this.uid()
-                );
+            if (Logger.isDebugEnabled(this)) {
+                final String before = xml.toString();
+                out = this.origin.apply(position, xml);
+                final String after = out.toString();
+                if (before.equals(after)) {
+                    Logger.debug(
+                        this,
+                        "Shift #%d via '%s' made no changes",
+                        position, this.uid()
+                    );
+                } else {
+                    Logger.debug(
+                        this,
+                        "Shift #%d via '%s' produced (%d chars):\n%s<EOF>",
+                        position,
+                        this.uid(),
+                        after.length(),
+                        after
+                            .replace("\n", "\\n\n")
+                            .replace("\t", "\\t\t")
+                            .replace("\r", "\\r\r")
+                    );
+                }
             } else {
-                Logger.debug(
-                    this,
-                    "Shift #%d via '%s' produced (%d chars):\n%s<EOF>",
-                    position,
-                    this.uid(),
-                    after.length(),
-                    after
-                        .replace("\n", "\\n\n")
-                        .replace("\t", "\\t\t")
-                        .replace("\r", "\\r\r")
-                );
+                out = this.origin.apply(position, xml);
             }
-            return out;
         // @checkstyle IllegalCatchCheck (1 line)
         } catch (final RuntimeException ex) {
             Logger.error(this, "The error happened here:%n%s", xml);
@@ -94,5 +98,6 @@ public final class StLogged implements Shift {
                 ex
             );
         }
+        return out;
     }
 }
