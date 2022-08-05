@@ -53,15 +53,13 @@ public final class StRepeated extends StEnvelope {
             new StLambda(
                 shift::uid,
                 (position, xml) -> {
-                    XML before = xml;
-                    XML after;
+                    XML output = xml;
                     boolean more;
                     do {
-                        after = shift.apply(position, before);
-                        more = pred.apply(after);
-                        before = after;
+                        output = shift.apply(position, output);
+                        more = pred.apply(output);
                     } while (more);
-                    return after;
+                    return output;
                 }
             )
         );
