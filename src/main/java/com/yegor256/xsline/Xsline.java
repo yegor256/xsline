@@ -67,17 +67,17 @@ public final class Xsline {
     @SuppressWarnings("PMD.GuardLogStatement")
     public XML pass(final XML input) {
         final long start = System.currentTimeMillis();
-        XML after = input;
+        XML output = input;
         int pos = 0;
         for (final Shift shift : this.shifts) {
-            after = shift.apply(pos, after);
+            output = shift.apply(pos, output);
             ++pos;
         }
         Logger.debug(
             this, "Transformed XML through %d shift(s) in %[ms]s",
             pos, System.currentTimeMillis() - start
         );
-        return after;
+        return output;
     }
 
 }
