@@ -45,7 +45,18 @@ public final class TrBulkTest {
             .with(new StEndless(new StClasspath("add-id.xsl")));
         MatcherAssert.assertThat(
             train,
-            // @checkstyle MagicNumber (1 line)
+            Matchers.iterableWithSize(3)
+        );
+    }
+
+    @Test
+    public void allInCtor() {
+        final Train<Shift> train = new TrBulk<>(
+            new TrClasspath<>(new TrDefault<>()),
+            Arrays.asList("add-brackets.xsl", "void.xsl")
+        ).back().back().with(new StEndless(new StClasspath("add-id.xsl")));
+        MatcherAssert.assertThat(
+            train,
             Matchers.iterableWithSize(3)
         );
     }
