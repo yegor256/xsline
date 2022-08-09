@@ -39,10 +39,20 @@ public final class TrLogged extends TrEnvelope {
      * @param train Original
      */
     public TrLogged(final Train<Shift> train) {
+        this(train, TrLogged.class);
+    }
+
+    /**
+     * Ctor.
+     * @param train Original
+     * @param target The target
+     * @since 0.7.0
+     */
+    public TrLogged(final Train<Shift> train, final Object target) {
         super(
             new TrLambda(
                 train,
-                StLogged::new
+                x -> new StLogged(x, target)
             )
         );
     }
