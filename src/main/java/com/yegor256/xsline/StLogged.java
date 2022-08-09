@@ -47,11 +47,27 @@ public final class StLogged implements Shift {
     private final Shift origin;
 
     /**
+     * Logging target.
+     */
+    private final Object target;
+
+    /**
      * Ctor.
      * @param shift The shift
      */
     public StLogged(final Shift shift) {
+        this(shift, StLogged.class);
+    }
+
+    /**
+     * Ctor.
+     * @param shift The shift
+     * @param tgt The target to log against
+     * @since 0.7.0
+     */
+    public StLogged(final Shift shift, final Object tgt) {
         this.origin = shift;
+        this.target = tgt;
     }
 
     @Override
@@ -70,13 +86,13 @@ public final class StLogged implements Shift {
                 final String after = out.toString();
                 if (before.equals(after)) {
                     Logger.debug(
-                        this,
+                        this.target,
                         "Shift #%d via '%s' made no changes",
                         position, this.uid()
                     );
                 } else {
                     Logger.debug(
-                        this,
+                        this.target,
                         "Shift #%d via '%s' produced (%d chars):\n%s<EOF>",
                         position,
                         this.uid(),
@@ -92,7 +108,7 @@ public final class StLogged implements Shift {
             }
         // @checkstyle IllegalCatchCheck (1 line)
         } catch (final RuntimeException ex) {
-            Logger.error(this, "The error happened here:%n%s", xml);
+            Logger.error(this.target, "The error happened here:%n%s", xml);
             throw new IllegalArgumentException(
                 String.format("Shift '%s' failed", this.origin),
                 ex
