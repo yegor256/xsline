@@ -70,6 +70,7 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
      * Ctor.
      * @param train The train to start with
      * @param bulk List of elements to add immediately
+     * @since 0.6.0
      */
     public TrBulk(final R train, final Iterable<T> bulk) {
         this(new TrBulk<>(train).with(bulk).back());

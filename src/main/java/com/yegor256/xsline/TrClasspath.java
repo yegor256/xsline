@@ -23,6 +23,7 @@
  */
 package com.yegor256.xsline;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -62,6 +63,20 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
      */
     public TrClasspath(final Train<T> train) {
         this.origin = train;
+    }
+
+    /**
+     * Ctor.
+     * @param train Original
+     * @param paths List of paths to add immediately
+     * @since 0.6.0
+     */
+    public TrClasspath(final Train<T> train, final String... paths) {
+        this(
+            new TrBulk<>(
+                new TrClasspath<>(train)
+            ).with(Arrays.asList(paths[0])).back().back()
+        );
     }
 
     @Override
