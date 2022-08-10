@@ -75,7 +75,7 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
         this(
             new TrBulk<>(
                 new TrClasspath<>(train)
-            ).with(Arrays.asList(paths[0])).back().back()
+            ).with(Arrays.asList(paths)).back().back()
         );
     }
 

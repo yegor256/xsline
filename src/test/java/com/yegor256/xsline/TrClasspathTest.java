@@ -51,11 +51,12 @@ public final class TrClasspathTest {
     public void withCtor() {
         final Train<Shift> train = new TrClasspath<>(
             new TrDefault<>(),
-            "add-brackets.xsl"
+            "add-brackets.xsl",
+            "add-id.xsl"
         ).back().with(new StEndless(new StClasspath("void.xsl")));
         MatcherAssert.assertThat(
             train,
-            Matchers.iterableWithSize(2)
+            Matchers.iterableWithSize(3)
         );
     }
 
