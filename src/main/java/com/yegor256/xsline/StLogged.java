@@ -80,7 +80,7 @@ public final class StLogged implements Shift {
     public XML apply(final int position, final XML xml) {
         final XML out;
         try {
-            if (Logger.isDebugEnabled(this)) {
+            if (Logger.isDebugEnabled(this.target)) {
                 final String before = xml.toString();
                 out = this.origin.apply(position, xml);
                 final String after = out.toString();
