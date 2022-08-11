@@ -12,6 +12,8 @@
 ![Lines of code](https://img.shields.io/tokei/lines/github/yegor256/xsline)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/xsline/blob/master/LICENSE.txt)
 
+Read this blog post too: [Declarative and Immutable Pipeline of Transformations](https://www.yegor256.com/2022/08/10/xsline-immutable-pipeline.html)
+
 It's a declarative and immutable chain of XSL transformations in Java, 
 which is more convenient than an imperative routine application 
 of transformations one by one. [EO compiler](https://github.com/objectionary/eo) 
