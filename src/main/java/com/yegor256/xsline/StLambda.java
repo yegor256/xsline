@@ -25,6 +25,7 @@ package com.yegor256.xsline;
 
 import com.jcabi.xml.XML;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -47,6 +48,25 @@ public final class StLambda implements Shift {
      * The function.
      */
     private final BiFunction<Integer, XML, XML> lambda;
+
+    /**
+     * Ctor.
+     * @param fun The function
+     * @since 0.9.0
+     */
+    public StLambda(final Function<XML, XML> fun) {
+        this((integer, xml) -> fun.apply(xml));
+    }
+
+    /**
+     * Ctor.
+     * @param uid The ID
+     * @param fun The function
+     * @since 0.9.0
+     */
+    public StLambda(final String uid, final Function<XML, XML> fun) {
+        this(uid, (integer, xml) -> fun.apply(xml));
+    }
 
     /**
      * Ctor.
