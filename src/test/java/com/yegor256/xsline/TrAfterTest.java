@@ -34,7 +34,6 @@ import org.xembly.Xembler;
  * Test case for {@link TrAfter}.
  *
  * @since 0.4.0
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 public final class TrAfterTest {
 

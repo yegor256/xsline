@@ -23,35 +23,36 @@
  */
 package com.yegor256.xsline;
 
-import com.jcabi.matchers.XhtmlMatchers;
-import com.jcabi.xml.XMLDocument;
-import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.Test;
-import org.xembly.Directives;
-import org.xembly.Xembler;
-
 /**
- * Test case for {@link TrBefore}.
+ * A shift made of train.
  *
- * @since 0.4.0
+ * @since 0.9.0
  */
-public final class TrBeforeTest {
+public final class StOfTrain extends StEnvelope {
 
-    @Test
-    public void simpleScenario() {
-        final Train<Shift> train = new TrBefore(
-            new TrDefault<>(),
+    /**
+     * Ctor.
+     * @param train The train
+     */
+    public StOfTrain(final Train<Shift> train) {
+        super(
             new StLambda(
-                (position, xml) -> new XMLDocument(
-                    new Xembler(
-                        new Directives().xpath("/*").attr("a", 1).set("boom")
-                    ).applyQuietly(xml.node())
-                )
+                (position, xml) -> new Xsline(train).pass(xml)
             )
-        ).with(new StClasspath("add-brackets.xsl"));
-        MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<x>test</x>")),
-            XhtmlMatchers.hasXPaths("/x[@a and .='{boom}']")
+        );
+    }
+
+    /**
+     * Ctor.
+     * @param uid The UID to use
+     * @param train The train
+     */
+    public StOfTrain(final String uid, final Train<Shift> train) {
+        super(
+            new StLambda(
+                uid,
+                (position, xml) -> new Xsline(train).pass(xml)
+            )
         );
     }
 

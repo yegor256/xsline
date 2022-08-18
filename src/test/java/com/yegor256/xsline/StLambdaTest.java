@@ -32,7 +32,6 @@ import org.junit.jupiter.api.Test;
  * Test case for {@link StLambda}.
  *
  * @since 0.6.0
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 class StLambdaTest {
 

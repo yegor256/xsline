@@ -31,7 +31,6 @@ import org.junit.jupiter.api.Test;
  * Test case for {@link TrDefault}.
  *
  * @since 0.4.0
- * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 public final class TrDefaultTest {
 

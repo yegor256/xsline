@@ -24,34 +24,35 @@
 package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
+import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
-import org.xembly.Directives;
-import org.xembly.Xembler;
 
 /**
- * Test case for {@link TrBefore}.
+ * Test case for {@link StOfTrain}.
  *
- * @since 0.4.0
+ * @since 0.9.0
  */
-public final class TrBeforeTest {
+class StOfTrainTest {
 
     @Test
-    public void simpleScenario() {
-        final Train<Shift> train = new TrBefore(
+    void processesTrainAsShift() {
+        final Train<Shift> train = new TrWith(
             new TrDefault<>(),
-            new StLambda(
-                (position, xml) -> new XMLDocument(
-                    new Xembler(
-                        new Directives().xpath("/*").attr("a", 1).set("boom")
-                    ).applyQuietly(xml.node())
+            new StOfTrain(
+                new TrWith(
+                    new TrDefault<>(),
+                    new StClasspath("add-brackets.xsl")
                 )
             )
-        ).with(new StClasspath("add-brackets.xsl"));
+        );
+        final XML output = new Xsline(train).pass(
+            new XMLDocument("<x>hello</x>")
+        );
         MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<x>test</x>")),
-            XhtmlMatchers.hasXPaths("/x[@a and .='{boom}']")
+            output,
+            XhtmlMatchers.hasXPaths("/x[.='{hello}']")
         );
     }
 
