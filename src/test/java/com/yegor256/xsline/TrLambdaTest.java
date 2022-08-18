@@ -44,10 +44,13 @@ public final class TrLambdaTest {
 
     @Test
     public void simpleScenario() {
-        final Train<Shift> train = new TrLambda(
-            new TrDefault<>(),
-            StLogged::new
-        ).with(TrLambdaTest.SHIFT);
+        final Train<Shift> train = new TrWith(
+            new TrLambda(
+                new TrDefault<>(),
+                StLogged::new
+            ),
+            TrLambdaTest.SHIFT
+        );
         MatcherAssert.assertThat(
             new Xsline(train).pass(new XMLDocument("<x>foo</x>")),
             XhtmlMatchers.hasXPaths("/x[@id]")
