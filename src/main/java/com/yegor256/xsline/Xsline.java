@@ -64,7 +64,6 @@ public final class Xsline {
      * @param input The input XML
      * @return The output XML
      */
-    @SuppressWarnings("PMD.GuardLogStatement")
     public XML pass(final XML input) {
         final long start = System.currentTimeMillis();
         XML output = input;
@@ -73,10 +72,12 @@ public final class Xsline {
             output = shift.apply(pos, output);
             ++pos;
         }
-        Logger.debug(
-            this, "Transformed XML through %d shift(s) in %[ms]s",
-            pos, System.currentTimeMillis() - start
-        );
+        if (Logger.isDebugEnabled(this)) {
+            Logger.debug(
+                this, "Transformed XML through %d shift(s) in %[ms]s",
+                pos, System.currentTimeMillis() - start
+            );
+        }
         return output;
     }
 
