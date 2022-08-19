@@ -35,10 +35,10 @@ import org.xembly.Xembler;
  *
  * @since 0.4.0
  */
-public final class TrAfterTest {
+final class TrAfterTest {
 
     @Test
-    public void simpleScenario() {
+    void simpleScenario() {
         final Train<Shift> train = new TrAfter(
             new TrDefault<>(),
             new StLambda(

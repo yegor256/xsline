@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.6.0
  */
-class StClasspathTest {
+final class StClasspathTest {
 
     @Test
     void shouldThrowIfResourceIsAbsent() {

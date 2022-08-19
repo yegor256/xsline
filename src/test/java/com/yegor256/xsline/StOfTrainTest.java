@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.9.0
  */
-class StOfTrainTest {
+final class StOfTrainTest {
 
     @Test
     void processesTrainAsShift() {

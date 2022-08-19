@@ -32,10 +32,10 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.4.0
  */
-public final class TrDefaultTest {
+final class TrDefaultTest {
 
     @Test
-    public void startWithMany() {
+    void startWithMany() {
         MatcherAssert.assertThat(
             new TrDefault<>(
                 new StClasspath("add-id.xsl"),

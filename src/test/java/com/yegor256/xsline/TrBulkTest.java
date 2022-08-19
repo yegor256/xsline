@@ -33,10 +33,10 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.4.0
  */
-public final class TrBulkTest {
+final class TrBulkTest {
 
     @Test
-    public void simpleScenario() {
+    void simpleScenario() {
         MatcherAssert.assertThat(
             new TrBulk<>(new TrClasspath<>(new TrDefault<>()))
                 .with(Arrays.asList("add-brackets.xsl", "void.xsl"))
@@ -48,7 +48,7 @@ public final class TrBulkTest {
     }
 
     @Test
-    public void allInCtor() {
+    void allInCtor() {
         MatcherAssert.assertThat(
             new TrWith(
                 new TrBulk<>(

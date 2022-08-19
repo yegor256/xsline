@@ -26,62 +26,39 @@ package com.yegor256.xsline;
 import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link TrLambda}.
+ * Test case for {@link StSchema}.
  *
- * @since 0.4.0
+ * @since 0.10.0
  */
-final class TrLambdaTest {
-
-    /**
-     * The shift to be used in tests.
-     */
-    private static final Shift SHIFT = new StClasspath("add-id.xsl");
+final class StSchemaTest {
 
     @Test
-    void simpleScenario() {
+    void validatesAgainstSchema() {
         MatcherAssert.assertThat(
             new Xsline(
                 new TrWith(
-                    new TrLambda(
-                        new TrDefault<>(),
-                        StLogged::new
-                    ),
-                    TrLambdaTest.SHIFT
+                    new TrDefault<>(),
+                    new StSchema("/com/yegor256/xsline/simple.xsd")
                 )
-            ).pass(new XMLDocument("<x>foo</x>")),
-            XhtmlMatchers.hasXPaths("/x[@id]")
+            ).pass(new XMLDocument("<foo>42</foo>")),
+            XhtmlMatchers.hasXPaths("/foo")
         );
     }
 
     @Test
-    void withStLambda() {
-        final Train<Shift> train = new TrLambda(
-            new TrDefault<>(),
-            shift -> new StLambda(
-                shift::uid,
-                (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
-            )
-        ).with(TrLambdaTest.SHIFT);
-        MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<a>test</a>")),
-            XhtmlMatchers.hasXPaths("/a[@id]")
-        );
-    }
-
-    @Test
-    void shouldReturnEmptyTrain() {
-        MatcherAssert.assertThat(
-            new TrLambda(
-                new TrDefault<>(), shift -> new StLambda(
-                    shift::uid,
-                    (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
+    void shouldThrow() {
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new Xsline(
+                new TrWith(
+                    new TrDefault<>(),
+                    new StSchema("/com/yegor256/xsline/simple.xsd")
                 )
-            ).with(TrLambdaTest.SHIFT).empty(),
-            Matchers.iterableWithSize(0)
+            ).pass(new XMLDocument("<bar/>"))
         );
     }
 

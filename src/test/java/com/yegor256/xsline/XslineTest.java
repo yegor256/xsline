@@ -37,10 +37,10 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.1.0
  */
-public final class XslineTest {
+final class XslineTest {
 
     @Test
-    public void simpleScenario() throws IOException {
+    void simpleScenario() throws IOException {
         final XSL xsl = new XSLDocument(
             this.getClass().getResource("add-brackets.xsl")
         );

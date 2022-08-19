@@ -32,10 +32,10 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.1.0
  */
-public final class TrClasspathTest {
+final class TrClasspathTest {
 
     @Test
-    public void simpleScenario() {
+    void simpleScenario() {
         MatcherAssert.assertThat(
             new TrClasspath<>(new TrDefault<>())
                 .with("add-brackets.xsl")
@@ -46,7 +46,7 @@ public final class TrClasspathTest {
     }
 
     @Test
-    public void withCtor() {
+    void withCtor() {
         MatcherAssert.assertThat(
             new TrClasspath<>(
                 new TrDefault<>(),

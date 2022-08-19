@@ -35,10 +35,10 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.1.0
  */
-public final class StEndlessTest {
+final class StEndlessTest {
 
     @Test
-    public void simpleScenario() throws IOException {
+    void simpleScenario() throws IOException {
         MatcherAssert.assertThat(
             new StEndless(
                 new XSLDocument(

@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
  * @since 0.6.0
  * @checkstyle AbbreviationAsWordInNameCheck (500 lines)
  */
-class TrXSLTest {
+final class TrXSLTest {
 
     @Test
     void testPipe() throws IOException {

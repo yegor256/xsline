@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.6.0
  */
-class StLambdaTest {
+final class StLambdaTest {
 
     @Test
     void shouldReturnFormattedUid() {
