@@ -77,7 +77,10 @@ public final class StClasspath extends StEnvelope {
         try {
             return new XSLDocument(url).with(new ClasspathSources());
         } catch (final IOException ex) {
-            throw new IllegalStateException(ex);
+            throw new IllegalStateException(
+                String.format("Failed to read '%s' from classpath", path),
+                ex
+            );
         }
     }
 
