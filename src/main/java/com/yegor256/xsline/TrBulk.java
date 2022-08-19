@@ -23,6 +23,7 @@
  */
 package com.yegor256.xsline;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -74,6 +75,17 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
      */
     public TrBulk(final R train, final Iterable<T> bulk) {
         this(new TrBulk<>(train).with(bulk).back());
+    }
+
+    /**
+     * Ctor.
+     * @param train The train to start with
+     * @param bulk List of elements to add immediately
+     * @since 0.10.0
+     */
+    @SafeVarargs
+    public TrBulk(final R train, final T... bulk) {
+        this(train, Arrays.asList(bulk));
     }
 
     @Override

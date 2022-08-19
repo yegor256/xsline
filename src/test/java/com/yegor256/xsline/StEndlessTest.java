@@ -25,7 +25,6 @@ package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
-import com.jcabi.xml.XSL;
 import com.jcabi.xml.XSLDocument;
 import java.io.IOException;
 import org.hamcrest.MatcherAssert;
@@ -40,11 +39,12 @@ public final class StEndlessTest {
 
     @Test
     public void simpleScenario() throws IOException {
-        final XSL xsl = new XSLDocument(
-            this.getClass().getResource("void.xsl")
-        );
         MatcherAssert.assertThat(
-            new StEndless(xsl).apply(0, new XMLDocument("<hello/>")),
+            new StEndless(
+                new XSLDocument(
+                    this.getClass().getResource("void.xsl")
+                )
+            ).apply(0, new XMLDocument("<hello/>")),
             XhtmlMatchers.hasXPaths("/hello")
         );
     }

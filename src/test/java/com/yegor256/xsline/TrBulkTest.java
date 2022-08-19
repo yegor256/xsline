@@ -37,25 +37,27 @@ public final class TrBulkTest {
 
     @Test
     public void simpleScenario() {
-        final Train<Shift> train = new TrBulk<>(new TrClasspath<>(new TrDefault<>()))
-            .with(Arrays.asList("add-brackets.xsl", "void.xsl"))
-            .back()
-            .back()
-            .with(new StEndless(new StClasspath("add-id.xsl")));
         MatcherAssert.assertThat(
-            train,
+            new TrBulk<>(new TrClasspath<>(new TrDefault<>()))
+                .with(Arrays.asList("add-brackets.xsl", "void.xsl"))
+                .back()
+                .back()
+                .with(new StEndless(new StClasspath("add-id.xsl"))),
             Matchers.iterableWithSize(3)
         );
     }
 
     @Test
     public void allInCtor() {
-        final Train<Shift> train = new TrBulk<>(
-            new TrClasspath<>(new TrDefault<>()),
-            Arrays.asList("add-brackets.xsl", "void.xsl")
-        ).back().back().with(new StEndless(new StClasspath("add-id.xsl")));
         MatcherAssert.assertThat(
-            train,
+            new TrWith(
+                new TrBulk<>(
+                    new TrClasspath<>(new TrDefault<>()),
+                    "add-brackets.xsl",
+                    "void.xsl"
+                ).back().back(),
+                new StEndless(new StClasspath("add-id.xsl"))
+            ),
             Matchers.iterableWithSize(3)
         );
     }

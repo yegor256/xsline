@@ -43,15 +43,16 @@ public final class TrLambdaTest {
 
     @Test
     public void simpleScenario() {
-        final Train<Shift> train = new TrWith(
-            new TrLambda(
-                new TrDefault<>(),
-                StLogged::new
-            ),
-            TrLambdaTest.SHIFT
-        );
         MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<x>foo</x>")),
+            new Xsline(
+                new TrWith(
+                    new TrLambda(
+                        new TrDefault<>(),
+                        StLogged::new
+                    ),
+                    TrLambdaTest.SHIFT
+                )
+            ).pass(new XMLDocument("<x>foo</x>")),
             XhtmlMatchers.hasXPaths("/x[@id]")
         );
     }
@@ -73,14 +74,15 @@ public final class TrLambdaTest {
 
     @Test
     void shouldReturnEmptyTrain() {
-        final Train<Shift> train = new TrLambda(
-            new TrDefault<>(), shift -> new StLambda(
-                shift::uid,
-                (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
-            )
-        ).with(TrLambdaTest.SHIFT)
-            .empty();
-        MatcherAssert.assertThat(train, Matchers.iterableWithSize(0));
+        MatcherAssert.assertThat(
+            new TrLambda(
+                new TrDefault<>(), shift -> new StLambda(
+                    shift::uid,
+                    (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
+                )
+            ).with(TrLambdaTest.SHIFT).empty(),
+            Matchers.iterableWithSize(0)
+        );
     }
 
 }

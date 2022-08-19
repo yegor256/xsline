@@ -36,25 +36,23 @@ public final class TrClasspathTest {
 
     @Test
     public void simpleScenario() {
-        final Train<Shift> train = new TrClasspath<>(new TrDefault<>())
-            .with("add-brackets.xsl")
-            .back()
-            .with(new StEndless(new StClasspath("void.xsl")));
         MatcherAssert.assertThat(
-            train,
+            new TrClasspath<>(new TrDefault<>())
+                .with("add-brackets.xsl")
+                .back()
+                .with(new StEndless(new StClasspath("void.xsl"))),
             Matchers.iterableWithSize(2)
         );
     }
 
     @Test
     public void withCtor() {
-        final Train<Shift> train = new TrClasspath<>(
-            new TrDefault<>(),
-            "add-brackets.xsl",
-            "add-id.xsl"
-        ).back().with(new StEndless(new StClasspath("void.xsl")));
         MatcherAssert.assertThat(
-            train,
+            new TrClasspath<>(
+                new TrDefault<>(),
+                "add-brackets.xsl",
+                "add-id.xsl"
+            ).back().with(new StEndless(new StClasspath("void.xsl"))),
             Matchers.iterableWithSize(3)
         );
     }

@@ -36,12 +36,11 @@ public final class TrDefaultTest {
 
     @Test
     public void startWithMany() {
-        final Train<Shift> train = new TrDefault<>(
-            new StClasspath("add-id.xsl"),
-            new StClasspath("add-brackets.xsl")
-        );
         MatcherAssert.assertThat(
-            train,
+            new TrDefault<>(
+                new StClasspath("add-id.xsl"),
+                new StClasspath("add-brackets.xsl")
+            ),
             Matchers.iterableWithSize(2)
         );
     }
