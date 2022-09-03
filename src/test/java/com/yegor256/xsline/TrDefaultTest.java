@@ -37,9 +37,11 @@ final class TrDefaultTest {
     @Test
     void startWithMany() {
         MatcherAssert.assertThat(
-            new TrDefault<>(
-                new StClasspath("add-id.xsl"),
-                new StClasspath("add-brackets.xsl")
+            new TrFast(
+                new TrDefault<>(
+                    new StClasspath("add-id.xsl"),
+                    new StClasspath("add-brackets.xsl")
+                )
             ),
             Matchers.iterableWithSize(2)
         );

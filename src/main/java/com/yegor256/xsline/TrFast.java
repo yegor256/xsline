@@ -23,43 +23,47 @@
  */
 package com.yegor256.xsline;
 
-import java.util.Arrays;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-
 /**
- * Test case for {@link TrBulk}.
+ * Train that wraps all shifts in {@link StFast}.
  *
- * @since 0.4.0
+ * @since 0.12.0
  */
-final class TrBulkTest {
+public final class TrFast extends TrEnvelope {
 
-    @Test
-    void simpleScenario() {
-        MatcherAssert.assertThat(
-            new TrBulk<>(new TrClasspath<>(new TrFast(new TrDefault<>())))
-                .with(Arrays.asList("add-brackets.xsl", "void.xsl"))
-                .back()
-                .back()
-                .with(new StEndless(new StClasspath("add-id.xsl"))),
-            Matchers.iterableWithSize(3)
+    /**
+     * Ctor.
+     * @param train Original
+     */
+    public TrFast(final Train<Shift> train) {
+        this(train, TrFast.class);
+    }
+
+    /**
+     * Ctor.
+     * @param train Original
+     * @param target The target
+     */
+    public TrFast(final Train<Shift> train, final Object target) {
+        super(
+            new TrLambda(
+                train,
+                x -> new StFast(x, target)
+            )
         );
     }
 
-    @Test
-    void allInCtor() {
-        MatcherAssert.assertThat(
-            new TrWith(
-                new TrBulk<>(
-                    new TrClasspath<>(new TrDefault<>()),
-                    "add-brackets.xsl",
-                    "void.xsl"
-                ).back().back(),
-                new StEndless(new StClasspath("add-id.xsl"))
-            ),
-            Matchers.iterableWithSize(3)
+    /**
+     * Ctor.
+     * @param train Original
+     * @param target The target
+     * @param msec Threshold in msec
+     */
+    public TrFast(final Train<Shift> train, final Object target, final long msec) {
+        super(
+            new TrLambda(
+                train,
+                x -> new StFast(x, target, msec)
+            )
         );
     }
-
 }
