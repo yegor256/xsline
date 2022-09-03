@@ -91,7 +91,7 @@ public final class StFast implements Shift {
             Logger.error(
                 this.target,
                 "Transformation %s took too long %[ms]s (over %[ms]s)",
-                msec, this.threshold
+                this.uid(), msec, this.threshold
             );
         }
         return out;
