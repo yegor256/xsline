@@ -90,7 +90,7 @@ public final class StFast implements Shift {
         if (msec > this.threshold) {
             Logger.warn(
                 this.target,
-                "Transformation %s took too long %[ms]s (over %[ms]s)",
+                "XSL transformation '%s' took too long %[ms]s (over %[ms]s)",
                 this.uid(), msec, this.threshold
             );
         }
