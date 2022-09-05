@@ -88,7 +88,7 @@ public final class StFast implements Shift {
         final XML out = this.origin.apply(position, xml);
         final long msec = System.currentTimeMillis() - start;
         if (msec > this.threshold) {
-            Logger.error(
+            Logger.warn(
                 this.target,
                 "Transformation %s took too long %[ms]s (over %[ms]s)",
                 this.uid(), msec, this.threshold
