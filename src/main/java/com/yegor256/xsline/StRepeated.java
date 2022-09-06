@@ -28,7 +28,16 @@ import com.jcabi.xml.XSL;
 import java.util.function.Function;
 
 /**
- * A shift repeated a few times, until the provided predicate is true.
+ * A {@link Shift} repeated a few times, until the provided predicate is true.
+ *
+ * <p>Sometimes you need your XSL transformations to happen a few times
+ * in order to make all required changes in the XML document. You don't
+ * even know how many times, but you have a "predicate" that can look
+ * at the XML document and decide whether one more XSL transformation is
+ * required. This {@link Shift} is doing
+ * exactly this: it evaluates the encapsulated {@link Shift} and then
+ * asks the encapsulated predicate to make a decision whether one more
+ * XSL transformation is required.</p>
  *
  * @since 0.1.0
  */

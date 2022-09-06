@@ -27,7 +27,7 @@ import com.jcabi.xml.XMLDocument;
 import com.jcabi.xml.XSL;
 
 /**
- * Simple shift through a single XSL.
+ * Simple {@link Shift} through a single XSL.
  *
  * @since 0.1.0
  * @checkstyle AbbreviationAsWordInNameCheck (3 lines)

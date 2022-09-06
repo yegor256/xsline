@@ -36,7 +36,10 @@ import javax.xml.transform.dom.DOMSource;
 import org.xml.sax.SAXParseException;
 
 /**
- * A shift that validates incoming XML against encapsulated XSD schema.
+ * A {@link Shift} that validates incoming XML against encapsulated XSD schema.
+ *
+ * <p>If you want to validate XML documents after each shift in your
+ * train, you can use {@link TrAfter} in combination with {@link StSchema}.</p>
  *
  * @since 0.10.0
  */

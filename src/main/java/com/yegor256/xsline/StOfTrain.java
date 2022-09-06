@@ -24,7 +24,10 @@
 package com.yegor256.xsline;
 
 /**
- * A shift made of train.
+ * A {@link Shift} made of {@link Train}.
+ *
+ * <p>Sometimes you need to use a {@link Train} inside another {@link Train},
+ * which is expecting a {@link Shift}. This wrapper will help you out.</p>
  *
  * @since 0.9.0
  */
