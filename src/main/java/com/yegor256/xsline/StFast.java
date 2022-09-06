@@ -27,7 +27,13 @@ import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
 
 /**
- * A shift that logs an error if transformation took too long.
+ * A {@link Shift} that logs a warning if XSL transformation takes too long.
+ *
+ * <p>This {@link Shift} may help you during debugging, when
+ * the train is slow, but you are not sure which of you XSL transformations
+ * are the slowest ones. Decorate the train with {@link TrFast} and you will
+ * see warnings in the log, provided your "slf4j" bridge
+ * is configured right.</p>
  *
  * @since 0.12.0
  */
