@@ -27,7 +27,7 @@ import com.jcabi.xml.XML;
 import com.jcabi.xml.XSL;
 
 /**
- * A shift repeated a few times, until changes are happening.
+ * A {@link Shift} repeated a few times, until changes are happening.
  *
  * <p>Sometimes it's necessary to apply the same XSL a number of times
  * to the same XML document, making repetitive changes until they stop
