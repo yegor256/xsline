@@ -14,6 +14,8 @@
 
 Read this blog post too: [Declarative and Immutable Pipeline of Transformations](https://www.yegor256.com/2022/08/10/xsline-immutable-pipeline.html)
 
+Also, watch [this video](https://www.youtube.com/watch?v=C6CQWzOKEJs) from Object Thinking Meetup #7.
+
 It's a declarative and immutable chain of XSL transformations in Java, 
 which is more convenient than an imperative routine application 
 of transformations one by one. [EO compiler](https://github.com/objectionary/eo) 
