@@ -23,10 +23,12 @@
  */
 package com.yegor256.xsline;
 
+import java.util.Arrays;
+
 /**
- * A shift that makes another shift after itself.
+ * A shift that makes another shifts after itself.
  *
- * <p>This decorator may be useful if you need to do the same shift
+ * <p>This decorator may be useful if you need to do the same shifts
  * over and over again after your other shifts. You can decorate
  * your {@link Train} with {@link TrAfter}, which will use this
  * shift inside. We don't recommend using this decorator directly.</p>
@@ -45,6 +47,25 @@ public final class StAfter extends StEnvelope {
             new StLambda(
                 shift::uid,
                 (position, xml) -> next.apply(position, shift.apply(position, xml))
+            )
+        );
+    }
+
+    /**
+     * Ctor.
+     * @param shift Original shift
+     * @param after Collection of Shifts to be applied after original Shift
+     */
+    public StAfter(final Shift shift, final Shift... after) {
+        super(
+            new StLambda(
+                shift::uid,
+                (position, xml) -> {
+                    for (final Shift next : after) {
+                        xml = next.apply(position, xml);
+                    }
+                    return xml;
+                }
             )
         );
     }

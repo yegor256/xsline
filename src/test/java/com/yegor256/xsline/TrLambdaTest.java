@@ -39,7 +39,17 @@ final class TrLambdaTest {
     /**
      * The shift to be used in tests.
      */
-    private static final Shift SHIFT = new StClasspath("add-id.xsl");
+    private static final Shift ADD_ID = new StClasspath("add-id.xsl");
+
+    /**
+     * The shift to be used in tests.
+     */
+    private static final Shift ADD_BRACKETS = new StClasspath("add-brackets.xsl");
+
+    /**
+     * The shift to be used in tests.
+     */
+    private static final Shift VOID = new StClasspath("void.xsl");
 
     @Test
     void simpleScenario() {
@@ -50,7 +60,7 @@ final class TrLambdaTest {
                         new TrDefault<>(),
                         StLogged::new
                     ),
-                    TrLambdaTest.SHIFT
+                    TrLambdaTest.ADD_ID
                 )
             ).pass(new XMLDocument("<x>foo</x>")),
             XhtmlMatchers.hasXPaths("/x[@id]")
@@ -63,12 +73,37 @@ final class TrLambdaTest {
             new TrDefault<>(),
             shift -> new StLambda(
                 shift::uid,
-                (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
+                (pos, xml) -> TrLambdaTest.ADD_ID.apply(0, xml)
             )
-        ).with(TrLambdaTest.SHIFT);
+        ).with(TrLambdaTest.VOID);
         MatcherAssert.assertThat(
             new Xsline(train).pass(new XMLDocument("<a>test</a>")),
             XhtmlMatchers.hasXPaths("/a[@id]")
+        );
+    }
+
+    @Test
+    void withListOfPostProcessing() {
+        final Train<Shift> train = new TrLambda(
+            new TrDefault<>(),
+            shift -> new StAfter(
+                shift,
+                new StLambda(
+                    shift::uid,
+                    (pos, xml) -> TrLambdaTest.ADD_ID.apply(0, xml)
+                ),
+                new StLambda(
+                    shift::uid,
+                    (pos, xml) -> TrLambdaTest.ADD_BRACKETS.apply(1, xml)
+                )
+            )
+        ).with(TrLambdaTest.VOID);
+        MatcherAssert.assertThat(
+            new Xsline(train).pass(new XMLDocument("<a>test</a>")),
+            XhtmlMatchers.hasXPaths(
+                "/a[@id]",
+                "/a[text()=\"{test}\"]"
+            )
         );
     }
 
@@ -78,9 +113,9 @@ final class TrLambdaTest {
             new TrLambda(
                 new TrDefault<>(), shift -> new StLambda(
                     shift::uid,
-                    (pos, xml) -> TrLambdaTest.SHIFT.apply(0, xml)
+                    (pos, xml) -> TrLambdaTest.ADD_ID.apply(0, xml)
                 )
-            ).with(TrLambdaTest.SHIFT).empty(),
+            ).with(TrLambdaTest.ADD_ID).empty(),
             Matchers.iterableWithSize(0)
         );
     }
