@@ -23,8 +23,6 @@
  */
 package com.yegor256.xsline;
 
-import java.util.Arrays;
-
 /**
  * A shift that makes another shifts after itself.
  *
