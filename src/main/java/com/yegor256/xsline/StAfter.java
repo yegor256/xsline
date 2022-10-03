@@ -38,20 +38,6 @@ public final class StAfter extends StEnvelope {
     /**
      * Ctor.
      * @param shift Original shift
-     * @param next Next one
-     */
-    public StAfter(final Shift shift, final Shift next) {
-        super(
-            new StLambda(
-                shift::uid,
-                (position, xml) -> next.apply(position, shift.apply(position, xml))
-            )
-        );
-    }
-
-    /**
-     * Ctor.
-     * @param shift Original shift
      * @param after Collection of Shifts to be applied after original Shift
      */
     public StAfter(final Shift shift, final Shift... after) {
@@ -59,6 +45,7 @@ public final class StAfter extends StEnvelope {
             new StLambda(
                 shift::uid,
                 (position, xml) -> {
+                    xml = shift.apply(position, xml);
                     for (final Shift next : after) {
                         xml = next.apply(position, xml);
                     }

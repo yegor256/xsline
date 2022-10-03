@@ -39,8 +39,8 @@ final class StAfterTest {
     void simpleScenario() {
         MatcherAssert.assertThat(
             new StAfter(
-                new StClasspath("void.xsl"),
                 new StClasspath("add-brackets.xsl"),
+                new StClasspath("void.xsl"),
                 new StClasspath("add-id.xsl")
             ).apply(0, new XMLDocument("<x>hello</x>")),
             XhtmlMatchers.hasXPaths(
