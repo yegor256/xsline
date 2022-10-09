@@ -27,6 +27,7 @@ import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -117,6 +118,21 @@ final class TrLambdaTest {
                 )
             ).with(TrLambdaTest.ADD_ID).empty(),
             Matchers.iterableWithSize(0)
+        );
+    }
+
+    @Test
+    void shouldThrowsExceptions() {
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new Xsline(
+                new TrLambda(
+                    new TrDefault<>(),
+                    shift -> new StLambdaQuiet(
+                        (pos, xml) -> new StClasspath("not-found").apply(pos, xml)
+                    )
+                ).with(TrLambdaTest.VOID)
+            ).pass(new XMLDocument("<a>test</a>"))
         );
     }
 
