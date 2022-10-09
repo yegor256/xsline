@@ -70,7 +70,7 @@ final class StLambdaQuietTest {
         Assertions.assertThrows(
             IllegalStateException.class,
             () -> new StLambdaQuiet(
-                (pos, xml) -> {
+                xml -> {
                     final BufferedReader inp = new BufferedReader(new StringReader("test"));
                     inp.close();
                     inp.readLine();

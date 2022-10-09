@@ -55,18 +55,7 @@ public final class StLambdaQuiet implements Shift {
      */
     @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
     public StLambdaQuiet(final FuncChecked<XML, XML> fun) {
-        this((integer, xml) -> {
-            try {
-                return fun.apply(xml);
-            } catch (final RuntimeException ex) {
-                throw ex;
-            } catch (final InterruptedException ex) {
-                Thread.currentThread().interrupt();
-                throw new IllegalStateException(ex);
-            } catch (final Exception ex) {
-                throw new IllegalStateException(ex);
-            }
-        });
+        this((integer, xml) -> fun.apply(xml));
     }
 
     /**
@@ -77,18 +66,7 @@ public final class StLambdaQuiet implements Shift {
      */
     @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
     public StLambdaQuiet(final String uid, final FuncChecked<XML, XML> fun) {
-        this(uid, (integer, xml) -> {
-            try {
-                return fun.apply(xml);
-            } catch (final RuntimeException ex) {
-                throw ex;
-            } catch (final InterruptedException ex) {
-                Thread.currentThread().interrupt();
-                throw new IllegalStateException(ex);
-            } catch (final Exception ex) {
-                throw new IllegalStateException(ex);
-            }
-        });
+        this(uid, (integer, xml) -> fun.apply(xml));
     }
 
     /**
