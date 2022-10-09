@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test case for {@link StLambdaQuiet}.
  *
- * @since 0.6.0
+ * @since 0.13.0
  */
 final class StLambdaQuietTest {
 

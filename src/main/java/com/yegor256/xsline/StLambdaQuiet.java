@@ -51,7 +51,7 @@ public final class StLambdaQuiet implements Shift {
     /**
      * Ctor.
      * @param fun The function
-     * @since 0.9.0
+     * @since 0.13.0
      */
     @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
     public StLambdaQuiet(final FuncChecked<XML, XML> fun) {
@@ -73,7 +73,7 @@ public final class StLambdaQuiet implements Shift {
      * Ctor.
      * @param uid The ID
      * @param fun The function
-     * @since 0.9.0
+     * @since 0.13.0
      */
     @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
     public StLambdaQuiet(final String uid, final FuncChecked<XML, XML> fun) {
