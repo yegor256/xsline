@@ -40,6 +40,7 @@ public final class StLambdaQuiet implements Shift {
 
     /**
      * The UID.
+     * @todo #40:30m Create TrLambdaQuiet and TrLambdaQuietTest
      */
     private final Supplier<String> name;
 
