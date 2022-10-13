@@ -24,7 +24,6 @@
 package com.yegor256.xsline;
 
 import java.util.Iterator;
-import java.util.function.Function;
 
 /**
  * Train with a lambda expression.
@@ -46,14 +45,14 @@ public final class TrLambda implements Train<Shift> {
     /**
      * The function.
      */
-    private final Function<Shift, Shift> lambda;
+    private final FuncChecked<Shift, Shift> lambda;
 
     /**
      * Ctor.
      * @param train Original
      * @param fun The function
      */
-    public TrLambda(final Train<Shift> train, final Function<Shift, Shift> fun) {
+    public TrLambda(final Train<Shift> train, final FuncChecked<Shift, Shift> fun) {
         this.origin = train;
         this.lambda = fun;
     }

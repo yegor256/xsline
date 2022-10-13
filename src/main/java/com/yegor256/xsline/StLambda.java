@@ -24,18 +24,18 @@
 package com.yegor256.xsline;
 
 import com.jcabi.xml.XML;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * A shift that executes the provided bi-function.
+ * A shift that executes the provided bi-function
+ * and catches all checked exceptions.
  *
  * <p>This decorator may be useful if you don't want to create a new
  * class for your shift, but just want a simple piece of code to
- * do the transformation.</p>
+ * do the transformation without catching exceptions.</p>
  *
- * @since 0.4.0
+ * @since 0.13.0
+ * @checkstyle IllegalCatchCheck (500 lines)
  */
 public final class StLambda implements Shift {
 
@@ -47,14 +47,14 @@ public final class StLambda implements Shift {
     /**
      * The function.
      */
-    private final BiFunction<Integer, XML, XML> lambda;
+    private final BiFuncChecked<Integer, XML, XML> lambda;
 
     /**
      * Ctor.
      * @param fun The function
-     * @since 0.9.0
+     * @since 0.13.0
      */
-    public StLambda(final Function<XML, XML> fun) {
+    public StLambda(final FuncChecked<XML, XML> fun) {
         this((integer, xml) -> fun.apply(xml));
     }
 
@@ -62,9 +62,9 @@ public final class StLambda implements Shift {
      * Ctor.
      * @param uid The ID
      * @param fun The function
-     * @since 0.9.0
+     * @since 0.13.0
      */
-    public StLambda(final String uid, final Function<XML, XML> fun) {
+    public StLambda(final String uid, final FuncChecked<XML, XML> fun) {
         this(uid, (integer, xml) -> fun.apply(xml));
     }
 
@@ -72,7 +72,7 @@ public final class StLambda implements Shift {
      * Ctor.
      * @param fun The function
      */
-    public StLambda(final BiFunction<Integer, XML, XML> fun) {
+    public StLambda(final BiFuncChecked<Integer, XML, XML> fun) {
         this(
             new Supplier<String>() {
                 @Override
@@ -89,7 +89,7 @@ public final class StLambda implements Shift {
      * @param uid The ID
      * @param fun The function
      */
-    public StLambda(final String uid, final BiFunction<Integer, XML, XML> fun) {
+    public StLambda(final String uid, final BiFuncChecked<Integer, XML, XML> fun) {
         this(() -> uid, fun);
     }
 
@@ -98,7 +98,7 @@ public final class StLambda implements Shift {
      * @param uid The ID
      * @param fun The function
      */
-    public StLambda(final Supplier<String> uid, final BiFunction<Integer, XML, XML> fun) {
+    public StLambda(final Supplier<String> uid, final BiFuncChecked<Integer, XML, XML> fun) {
         this.name = uid;
         this.lambda = fun;
     }
@@ -109,7 +109,18 @@ public final class StLambda implements Shift {
     }
 
     @Override
+    @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
     public XML apply(final int position, final XML xml) {
-        return this.lambda.apply(position, xml);
+        try {
+            return this.lambda.apply(position, xml);
+        } catch (final RuntimeException ex) {
+            throw ex;
+        } catch (final InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException(ex);
+        } catch (final Exception ex) {
+            throw new IllegalStateException(ex);
+        }
     }
+
 }

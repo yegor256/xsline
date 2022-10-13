@@ -23,15 +23,19 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.xml.XMLDocument;
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.UUID;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StLambda}.
  *
- * @since 0.6.0
+ * @since 0.13.0
  */
 final class StLambdaTest {
 
@@ -52,6 +56,27 @@ final class StLambdaTest {
         MatcherAssert.assertThat(
             uuid,
             Matchers.is(lambda.uid())
+        );
+    }
+
+    @Test
+    void shouldThrowsExceptions() {
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new StLambda(
+                (pos, xml) -> new StClasspath("not-found").apply(pos, xml)
+            ).apply(0, new XMLDocument("<x>test</x>"))
+        );
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new StLambda(
+                xml -> {
+                    final BufferedReader inp = new BufferedReader(new StringReader("test"));
+                    inp.close();
+                    inp.readLine();
+                    return xml;
+                }
+            ).apply(0, new XMLDocument("<x>test</x>"))
         );
     }
 

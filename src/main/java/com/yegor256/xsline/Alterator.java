@@ -24,13 +24,13 @@
 package com.yegor256.xsline;
 
 import java.util.Iterator;
-import java.util.function.Function;
 
 /**
  * Iterator that modifies its items on retrieval.
  *
  * @param <T> Type of items
  * @since 0.4.0
+ * @checkstyle IllegalCatchCheck (500 lines)
  */
 final class Alterator<T> implements Iterator<T> {
 
@@ -42,14 +42,14 @@ final class Alterator<T> implements Iterator<T> {
     /**
      * The function.
      */
-    private final Function<T, T> lambda;
+    private final FuncChecked<T, T> lambda;
 
     /**
      * Ctor.
      * @param iterator Original
      * @param fun The function
      */
-    Alterator(final Iterator<T> iterator, final Function<T, T> fun) {
+    Alterator(final Iterator<T> iterator, final FuncChecked<T, T> fun) {
         this.origin = iterator;
         this.lambda = fun;
     }
@@ -60,7 +60,17 @@ final class Alterator<T> implements Iterator<T> {
     }
 
     @Override
+    @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
     public T next() {
-        return this.lambda.apply(this.origin.next());
+        try {
+            return this.lambda.apply(this.origin.next());
+        } catch (final RuntimeException ex) {
+            throw ex;
+        } catch (final InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException(ex);
+        } catch (final Exception ex) {
+            throw new IllegalStateException(ex);
+        }
     }
 }

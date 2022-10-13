@@ -25,6 +25,8 @@ package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
+import java.io.BufferedReader;
+import java.io.StringReader;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
@@ -128,9 +130,23 @@ final class TrLambdaTest {
             () -> new Xsline(
                 new TrLambda(
                     new TrDefault<>(),
-                    shift -> new StLambdaQuiet(
+                    shift -> new StLambda(
                         (pos, xml) -> new StClasspath("not-found").apply(pos, xml)
                     )
+                ).with(TrLambdaTest.VOID)
+            ).pass(new XMLDocument("<a>test</a>"))
+        );
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new Xsline(
+                new TrLambda(
+                    new TrDefault<>(),
+                    shift -> {
+                        final BufferedReader inp = new BufferedReader(new StringReader("test"));
+                        inp.close();
+                        inp.readLine();
+                        return shift;
+                    }
                 ).with(TrLambdaTest.VOID)
             ).pass(new XMLDocument("<a>test</a>"))
         );
