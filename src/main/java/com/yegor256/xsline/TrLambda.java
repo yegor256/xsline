@@ -26,7 +26,7 @@ package com.yegor256.xsline;
 import java.util.Iterator;
 
 /**
- * Train with a lambda expression.
+ * Train with a lambda expression and catching exceptions.
  *
  * <p>It's a decorator of an existing {@link Train}. The decorator makes
  * sure that all shifts will be passed through the provided lambda function

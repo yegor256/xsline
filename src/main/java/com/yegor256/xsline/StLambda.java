@@ -32,7 +32,7 @@ import java.util.function.Supplier;
  *
  * <p>This decorator may be useful if you don't want to create a new
  * class for your shift, but just want a simple piece of code to
- * do the transformation without catching exceptions.</p>
+ * do the transformation.</p>
  *
  * @since 0.13.0
  * @checkstyle IllegalCatchCheck (500 lines)
