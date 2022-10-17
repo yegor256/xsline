@@ -41,7 +41,7 @@ public final class StSequence extends StEnvelope {
      * Ctor.
      * @param train The train
      */
-    public StSequence(final Train<Shift> train) {
+    public StSequence(final Iterable<Shift> train) {
         this(
             xml -> true,
             train
@@ -79,7 +79,7 @@ public final class StSequence extends StEnvelope {
      * @param fun The predicate
      * @param train The train
      */
-    public StSequence(final FuncChecked<XML, Boolean> fun, final Train<Shift> train) {
+    public StSequence(final FuncChecked<XML, Boolean> fun, final Iterable<Shift> train) {
         super(
             new StLambda(
                 (position, xml) -> {

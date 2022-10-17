@@ -58,4 +58,24 @@ final class StSequenceTest {
         );
     }
 
+    @Test
+    void processesTrainAsShift() {
+        final Train<Shift> train = new TrWith(
+            new TrDefault<>(),
+            new StSequence(
+                new TrWith(
+                    new TrDefault<>(),
+                    new StClasspath("add-brackets.xsl")
+                )
+            )
+        );
+        final XML output = new Xsline(train).pass(
+            new XMLDocument("<x>hello</x>")
+        );
+        MatcherAssert.assertThat(
+            output,
+            XhtmlMatchers.hasXPaths("/x[.='{hello}']")
+        );
+    }
+
 }
