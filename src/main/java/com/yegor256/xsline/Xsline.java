@@ -43,7 +43,9 @@ import com.jcabi.xml.XML;
  * this package provides.</p>
  *
  * @since 0.1.0
+ * @checkstyle IllegalCatchCheck (500 lines)
  */
+@SuppressWarnings("PMD.PrematureDeclaration")
 public final class Xsline {
 
     /**
@@ -65,10 +67,34 @@ public final class Xsline {
      * @return The output XML
      */
     public XML pass(final XML input) {
+        return this.pass(input, xml -> true);
+    }
+
+    /**
+     * Run it all with the given XML
+     * until the provided predicate is true.
+     * @param input The input XML
+     * @param fun The provided predicate
+     * @return The output XML
+     */
+    @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
+    public XML pass(final XML input, final FuncChecked<XML, Boolean> fun) {
         final long start = System.currentTimeMillis();
         XML output = input;
         int pos = 0;
         for (final Shift shift : this.shifts) {
+            try {
+                if (!fun.apply(output)) {
+                    break;
+                }
+            } catch (final RuntimeException ex) {
+                throw ex;
+            } catch (final InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                throw new IllegalStateException(ex);
+            } catch (final Exception ex) {
+                throw new IllegalStateException(ex);
+            }
             output = shift.apply(pos, output);
             ++pos;
         }
