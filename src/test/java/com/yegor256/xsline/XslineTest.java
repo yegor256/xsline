@@ -36,9 +36,7 @@ import org.junit.jupiter.api.Test;
  * Test case for {@link Xsline}.
  *
  * @since 0.1.0
- * @checkstyle AvoidDuplicateLiterals (500 lines)
  */
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class XslineTest {
 
     @Test
@@ -66,26 +64,6 @@ final class XslineTest {
         MatcherAssert.assertThat(
             output,
             XhtmlMatchers.hasXPaths("/x[.='{{hello}}']")
-        );
-    }
-
-    @Test
-    void shouldStopPipeline() {
-        final Train<Shift> trn = new TrClasspath<>(new TrDefault<>())
-            .with("add-brackets.xsl")
-            .with("add-brackets.xsl")
-            .with("add-brackets.xsl")
-            .with("add-brackets.xsl")
-            .with("add-brackets.xsl")
-            .with("add-brackets.xsl")
-            .back();
-        final XML output = new Xsline(trn).pass(
-            new XMLDocument("<x>hello</x>"),
-            xml -> xml.nodes("/x[text()='{{{hello}}}']").isEmpty()
-        );
-        MatcherAssert.assertThat(
-            output,
-            XhtmlMatchers.hasXPaths("/x[.='{{{hello}}}']")
         );
     }
 
