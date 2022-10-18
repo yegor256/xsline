@@ -97,30 +97,4 @@ public final class StSequence extends StEnvelope {
         );
     }
 
-    /**
-     * Ctor.
-     * @param uid The UID to use
-     * @param fun The predicate
-     * @param train The train
-     */
-    public StSequence(final String uid, final FuncChecked<XML, Boolean> fun,
-        final Iterable<Shift> train) {
-        super(
-            new StLambda(
-                uid,
-                (position, xml) -> {
-                    int pos = 0;
-                    for (final Shift shift : train) {
-                        if (!fun.apply(xml)) {
-                            break;
-                        }
-                        xml = shift.apply(pos, xml);
-                        ++pos;
-                    }
-                    return xml;
-                }
-            )
-        );
-    }
-
 }
