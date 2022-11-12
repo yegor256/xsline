@@ -50,10 +50,36 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     * @param uid The UID to use
+     * @param train The train
+     */
+    public StSequence(final String uid, final Iterable<Shift> train) {
+        this(
+            uid,
+            xml -> true,
+            train
+        );
+    }
+
+    /**
+     * Ctor.
      * @param shifts Shifts to apply
      */
     public StSequence(final Shift... shifts) {
         this(
+            xml -> true,
+            shifts
+        );
+    }
+
+    /**
+     * Ctor.
+     * @param uid The UID to use
+     * @param shifts Shifts to apply
+     */
+    public StSequence(final String uid, final Shift... shifts) {
+        this(
+            uid,
             xml -> true,
             shifts
         );
@@ -76,25 +102,70 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     * @param uid The UID to use
+     * @param fun The predicate
+     * @param shifts Shifts to apply
+     */
+    public StSequence(final String uid, final FuncChecked<XML, Boolean> fun,
+        final Shift... shifts) {
+        this(
+            uid,
+            fun,
+            new TrBulk<>(
+                new TrDefault<>(),
+                shifts
+            ).back()
+        );
+    }
+
+    /**
+     * Ctor.
      * @param fun The predicate
      * @param train The train
      */
     public StSequence(final FuncChecked<XML, Boolean> fun, final Iterable<Shift> train) {
         super(
             new StLambda(
-                (position, xml) -> {
-                    int pos = 0;
-                    for (final Shift shift : train) {
-                        if (!fun.apply(xml)) {
-                            break;
-                        }
-                        xml = shift.apply(pos, xml);
-                        ++pos;
-                    }
-                    return xml;
-                }
+                StSequence.apply(fun, train)
             )
         );
+    }
+
+    /**
+     * Ctor.
+     * @param uid The UID to use
+     * @param fun The predicate
+     * @param train The train
+     */
+    public StSequence(final String uid, final FuncChecked<XML, Boolean> fun,
+        final Iterable<Shift> train) {
+        super(
+            new StLambda(
+                uid,
+                StSequence.apply(fun, train)
+            )
+        );
+    }
+
+    /**
+     * Applies {@link Shift}-s, while provided predicate is true.
+     * @param fun The predicate
+     * @param train The train
+     * @return BiFunction that sets behavior for {@link StLambda}
+     */
+    private static BiFuncChecked<Integer, XML, XML> apply(final FuncChecked<XML, Boolean> fun,
+        final Iterable<Shift> train) {
+        return (position, xml) -> {
+            int pos = 0;
+            for (final Shift shift : train) {
+                if (!fun.apply(xml)) {
+                    break;
+                }
+                xml = shift.apply(pos, xml);
+                ++pos;
+            }
+            return xml;
+        };
     }
 
 }

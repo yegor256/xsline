@@ -44,4 +44,15 @@ public final class StOfTrain extends StEnvelope {
         );
     }
 
+    /**
+     * Ctor.
+     * @param uid The UID to use
+     * @param train The train
+     */
+    public StOfTrain(final String uid, final Train<Shift> train) {
+        super(
+            new StSequence(uid, train)
+        );
+    }
+
 }
