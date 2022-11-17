@@ -25,10 +25,8 @@ package com.yegor256.xsline;
 
 /**
  * A {@link Shift} made of {@link Train}.
- * @deprecated
- * <p>This class is no longer supported.
- * Use {@link StSequence} instead.</p>
  *
+ * @deprecated This class is no longer supported, use {@link StSequence} instead
  * @since 0.9.0
  */
 @Deprecated

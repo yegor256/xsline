@@ -42,7 +42,7 @@ final class TrJoinedTest {
                 new TrJoined(
                     new TrClasspath<>(new TrDefault<>()).with("void.xsl").back(),
                     new TrClasspath<>(new TrDefault<>()).with("add-brackets.xsl").back()
-                )
+                ).with(new StClasspath("void.xsl"))
             ).pass(new XMLDocument("<x>hello</x>")),
             XhtmlMatchers.hasXPaths("/x[.='{hello}']")
         );

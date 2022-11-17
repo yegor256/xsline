@@ -31,8 +31,6 @@ import java.util.LinkedList;
 /**
  * Train that consequently joins a number of trains.
  *
- * The class is immutable, you can't add any more Shifts to it.
- *
  * When constructed, an object of this class doesn't touch the encapsulated
  * Trains. Only when you call {@link #iterator()}, all Trains are checked,
  * their Shifts are retrieved, a new collection is built and its iterator
@@ -65,23 +63,18 @@ public final class TrJoined implements Train<Shift> {
     }
 
     @Override
-    public Train<Shift> with(final Shift element) {
-        throw new UnsupportedOperationException(
-            String.format(
-                "%s is immutable, can't add any more shifts to it",
-                TrJoined.class.getName()
-            )
-        );
+    public Train<Shift> with(final Shift shift) {
+        final Collection<Train<Shift>> trains = new LinkedList<>();
+        for (final Train<Shift> train : this.chain) {
+            trains.add(train);
+        }
+        trains.add(new TrDefault<>(shift));
+        return new TrJoined(trains);
     }
 
     @Override
     public Train<Shift> empty() {
-        throw new UnsupportedOperationException(
-            String.format(
-                "%s is immutable, can't empty it",
-                TrJoined.class.getName()
-            )
-        );
+        return new TrJoined();
     }
 
     @Override
