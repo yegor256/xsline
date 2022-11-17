@@ -53,16 +53,20 @@ import java.util.Iterator;
 public final class TrClasspath<T extends Shift> implements Train<String>, Train.Temporary<T> {
 
     /**
-     * The original train.
+     * The mapped train.
      */
-    private final Train<T> origin;
+    private final TrMapped<String, T> origin;
 
     /**
      * Ctor.
      * @param train Original
      */
+    @SuppressWarnings("unchecked")
     public TrClasspath(final Train<T> train) {
-        this.origin = train;
+        this.origin = new TrMapped<>(
+            train,
+            path -> (T) new StClasspath(path)
+        );
     }
 
     /**
@@ -80,14 +84,18 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public TrClasspath<T> with(final String path) {
-        return new TrClasspath<>(this.origin.with((T) new StClasspath(path)));
+    public Train<T> back() {
+        return this.origin.back();
+    }
+
+    @Override
+    public TrClasspath<T> with(final String element) {
+        return new TrClasspath<>(this.origin.with(element).back());
     }
 
     @Override
     public TrClasspath<T> empty() {
-        return new TrClasspath<>(this.origin.empty());
+        return new TrClasspath<>(this.origin.empty().back());
     }
 
     @Override
@@ -96,10 +104,4 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
             "Don't iterate here, call back() first"
         );
     }
-
-    @Override
-    public Train<T> back() {
-        return this.origin;
-    }
-
 }
