@@ -83,6 +83,15 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
         );
     }
 
+    /**
+     * Ctor with {@link TrDefault}.
+     * @param paths List of paths to add immediately
+     * @since 0.16.0
+     */
+    public TrClasspath(final String... paths) {
+        this(new TrDefault<>(), paths);
+    }
+
     @Override
     public Train<T> back() {
         return this.origin.back();
