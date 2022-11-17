@@ -23,6 +23,9 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.matchers.XhtmlMatchers;
+import com.jcabi.xml.XMLDocument;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -41,4 +44,13 @@ final class StClasspathTest {
         );
     }
 
+    @Test
+    void addsParam() {
+        MatcherAssert.assertThat(
+            new StClasspath("add-param.xsl", "param hello, world!").apply(
+                0, new XMLDocument("<x>hello</x>")
+            ),
+            XhtmlMatchers.hasXPaths("/x[@param='hello, world!']")
+        );
+    }
 }

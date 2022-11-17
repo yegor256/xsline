@@ -55,17 +55,22 @@ public final class StClasspath extends StEnvelope {
     /**
      * Ctor.
      * @param path Path in classpath
+     * @param args Arguments to send to the XSL separated with by a space,
+     *  e.g. {@code "arg1 hello world!"} means argument {@code arg1} with the
+     *  {@code "hello world!"} value.
+     * @since 0.16.0
      */
-    public StClasspath(final String path) {
-        super(new StXSL(StClasspath.make(path)));
+    public StClasspath(final String path, final String... args) {
+        super(new StXSL(StClasspath.make(path, args)));
     }
 
     /**
      * Make XSL safely.
      * @param path Path in classpath
+     * @param args Arguments to send to the XSL
      * @return XSL
      */
-    private static XSL make(final String path) {
+    private static XSL make(final String path, final String... args) {
         final URL url = StClasspath.class.getResource(path);
         if (url == null) {
             throw new IllegalArgumentException(
@@ -74,14 +79,21 @@ public final class StClasspath extends StEnvelope {
                 )
             );
         }
+        XSL xsl;
         try {
-            return new XSLDocument(url).with(new ClasspathSources());
+            xsl = new XSLDocument(url);
         } catch (final IOException ex) {
             throw new IllegalStateException(
                 String.format("Failed to read '%s' from classpath", path),
                 ex
             );
         }
+        xsl = xsl.with(new ClasspathSources());
+        for (final String arg : args) {
+            final String[] parts = arg.split(" ", 2);
+            xsl = xsl.with(parts[0], parts[1]);
+        }
+        return xsl;
     }
 
 }
