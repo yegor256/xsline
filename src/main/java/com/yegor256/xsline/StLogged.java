@@ -93,9 +93,10 @@ public final class StLogged implements Shift {
                 } else {
                     Logger.debug(
                         this.target,
-                        "Shift #%d via '%s' produced (%d chars):\n%s<EOF>",
+                        "Shift #%d via '%s' produced (%d->%d chars):\n%s<EOF>",
                         position,
                         this.uid(),
+                        before.length(),
                         after.length(),
                         after
                             .replace("\n", "\\n\n")
