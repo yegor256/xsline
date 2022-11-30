@@ -40,6 +40,14 @@ public final class TrFast extends TrEnvelope {
 
     /**
      * Ctor.
+     * @since 0.18.0
+     */
+    public TrFast() {
+        this(new TrDefault<>());
+    }
+
+    /**
+     * Ctor.
      * @param train Original
      */
     public TrFast(final Train<Shift> train) {

@@ -60,6 +60,16 @@ public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary
 
     /**
      * Ctor.
+     *
+     * @since 0.18.0
+     */
+    public TrXSL() {
+        this(new TrDefault<>());
+    }
+
+    /**
+     * Ctor.
+     *
      * @param train Original
      */
     public TrXSL(final Train<T> train) {

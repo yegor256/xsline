@@ -37,9 +37,7 @@ final class TrFastTest {
     void simpleScenario() {
         new Xsline(
             new TrFast(
-                new TrClasspath<>(
-                    new TrDefault<>()
-                ).with("add-brackets.xsl").back(),
+                new TrClasspath<>().with("add-brackets.xsl").back(),
                 TrFastTest.class,
                 1L
             )

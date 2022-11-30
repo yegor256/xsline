@@ -40,7 +40,6 @@ final class TrBeforeTest {
     @Test
     void simpleScenario() {
         final Train<Shift> train = new TrBefore(
-            new TrDefault<>(),
             new StLambda(
                 (position, xml) -> new XMLDocument(
                     new Xembler(

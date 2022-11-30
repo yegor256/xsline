@@ -38,7 +38,7 @@ final class TrBulkTest {
     @Test
     void simpleScenario() {
         MatcherAssert.assertThat(
-            new TrBulk<>(new TrClasspath<>(new TrFast(new TrDefault<>())))
+            new TrBulk<>(new TrClasspath<>(new TrFast()))
                 .with(Arrays.asList("add-brackets.xsl", "void.xsl"))
                 .back()
                 .back()
@@ -52,7 +52,7 @@ final class TrBulkTest {
         MatcherAssert.assertThat(
             new TrWith(
                 new TrBulk<>(
-                    new TrClasspath<>(new TrDefault<>()),
+                    new TrClasspath<>(),
                     "add-brackets.xsl",
                     "void.xsl"
                 ).back().back(),

@@ -42,7 +42,7 @@ final class StSequenceTest {
         final Train<Shift> train = new TrDefault<Shift>().with(
             new StSequence(
                 xml -> xml.nodes("/x[text()='{{{hello}}}']").isEmpty(),
-                new TrClasspath<>(new TrDefault<>())
+                new TrClasspath<>()
                     .with("add-brackets.xsl")
                     .with("add-brackets.xsl")
                     .with("add-brackets.xsl")

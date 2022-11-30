@@ -37,7 +37,7 @@ final class TrClasspathTest {
     @Test
     void simpleScenario() {
         MatcherAssert.assertThat(
-            new TrClasspath<>(new TrDefault<>())
+            new TrClasspath<>()
                 .with("add-brackets.xsl")
                 .back()
                 .with(new StEndless(new StClasspath("void.xsl"))),
@@ -49,7 +49,6 @@ final class TrClasspathTest {
     void withCtor() {
         MatcherAssert.assertThat(
             new TrClasspath<>(
-                new TrDefault<>(),
                 "add-brackets.xsl",
                 "add-id.xsl"
             ).back().with(new StEndless(new StClasspath("void.xsl"))),

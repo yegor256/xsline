@@ -45,6 +45,15 @@ public final class TrAfter implements Train<Shift> {
 
     /**
      * Ctor.
+     * @param fun The shift
+     * @since 0.18.0
+     */
+    public TrAfter(final Shift fun) {
+        this(new TrDefault<>(), fun);
+    }
+
+    /**
+     * Ctor.
      * @param train Original
      * @param fun The shift
      */

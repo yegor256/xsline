@@ -41,7 +41,6 @@ final class TrMappedTest {
         MatcherAssert.assertThat(
             new Xsline(
                 new TrMapped<>(
-                    new TrDefault<>(),
                     (Function<String, Shift>) StClasspath::new
                 ).with("add-brackets.xsl").back()
             ).pass(new XMLDocument("<x>hello</x>")),

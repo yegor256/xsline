@@ -49,6 +49,15 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
 
     /**
      * Ctor.
+     * @param fun Mapping function
+     * @since 0.18.0
+     */
+    public TrMapped(final Function<I, T> fun) {
+        this(new TrDefault<>(), fun);
+    }
+
+    /**
+     * Ctor.
      * @param train Original
      * @param fun Mapping function
      */

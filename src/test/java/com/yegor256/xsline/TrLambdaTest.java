@@ -88,7 +88,6 @@ final class TrLambdaTest {
     @Test
     void withListOfPostProcessing() {
         final Train<Shift> train = new TrLambda(
-            new TrDefault<>(),
             shift -> new StAfter(
                 shift,
                 new StLambda(
@@ -114,7 +113,7 @@ final class TrLambdaTest {
     void shouldReturnEmptyTrain() {
         MatcherAssert.assertThat(
             new TrLambda(
-                new TrDefault<>(), shift -> new StLambda(
+                shift -> new StLambda(
                     shift::uid,
                     (pos, xml) -> TrLambdaTest.ADD_ID.apply(0, xml)
                 )
@@ -129,7 +128,6 @@ final class TrLambdaTest {
             IllegalArgumentException.class,
             () -> new Xsline(
                 new TrLambda(
-                    new TrDefault<>(),
                     shift -> new StLambda(
                         (pos, xml) -> new StClasspath("not-found").apply(pos, xml)
                     )
@@ -140,7 +138,6 @@ final class TrLambdaTest {
             IllegalStateException.class,
             () -> new Xsline(
                 new TrLambda(
-                    new TrDefault<>(),
                     shift -> {
                         final BufferedReader inp = new BufferedReader(new StringReader("test"));
                         inp.close();

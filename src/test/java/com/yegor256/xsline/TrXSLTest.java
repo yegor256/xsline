@@ -42,7 +42,7 @@ final class TrXSLTest {
     @Test
     void testPipe() throws IOException {
         final XSL xsl = new XSLDocument(this.getClass().getResource("void.xsl"));
-        final Train<Shift> train = new TrXSL<>(new TrDefault<>())
+        final Train<Shift> train = new TrXSL<>()
             .with(xsl)
             .back();
         MatcherAssert.assertThat(train, Matchers.iterableWithSize(1));
@@ -53,7 +53,7 @@ final class TrXSLTest {
         final XSL xsl = new XSLDocument(this.getClass().getResource("add-brackets.xsl"));
         Assertions.assertThrows(
             UnsupportedOperationException.class,
-            () -> new TrXSL<>(new TrDefault<>())
+            () -> new TrXSL<>()
                 .with(xsl)
                 .iterator()
         );

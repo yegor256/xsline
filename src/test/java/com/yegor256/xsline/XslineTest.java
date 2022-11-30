@@ -44,7 +44,7 @@ final class XslineTest {
         final XSL xsl = new XSLDocument(
             this.getClass().getResource("add-brackets.xsl")
         );
-        final Train<Shift> train = new TrLogged(new TrDefault<>())
+        final Train<Shift> train = new TrLogged()
             .with(
                 new StEndless(
                     new XSLDocument(

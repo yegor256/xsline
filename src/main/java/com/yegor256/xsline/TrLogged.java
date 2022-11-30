@@ -36,6 +36,14 @@ public final class TrLogged extends TrEnvelope {
 
     /**
      * Ctor.
+     * @since 0.18.0
+     */
+    public TrLogged() {
+        this(new TrDefault<>());
+    }
+
+    /**
+     * Ctor.
      * @param train Original
      */
     public TrLogged(final Train<Shift> train) {
