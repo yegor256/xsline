@@ -40,8 +40,20 @@ final class TrJoinedTest {
         MatcherAssert.assertThat(
             new Xsline(
                 new TrJoined(
-                    new TrClasspath<>(new TrDefault<>()).with("void.xsl").back(),
-                    new TrClasspath<>(new TrDefault<>()).with("add-brackets.xsl").back()
+                    new TrClasspath<>("void.xsl").back(),
+                    new TrClasspath<>("add-brackets.xsl").back()
+                )
+            ).pass(new XMLDocument("<x>hello</x>")),
+            XhtmlMatchers.hasXPaths("/x[.='{hello}']")
+        );
+    }
+
+    @Test
+    void appendsToTheEnd() {
+        MatcherAssert.assertThat(
+            new Xsline(
+                new TrJoined(new TrClasspath<>("void.xsl").back()).with(
+                    new StClasspath("add-brackets.xsl")
                 )
             ).pass(new XMLDocument("<x>hello</x>")),
             XhtmlMatchers.hasXPaths("/x[.='{hello}']")

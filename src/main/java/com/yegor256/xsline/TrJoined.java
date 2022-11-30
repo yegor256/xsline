@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Train that consequently joins a number of trains.
@@ -65,13 +66,19 @@ public final class TrJoined implements Train<Shift> {
     }
 
     @Override
-    public Train<Shift> with(final Shift element) {
-        throw new UnsupportedOperationException(
-            String.format(
-                "%s is immutable, can't add any more shifts to it",
-                TrJoined.class.getName()
-            )
-        );
+    public Train<Shift> with(final Shift shift) {
+        final List<Train<Shift>> trains = new LinkedList<>();
+        for (final Train<Shift> train : this.chain) {
+            trains.add(train);
+        }
+        if (trains.isEmpty()) {
+            trains.add(new TrDefault<Shift>().with(shift));
+        } else {
+            final Train<Shift> last = trains.get(trains.size() - 1);
+            trains.remove(trains.size() - 1);
+            trains.add(last.with(shift));
+        }
+        return new TrJoined(trains);
     }
 
     @Override
