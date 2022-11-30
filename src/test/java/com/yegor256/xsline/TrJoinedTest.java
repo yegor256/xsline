@@ -39,7 +39,7 @@ final class TrJoinedTest {
     void iteratesOverTrains() {
         MatcherAssert.assertThat(
             new Xsline(
-                new TrJoined(
+                new TrJoined<>(
                     new TrClasspath<>("void.xsl").back(),
                     new TrClasspath<>("add-brackets.xsl").back()
                 )
@@ -52,7 +52,7 @@ final class TrJoinedTest {
     void appendsToTheEnd() {
         MatcherAssert.assertThat(
             new Xsline(
-                new TrJoined(new TrClasspath<>("void.xsl").back()).with(
+                new TrJoined<>(new TrClasspath<>("void.xsl").back()).with(
                     new StClasspath("add-brackets.xsl")
                 )
             ).pass(new XMLDocument("<x>hello</x>")),

@@ -39,21 +39,22 @@ import java.util.List;
  * their Shifts are retrieved, a new collection is built and its iterator
  * is returned.
  *
+ * @param <T> Type of elements
  * @since 0.16.0
  */
-public final class TrJoined implements Train<Shift> {
+public final class TrJoined<T> implements Train<T> {
 
     /**
      * The chain of trains.
      */
-    private final Iterable<Train<Shift>> chain;
+    private final Iterable<Train<T>> chain;
 
     /**
      * Ctor.
      * @param trains Chain of trains
      */
     @SafeVarargs
-    public TrJoined(final Train<Shift>... trains) {
+    public TrJoined(final Train<T>... trains) {
         this(Arrays.asList(trains));
     }
 
@@ -61,28 +62,28 @@ public final class TrJoined implements Train<Shift> {
      * Ctor.
      * @param trains Chain of trains
      */
-    public TrJoined(final Iterable<Train<Shift>> trains) {
+    public TrJoined(final Iterable<Train<T>> trains) {
         this.chain = trains;
     }
 
     @Override
-    public Train<Shift> with(final Shift shift) {
-        final List<Train<Shift>> trains = new LinkedList<>();
-        for (final Train<Shift> train : this.chain) {
+    public Train<T> with(final T shift) {
+        final List<Train<T>> trains = new LinkedList<>();
+        for (final Train<T> train : this.chain) {
             trains.add(train);
         }
         if (trains.isEmpty()) {
-            trains.add(new TrDefault<Shift>().with(shift));
+            trains.add(new TrDefault<T>().with(shift));
         } else {
-            final Train<Shift> last = trains.get(trains.size() - 1);
+            final Train<T> last = trains.get(trains.size() - 1);
             trains.remove(trains.size() - 1);
             trains.add(last.with(shift));
         }
-        return new TrJoined(trains);
+        return new TrJoined<T>(trains);
     }
 
     @Override
-    public Train<Shift> empty() {
+    public Train<T> empty() {
         throw new UnsupportedOperationException(
             String.format(
                 "%s is immutable, can't empty it",
@@ -92,10 +93,10 @@ public final class TrJoined implements Train<Shift> {
     }
 
     @Override
-    public Iterator<Shift> iterator() {
-        final Collection<Shift> shifts = new LinkedList<>();
-        for (final Train<Shift> train : this.chain) {
-            for (final Shift shift : train) {
+    public Iterator<T> iterator() {
+        final Collection<T> shifts = new LinkedList<>();
+        for (final Train<T> train : this.chain) {
+            for (final T shift : train) {
                 shifts.add(shift);
             }
         }
