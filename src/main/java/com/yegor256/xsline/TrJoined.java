@@ -79,17 +79,16 @@ public final class TrJoined<T> implements Train<T> {
             trains.remove(trains.size() - 1);
             trains.add(last.with(shift));
         }
-        return new TrJoined<T>(trains);
+        return new TrJoined<>(trains);
     }
 
     @Override
     public Train<T> empty() {
-        throw new UnsupportedOperationException(
-            String.format(
-                "%s is immutable, can't empty it",
-                TrJoined.class.getName()
-            )
-        );
+        final List<Train<T>> trains = new LinkedList<>();
+        for (final Train<T> train : this.chain) {
+            trains.add(train.empty());
+        }
+        return new TrJoined<>(trains);
     }
 
     @Override

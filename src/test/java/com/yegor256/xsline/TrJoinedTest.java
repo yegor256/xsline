@@ -60,4 +60,16 @@ final class TrJoinedTest {
         );
     }
 
+    @Test
+    void cleansTheChain() {
+        MatcherAssert.assertThat(
+            new Xsline(
+                new TrJoined<>(new TrClasspath<>("void.xsl").back()).empty().with(
+                    new StClasspath("add-brackets.xsl")
+                )
+            ).pass(new XMLDocument("<x>boom</x>")),
+            XhtmlMatchers.hasXPaths("/x[.='{boom}']")
+        );
+    }
+
 }
