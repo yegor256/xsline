@@ -25,6 +25,7 @@ package com.yegor256.xsline;
 
 import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
+import java.util.logging.Level;
 
 /**
  * A shift that logs the process through Slf4j.
@@ -52,6 +53,11 @@ public final class StLogged implements Shift {
     private final Object target;
 
     /**
+     * Logging level.
+     */
+    private final Level level;
+
+    /**
      * Ctor.
      * @param shift The shift
      */
@@ -66,8 +72,20 @@ public final class StLogged implements Shift {
      * @since 0.7.0
      */
     public StLogged(final Shift shift, final Object tgt) {
+        this(shift, tgt, Level.INFO);
+    }
+
+    /**
+     * Ctor.
+     * @param shift The shift
+     * @param tgt The target to log against
+     * @param lvl The logging level
+     * @since 0.19.0
+     */
+    public StLogged(final Shift shift, final Object tgt, final Level lvl) {
         this.origin = shift;
         this.target = tgt;
+        this.level = lvl;
     }
 
     @Override
@@ -80,7 +98,7 @@ public final class StLogged implements Shift {
     public XML apply(final int position, final XML xml) {
         final XML out;
         try {
-            if (Logger.isDebugEnabled(this.target)) {
+            if (Logger.isEnabled(this.level, this.target)) {
                 final String before = xml.toString();
                 out = this.origin.apply(position, xml);
                 final String after = out.toString();
@@ -91,7 +109,8 @@ public final class StLogged implements Shift {
                         position, this.uid()
                     );
                 } else {
-                    Logger.debug(
+                    Logger.log(
+                        this.level,
                         this.target,
                         "Shift #%d via '%s' produced (%d->%d chars):\n%s<EOF>",
                         position,

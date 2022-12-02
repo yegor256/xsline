@@ -23,6 +23,8 @@
  */
 package com.yegor256.xsline;
 
+import java.util.logging.Level;
+
 /**
  * Train that logs all shifts.
  *
@@ -57,11 +59,24 @@ public final class TrLogged extends TrEnvelope {
      * @since 0.7.0
      */
     public TrLogged(final Train<Shift> train, final Object target) {
+        this(train, target, Level.INFO);
+    }
+
+    /**
+     * Ctor.
+     * @param train Original
+     * @param target The target
+     * @param level Logging level
+     * @since 0.19.0
+     */
+    public TrLogged(final Train<Shift> train, final Object target,
+        final Level level) {
         super(
             new TrLambda(
                 train,
-                x -> new StLogged(x, target)
+                x -> new StLogged(x, target, level)
             )
         );
     }
+
 }
