@@ -59,6 +59,10 @@ public final class StLogged implements Shift {
 
     /**
      * Ctor.
+     *
+     * <p>The logging target is this class itself.
+     * The logging level is {@code INFO} from {@link Level} enum.</p>
+     *
      * @param shift The shift
      */
     public StLogged(final Shift shift) {
@@ -67,6 +71,9 @@ public final class StLogged implements Shift {
 
     /**
      * Ctor.
+     *
+     * <p>The logging level is {@code INFO} from {@link Level} enum.</p>
+     *
      * @param shift The shift
      * @param tgt The target to log against
      * @since 0.7.0
