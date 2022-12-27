@@ -24,7 +24,6 @@
 package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
-import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
@@ -39,41 +38,34 @@ final class StSequenceTest {
 
     @Test
     void shouldStopPipeline() {
-        final Train<Shift> train = new TrDefault<Shift>().with(
-            new StSequence(
-                xml -> xml.nodes("/x[text()='{{{hello}}}']").isEmpty(),
-                new TrClasspath<>()
-                    .with("add-brackets.xsl")
-                    .with("add-brackets.xsl")
-                    .with("add-brackets.xsl")
-                    .with("add-brackets.xsl")
-                    .with("add-brackets.xsl")
-                    .back()
-            )
-        );
-        final XML output = new Xsline(train).pass(new XMLDocument("<x>hello</x>"));
         MatcherAssert.assertThat(
-            output,
+            new Xsline(
+                new StSequence(
+                    xml -> xml.nodes("/x[text()='{{{hello}}}']").isEmpty(),
+                    new TrClasspath<>()
+                        .with("add-brackets.xsl")
+                        .with("add-brackets.xsl")
+                        .with("add-brackets.xsl")
+                        .with("add-brackets.xsl")
+                        .with("add-brackets.xsl")
+                        .back()
+                )
+            ).pass(new XMLDocument("<x>hello</x>")),
             XhtmlMatchers.hasXPaths("/x[text()='{{{hello}}}']")
         );
     }
 
     @Test
     void processesTrainAsShift() {
-        final Train<Shift> train = new TrWith(
-            new TrDefault<>(),
-            new StSequence(
-                new TrWith(
-                    new TrDefault<>(),
-                    new StClasspath("add-brackets.xsl")
-                )
-            )
-        );
-        final XML output = new Xsline(train).pass(
-            new XMLDocument("<x>hello</x>")
-        );
         MatcherAssert.assertThat(
-            output,
+            new Xsline(
+                new StSequence(
+                    new TrWith(
+                        new TrDefault<>(),
+                        new StClasspath("add-brackets.xsl")
+                    )
+                )
+            ).pass(new XMLDocument("<x>hello</x>")),
             XhtmlMatchers.hasXPaths("/x[.='{hello}']")
         );
     }
