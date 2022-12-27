@@ -40,10 +40,7 @@ final class StSchemaTest {
     void validatesAgainstSchema() {
         MatcherAssert.assertThat(
             new Xsline(
-                new TrWith(
-                    new TrDefault<>(),
-                    new StSchema("/com/yegor256/xsline/simple.xsd")
-                )
+                new StSchema("/com/yegor256/xsline/simple.xsd")
             ).pass(new XMLDocument("<foo>42</foo>")),
             XhtmlMatchers.hasXPaths("/foo")
         );
@@ -54,10 +51,7 @@ final class StSchemaTest {
         Assertions.assertThrows(
             IllegalStateException.class,
             () -> new Xsline(
-                new TrWith(
-                    new TrDefault<>(),
-                    new StSchema("/com/yegor256/xsline/simple.xsd")
-                )
+                new StSchema("/com/yegor256/xsline/simple.xsd")
             ).pass(new XMLDocument("<bar/>"))
         );
     }
