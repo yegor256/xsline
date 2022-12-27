@@ -25,6 +25,7 @@ package com.yegor256.xsline;
 
 import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
+import java.util.Collections;
 
 /**
  * Chain of XSL transformations.
@@ -50,6 +51,15 @@ public final class Xsline {
      * Collection of shifts.
      */
     private final Iterable<Shift> shifts;
+
+    /**
+     * Ctor.
+     * @param shift One shift to use
+     * @since 0.20.0
+     */
+    public Xsline(final Shift shift) {
+        this(Collections.singletonList(shift));
+    }
 
     /**
      * Ctor.
