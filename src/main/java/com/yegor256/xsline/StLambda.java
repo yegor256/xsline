@@ -47,14 +47,14 @@ public final class StLambda implements Shift {
     /**
      * The function.
      */
-    private final BiFuncChecked<Integer, XML, XML> lambda;
+    private final BiFunctionChecked<Integer, XML, XML> lambda;
 
     /**
      * Ctor.
      * @param fun The function
      * @since 0.13.0
      */
-    public StLambda(final FuncChecked<XML, XML> fun) {
+    public StLambda(final FunctionChecked<XML, XML> fun) {
         this((integer, xml) -> fun.apply(xml));
     }
 
@@ -64,7 +64,7 @@ public final class StLambda implements Shift {
      * @param fun The function
      * @since 0.13.0
      */
-    public StLambda(final String uid, final FuncChecked<XML, XML> fun) {
+    public StLambda(final String uid, final FunctionChecked<XML, XML> fun) {
         this(uid, (integer, xml) -> fun.apply(xml));
     }
 
@@ -72,7 +72,7 @@ public final class StLambda implements Shift {
      * Ctor.
      * @param fun The function
      */
-    public StLambda(final BiFuncChecked<Integer, XML, XML> fun) {
+    public StLambda(final BiFunctionChecked<Integer, XML, XML> fun) {
         this(
             new Supplier<String>() {
                 @Override
@@ -89,7 +89,7 @@ public final class StLambda implements Shift {
      * @param uid The ID
      * @param fun The function
      */
-    public StLambda(final String uid, final BiFuncChecked<Integer, XML, XML> fun) {
+    public StLambda(final String uid, final BiFunctionChecked<Integer, XML, XML> fun) {
         this(() -> uid, fun);
     }
 
@@ -98,7 +98,7 @@ public final class StLambda implements Shift {
      * @param uid The ID
      * @param fun The function
      */
-    public StLambda(final Supplier<String> uid, final BiFuncChecked<Integer, XML, XML> fun) {
+    public StLambda(final Supplier<String> uid, final BiFunctionChecked<Integer, XML, XML> fun) {
         this.name = uid;
         this.lambda = fun;
     }

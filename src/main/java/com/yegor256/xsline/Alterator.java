@@ -42,14 +42,14 @@ final class Alterator<T> implements Iterator<T> {
     /**
      * The function.
      */
-    private final FuncChecked<T, T> lambda;
+    private final FunctionChecked<T, T> lambda;
 
     /**
      * Ctor.
      * @param iterator Original
      * @param fun The function
      */
-    Alterator(final Iterator<T> iterator, final FuncChecked<T, T> fun) {
+    Alterator(final Iterator<T> iterator, final FunctionChecked<T, T> fun) {
         this.origin = iterator;
         this.lambda = fun;
     }

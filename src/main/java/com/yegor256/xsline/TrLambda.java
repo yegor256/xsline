@@ -45,14 +45,14 @@ public final class TrLambda implements Train<Shift> {
     /**
      * The function.
      */
-    private final FuncChecked<Shift, Shift> lambda;
+    private final FunctionChecked<Shift, Shift> lambda;
 
     /**
      * Ctor.
      * @param fun The function
      * @since 0.18.0
      */
-    public TrLambda(final FuncChecked<Shift, Shift> fun) {
+    public TrLambda(final FunctionChecked<Shift, Shift> fun) {
         this(new TrDefault<>(), fun);
     }
 
@@ -61,7 +61,7 @@ public final class TrLambda implements Train<Shift> {
      * @param train Original
      * @param fun The function
      */
-    public TrLambda(final Train<Shift> train, final FuncChecked<Shift, Shift> fun) {
+    public TrLambda(final Train<Shift> train, final FunctionChecked<Shift, Shift> fun) {
         this.origin = train;
         this.lambda = fun;
     }

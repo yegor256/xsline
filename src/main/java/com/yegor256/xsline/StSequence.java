@@ -90,7 +90,8 @@ public final class StSequence extends StEnvelope {
      * @param fun The predicate
      * @param shifts Shifts to apply
      */
-    public StSequence(final FuncChecked<XML, Boolean> fun, final Shift... shifts) {
+    public StSequence(final FunctionChecked<XML, Boolean> fun,
+        final Shift... shifts) {
         this(
             fun,
             new TrBulk<>(
@@ -106,7 +107,8 @@ public final class StSequence extends StEnvelope {
      * @param fun The predicate
      * @param shifts Shifts to apply
      */
-    public StSequence(final String uid, final FuncChecked<XML, Boolean> fun,
+    public StSequence(final String uid,
+        final FunctionChecked<XML, Boolean> fun,
         final Shift... shifts) {
         this(
             uid,
@@ -123,7 +125,8 @@ public final class StSequence extends StEnvelope {
      * @param fun The predicate
      * @param train The train
      */
-    public StSequence(final FuncChecked<XML, Boolean> fun, final Iterable<Shift> train) {
+    public StSequence(final FunctionChecked<XML, Boolean> fun,
+        final Iterable<Shift> train) {
         super(
             new StLambda(
                 StSequence.apply(fun, train)
@@ -137,7 +140,8 @@ public final class StSequence extends StEnvelope {
      * @param fun The predicate
      * @param train The train
      */
-    public StSequence(final String uid, final FuncChecked<XML, Boolean> fun,
+    public StSequence(final String uid,
+        final FunctionChecked<XML, Boolean> fun,
         final Iterable<Shift> train) {
         super(
             new StLambda(
@@ -153,7 +157,8 @@ public final class StSequence extends StEnvelope {
      * @param train The train
      * @return BiFunction that sets behavior for {@link StLambda}
      */
-    private static BiFuncChecked<Integer, XML, XML> apply(final FuncChecked<XML, Boolean> fun,
+    private static BiFunctionChecked<Integer, XML, XML> apply(
+        final FunctionChecked<XML, Boolean> fun,
         final Iterable<Shift> train) {
         return (position, xml) -> {
             int pos = 0;

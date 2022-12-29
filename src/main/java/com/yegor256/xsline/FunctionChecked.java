@@ -24,24 +24,23 @@
 package com.yegor256.xsline;
 
 /**
- * Function that accepts two arguments.
- * Same as {@link java.util.function.BiFunction}, but throws
+ * Function that accepts one argument.
+ *
+ * Same as {@link java.util.function.Function}, but throws
  * an Exception.
  *
  * @param <X> Type of input
  * @param <Y> Type of input
- * @param <Z> Type of input
- * @since 0.13.0
+ * @since 0.21.0
  */
 @FunctionalInterface
-public interface BiFuncChecked<X, Y, Z> {
+public interface FunctionChecked<X, Y> {
 
     /**
      * Apply it.
-     * @param first The first argument
-     * @param second The second argument
+     * @param input The argument
      * @return The result
      * @throws Exception If fails
      */
-    Z apply(X first, Y second) throws Exception;
+    Y apply(X input) throws Exception;
 }
