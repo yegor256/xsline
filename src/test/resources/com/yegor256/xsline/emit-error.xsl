@@ -22,19 +22,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" id="add-param" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" id="emit-error" version="2.0">
   <!--
-  Adds $param as @param attribute to all nodes.
+  Doesn't transform, but only emits a fatal error.
   -->
   <xsl:strip-space elements="*"/>
-  <xsl:param name="param"/>
   <xsl:template match="node()" priority="1">
-    <xsl:copy>
-      <xsl:attribute name="param">
-        <xsl:value-of select="$param"/>
-      </xsl:attribute>
-      <xsl:value-of select="."/>
-    </xsl:copy>
+    <xsl:message terminate="yes">
+      <xsl:text>oopsie...</xsl:text>
+    </xsl:message>
   </xsl:template>
   <xsl:template match="node()|@*">
     <xsl:copy>

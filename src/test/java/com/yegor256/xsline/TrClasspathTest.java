@@ -23,8 +23,10 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.xml.XMLDocument;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -56,4 +58,16 @@ final class TrClasspathTest {
         );
     }
 
+    @Test
+    void emitsXslError() {
+        MatcherAssert.assertThat(
+            Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> new Xsline(new TrClasspath<>("emit-error.xsl").back()).pass(
+                    new XMLDocument("<x>hello</x>")
+                )
+            ).getMessage(),
+            Matchers.containsString("terminated by xsl:message at line 32 in emit-error.xsl")
+        );
+    }
 }
