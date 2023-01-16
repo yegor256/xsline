@@ -70,4 +70,21 @@ final class TrClasspathTest {
             Matchers.containsString("terminated by xsl:message at line 32 in emit-error.xsl")
         );
     }
+
+    @Test
+    void emitsXslErrorWhenDefault() {
+        MatcherAssert.assertThat(
+            Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> new Xsline(
+                    new TrClasspath<>(
+                        new TrDefault<>(),
+                        "add-id.xsl",
+                        "emit-error.xsl"
+                    ).back()
+                ).pass(new XMLDocument("<bar/>"))
+            ).getMessage(),
+            Matchers.containsString("by xsl:message at line 32 in emit-error.xsl")
+        );
+    }
 }
