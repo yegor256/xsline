@@ -34,6 +34,14 @@ public final class StFailure extends StEnvelope {
 
     /**
      * Ctor.
+     * @since 0.21.1
+     */
+    public StFailure() {
+        this("Intentional failure");
+    }
+
+    /**
+     * Ctor.
      * @param msg The message to throw
      */
     public StFailure(final String msg) {
