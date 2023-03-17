@@ -110,7 +110,8 @@ public final class StLogged implements Shift {
                 out = this.origin.apply(position, xml);
                 final String after = out.toString();
                 if (before.equals(after)) {
-                    Logger.debug(
+                    Logger.log(
+                        this.level,
                         this.target,
                         "Shift #%d via '%s' made no changes",
                         position, this.uid()
