@@ -25,7 +25,9 @@ package com.yegor256.xsline;
 
 import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 
 /**
  * Chain of XSL transformations.
@@ -78,14 +80,17 @@ public final class Xsline {
         final long start = System.currentTimeMillis();
         XML output = input;
         int pos = 0;
+        final Collection<String> ids = new LinkedList<>();
         for (final Shift shift : this.shifts) {
             output = shift.apply(pos, output);
             ++pos;
+            ids.add(shift.uid());
         }
         if (Logger.isDebugEnabled(this)) {
             Logger.debug(
-                this, "Transformed XML through %d shift(s) in %[ms]s",
-                pos, System.currentTimeMillis() - start
+                this, "Transformed XML through %d shift(s) in %[ms]s: %s",
+                pos, System.currentTimeMillis() - start,
+                String.join(", ", ids)
             );
         }
         return output;
