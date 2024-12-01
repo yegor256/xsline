@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 ---
-name: pdd
-on:
+name: yamllint
+'on':
   push:
     branches:
       - master
@@ -29,8 +29,8 @@ on:
     branches:
       - master
 jobs:
-  pdd:
+  yamllint:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: volodya-lombrozo/pdd-action@master
+      - uses: ibiqlik/action-yamllint@v3

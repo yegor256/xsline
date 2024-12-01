@@ -20,17 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 ---
-name: pdd
-on:
+name: markdown-lint
+'on':
   push:
     branches:
       - master
   pull_request:
     branches:
       - master
+    paths-ignore: ['paper/**', 'sandbox/**']
+concurrency:
+  group: markdown-lint-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  pdd:
+  markdown-lint:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: volodya-lombrozo/pdd-action@master
+      - uses: articulate/actions-markdownlint@v1
