@@ -24,15 +24,13 @@
 package com.yegor256.xsline;
 
 import com.jcabi.xml.XML;
-import com.jcabi.xml.XSD;
-import com.jcabi.xml.XSDDocument;
+import com.jcabi.xml.XMLDocument;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.xml.transform.dom.DOMSource;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -44,6 +42,13 @@ import org.xml.sax.SAXParseException;
  * @since 0.10.0
  */
 public final class StSchema extends StEnvelope {
+
+    /**
+     * Ctor.
+     */
+    public StSchema() {
+        this((XML) null);
+    }
 
     /**
      * Ctor.
@@ -59,14 +64,14 @@ public final class StSchema extends StEnvelope {
      * @throws FileNotFoundException If file not found
      */
     public StSchema(final Path path) throws FileNotFoundException {
-        this(new XSDDocument(path));
+        this(new XMLDocument(path));
     }
 
     /**
      * Ctor.
      * @param schema The schema
      */
-    public StSchema(final XSD schema) {
+    public StSchema(final XML schema) {
         super(
             new StLambda(
                 "xsd-schema",
@@ -81,9 +86,13 @@ public final class StSchema extends StEnvelope {
      * @param xml The XML
      * @return The same XML
      */
-    private static XML validate(final XSD schema, final XML xml) {
-        final Collection<SAXParseException> violations =
-            schema.validate(new DOMSource(xml.node()));
+    private static XML validate(final XML schema, final XML xml) {
+        final Collection<SAXParseException> violations;
+        if (schema == null) {
+            violations = xml.validate();
+        } else {
+            violations = xml.validate(schema);
+        }
         if (!violations.isEmpty()) {
             final Collection<String> msgs = new ArrayList<>(violations.size());
             for (final SAXParseException violation : violations) {
@@ -112,7 +121,7 @@ public final class StSchema extends StEnvelope {
      * @param path Path in classpath
      * @return XSD
      */
-    private static XSD make(final String path) {
+    private static XML make(final String path) {
         final URL url = StClasspath.class.getResource(path);
         if (url == null) {
             throw new IllegalArgumentException(
@@ -122,7 +131,7 @@ public final class StSchema extends StEnvelope {
             );
         }
         try {
-            return new XSDDocument(url);
+            return new XMLDocument(url);
         } catch (final IOException ex) {
             throw new IllegalStateException(
                 String.format("Failed to read '%s' from classpath", path),
