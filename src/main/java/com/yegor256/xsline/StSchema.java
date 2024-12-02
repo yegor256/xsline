@@ -109,7 +109,7 @@ public final class StSchema extends StEnvelope {
             if (Logger.isDebugEnabled(StSchema.class)) {
                 Logger.debug(
                     StSchema.class,
-                    "There are %d XSD violation(s) in this XML (%[list]s):%n%s",
+                    "There are %d XSD violation(s) in this XML %[list]s:%n%s",
                     violations.size(), msgs,
                     xml
                 );
