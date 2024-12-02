@@ -67,7 +67,7 @@ final class TrClasspathTest {
                     new XMLDocument("<x>hello</x>")
                 )
             ).getMessage(),
-            Matchers.containsString("terminated by xsl:message at line 32 in emit-error.xsl")
+            Matchers.containsString("terminated by xsl:message at line 31 in emit-error.xsl")
         );
     }
 
@@ -84,7 +84,7 @@ final class TrClasspathTest {
                     ).back()
                 ).pass(new XMLDocument("<bar/>"))
             ).getMessage(),
-            Matchers.containsString("by xsl:message at line 32 in emit-error.xsl")
+            Matchers.containsString("by xsl:message at line 31 in emit-error.xsl")
         );
     }
 }

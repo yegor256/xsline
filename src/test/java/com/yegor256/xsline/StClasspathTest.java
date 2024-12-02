@@ -64,7 +64,7 @@ final class StClasspathTest {
                     0, new XMLDocument("<x>hello</x>")
                 )
             ).getMessage(),
-            Matchers.containsString("terminated by xsl:message at line 32 in emit-error.xsl")
+            Matchers.containsString("terminated by xsl:message at line 31 in emit-error.xsl")
         );
     }
 }
