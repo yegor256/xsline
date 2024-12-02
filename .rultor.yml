@@ -37,6 +37,4 @@ release:
     mvn versions:set "-DnewVersion=${tag}" -Dstyle.color=never
     git commit -am "${tag}"
     export MAVEN_OPTS="--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
-    mvn --batch-mode verify -Pjacoco -Dinvoker.skip
-    mvn --batch-mode verify -Psonar -Dinvoker.skip -Dsonar.qualitygate.wait=true
     mvn clean deploy -Pxsline -Psonatype --errors --settings ../settings.xml -Dstyle.color=never

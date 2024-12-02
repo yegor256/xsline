@@ -28,6 +28,9 @@ on:
 jobs:
   sonar:
     runs-on: ubuntu-24.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -46,7 +49,5 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn --batch-mode verify -Pjacoco -Dinvoker.skip && mvn --batch-mode verify -Psonar -Dinvoker.skip -Dsonar.qualitygate.wait=true
+        run: mvn --batch-mode verify -Pjacoco -Dinvoker.skip
+        run: mvn --batch-mode verify -Psonar -Dinvoker.skip -Dsonar.qualitygate.wait=true
