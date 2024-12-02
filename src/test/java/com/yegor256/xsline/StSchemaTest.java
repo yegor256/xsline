@@ -31,9 +31,6 @@ import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 /**
  * Test case for {@link StSchema}.
@@ -63,31 +60,7 @@ final class StSchemaTest {
     }
 
     @Test
-    @DisabledOnOs(OS.WINDOWS)
     void validatesWithoutSchema() {
-        final Path xsd = Paths.get("src/test/resources/com/yegor256/xsline/simple.xsd");
-        Assumptions.assumeTrue(xsd.toFile().exists());
-        MatcherAssert.assertThat(
-            new Xsline(new StSchema()).pass(
-                new XMLDocument(
-                    String.join(
-                        "",
-                        "<foo xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' ",
-                        String.format(
-                            "xsi:noNamespaceSchemaLocation='file://%s'>",
-                            xsd.toFile().getAbsoluteFile()
-                        ),
-                        "42</foo>"
-                    )
-                )
-            ),
-            XhtmlMatchers.hasXPaths("/foo")
-        );
-    }
-
-    @Test
-    @EnabledOnOs(OS.WINDOWS)
-    void validatesWithoutSchemaOnWindows() {
         final Path xsd = Paths.get("src/test/resources/com/yegor256/xsline/simple.xsd");
         Assumptions.assumeTrue(xsd.toFile().exists());
         MatcherAssert.assertThat(
