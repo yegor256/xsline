@@ -20,17 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 ---
-name: xcop
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-jobs:
-  xcop:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: g4s8/xcop-action@master
+extends: default
+rules:
+  line-length: disable
+  brackets:
+    min-spaces-inside: 1
+    max-spaces-inside: 2
+  truthy:
+    level: warning
+    allowed-values: [ 'on', 'true', 'false', 'yes', 'no' ]
