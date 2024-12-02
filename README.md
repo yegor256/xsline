@@ -21,13 +21,13 @@ Read this blog post too:
 Also, watch [this video](https://www.youtube.com/watch?v=C6CQWzOKEJs)
 from Object Thinking Meetup #7.
 
-It's a declarative and immutable chain of XSL transformations in Java, 
-which is more convenient than an imperative routine application 
-of transformations one by one. [EO compiler](https://github.com/objectionary/eo) 
+It's a declarative and immutable chain of XSL transformations in Java,
+which is more convenient than an imperative routine application
+of transformations one by one. [EO compiler](https://github.com/objectionary/eo)
 is an example use case: the source code compiles to XML and then has
 to go through a few dozen transformations written in XSL. Each transformation
 has to be logged, validated, and in general be flexibly configurable. We started
-with a series of consecutive instantiations and executions of 
+with a series of consecutive instantiations and executions of
 [`XSLDocument`][XSLDocument],
 but then realized the necessity to turn this workflow into something more
 object-oriented. This is how this library was born.
