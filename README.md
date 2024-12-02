@@ -6,12 +6,10 @@
 
 [![mvn](https://github.com/yegor256/xsline/actions/workflows/mvn.yml/badge.svg)](https://github.com/yegor256/xsline/actions/workflows/mvn.yml)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/xsline)](http://www.0pdd.com/p?name=yegor256/xsline)
-[![Maintainability](https://api.codeclimate.com/v1/badges/742bde48ea6fabdba1ce/maintainability)](https://codeclimate.com/github/yegor256/xsline/maintainability)
 [![Maven Central](https://img.shields.io/maven-central/v/com.yegor256/xsline.svg)](https://maven-badges.herokuapp.com/maven-central/com.yegor256/xsline)
 [![Javadoc](http://www.javadoc.io/badge/com.yegor256/xsline.svg)](http://www.javadoc.io/doc/com.yegor256/xsline)
 [![codecov](https://codecov.io/gh/yegor256/xsline/branch/master/graph/badge.svg)](https://codecov.io/gh/yegor256/xsline)
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/xsline)](https://hitsofcode.com/view/github/yegor256/xsline)
-![Lines of code](https://img.shields.io/tokei/lines/github/yegor256/xsline)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/xsline/blob/master/LICENSE.txt)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=yegor256_xsline&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=yegor256_xsline)
 
