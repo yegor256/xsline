@@ -97,19 +97,7 @@ public final class StSchema extends StEnvelope {
         if (!violations.isEmpty()) {
             final Collection<String> msgs = new ArrayList<>(violations.size());
             for (final SAXParseException violation : violations) {
-                final StringBuilder msg = new StringBuilder()
-                    .append('#')
-                    .append(violation.getLineNumber())
-                    .append(':')
-                    .append(violation.getColumnNumber())
-                    .append(' ')
-                    .append(violation.getLocalizedMessage());
-                if (violation.getException() != null) {
-                    msg.append(" (")
-                        .append(violation.getException().getClass().getSimpleName())
-                        .append(')');
-                }
-                msgs.add(msg.toString());
+                msgs.add(StSchema.asMessage(violation));
             }
             if (Logger.isDebugEnabled(StSchema.class)) {
                 Logger.debug(
@@ -128,6 +116,29 @@ public final class StSchema extends StEnvelope {
             );
         }
         return xml;
+    }
+
+    /**
+     * Turn violation into a message.
+     * @param violation The violation
+     * @return The message
+     */
+    private static String asMessage(final SAXParseException violation) {
+        final StringBuilder msg = new StringBuilder(100);
+        if (violation.getLineNumber() >= 0) {
+            msg.append('#').append(violation.getLineNumber());
+            if (violation.getColumnNumber() >= 0) {
+                msg.append(':').append(violation.getColumnNumber());
+            }
+            msg.append(' ');
+        }
+        msg.append(violation.getLocalizedMessage());
+        if (violation.getException() != null) {
+            msg.append(" (")
+                .append(violation.getException().getClass().getSimpleName())
+                .append(')');
+        }
+        return msg.toString();
     }
 
     /**
