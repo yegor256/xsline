@@ -49,5 +49,5 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-        run: mvn --batch-mode verify -Pjacoco -Dinvoker.skip
-        run: mvn --batch-mode verify -Psonar -Dinvoker.skip -Dsonar.qualitygate.wait=true
+      - run: mvn --batch-mode verify -Pjacoco -Dinvoker.skip
+      - run: mvn --batch-mode verify -Psonar -Dinvoker.skip -Dsonar.qualitygate.wait=true
