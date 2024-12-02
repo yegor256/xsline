@@ -97,14 +97,19 @@ public final class StSchema extends StEnvelope {
         if (!violations.isEmpty()) {
             final Collection<String> msgs = new ArrayList<>(violations.size());
             for (final SAXParseException violation : violations) {
-                msgs.add(
-                    String.format(
-                        "#%d:%d %s",
-                        violation.getLineNumber(),
-                        violation.getColumnNumber(),
-                        violation.getLocalizedMessage()
-                    )
-                );
+                final StringBuilder msg = new StringBuilder()
+                    .append('#')
+                    .append(violation.getLineNumber())
+                    .append(':')
+                    .append(violation.getColumnNumber())
+                    .append(' ')
+                    .append(violation.getLocalizedMessage());
+                if (violation.getException() != null) {
+                    msg.append(" (")
+                        .append(violation.getException().getClass().getSimpleName())
+                        .append(')');
+                }
+                msgs.add(msg.toString());
             }
             if (Logger.isDebugEnabled(StSchema.class)) {
                 Logger.debug(
