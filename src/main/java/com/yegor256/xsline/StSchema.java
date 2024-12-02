@@ -40,6 +40,13 @@ import org.xml.sax.SAXParseException;
  * <p>If you want to validate XML documents after each shift in your
  * train, you can use {@link TrAfter} in combination with {@link StSchema}.</p>
  *
+ * <p>If the location of the XSD schema is embedded into the XML document
+ * itself, either with the help of the {@code xsi:schemaLocation} attribute
+ * or the {@code xsi:noNamespaceSchemaLocation} attribute, you can use
+ * {@link StSchema} constructor without any arguments. If this constructor
+ * is used but the XML document doesn't contain any schema location hints,
+ * a runtime exception will be thrown.</p>
+ *
  * @since 0.10.0
  */
 public final class StSchema extends StEnvelope {
@@ -102,8 +109,8 @@ public final class StSchema extends StEnvelope {
             if (Logger.isDebugEnabled(StSchema.class)) {
                 Logger.debug(
                     StSchema.class,
-                    "There are %d XSD violation(s) in this XML:%n%s",
-                    violations.size(),
+                    "There are %d XSD violation(s) in this XML (%[list]s):%n%s",
+                    violations.size(), msgs,
                     xml
                 );
             }
