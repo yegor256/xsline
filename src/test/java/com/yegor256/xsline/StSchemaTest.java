@@ -31,8 +31,6 @@ import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 /**
  * Test case for {@link StSchema}.
@@ -62,7 +60,6 @@ final class StSchemaTest {
     }
 
     @Test
-    @DisabledOnOs(OS.WINDOWS)
     void validatesWithoutSchema() {
         final Path xsd = Paths.get("src/test/resources/com/yegor256/xsline/simple.xsd");
         Assumptions.assumeTrue(xsd.toFile().exists());
