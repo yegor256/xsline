@@ -63,6 +63,9 @@ XML output = new Xsline(train).pass(input);
 This will transform your `input` XML document
 through two XSL stylesheets.
 
+We use this library in
+[EO-to-Java compiler](https://github.com/objectionary/eo).
+
 ## How to Contribute
 
 Fork repository, make changes, send us a

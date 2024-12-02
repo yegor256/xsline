@@ -23,6 +23,7 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import java.io.FileNotFoundException;
@@ -103,6 +104,14 @@ public final class StSchema extends StEnvelope {
                         violation.getColumnNumber(),
                         violation.getLocalizedMessage()
                     )
+                );
+            }
+            if (Logger.isDebugEnabled(StSchema.class)) {
+                Logger.debug(
+                    StSchema.class,
+                    "There are %d XSD violation(s) in this XML:%n%s",
+                    violations.size(),
+                    xml
                 );
             }
             throw new IllegalStateException(
