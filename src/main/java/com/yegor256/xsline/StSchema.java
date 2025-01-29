@@ -24,6 +24,7 @@
 package com.yegor256.xsline;
 
 import com.jcabi.log.Logger;
+import com.jcabi.xml.ClasspathResolver;
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import java.io.FileNotFoundException;
@@ -32,7 +33,6 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
 import org.xml.sax.SAXParseException;
 
@@ -103,7 +103,7 @@ public final class StSchema extends StEnvelope {
     private static XML validate(final XML schema, final XML xml) {
         final Collection<SAXParseException> violations;
         if (Objects.isNull(schema)) {
-            violations = Collections.emptyList();
+            violations = xml.validate(new ClasspathResolver());
         } else {
             violations = xml.validate(schema);
         }
