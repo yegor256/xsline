@@ -32,6 +32,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 import org.xml.sax.SAXParseException;
 
@@ -61,6 +62,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param path The path of XSD document in classpath
      */
     public StSchema(final String path) {
@@ -69,8 +71,9 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param path The path of XSD document
-     * @throws FileNotFoundException If file not found
+     * @throws FileNotFoundException If file isn't found
      */
     public StSchema(final Path path) throws FileNotFoundException {
         this(new XMLDocument(path));
@@ -78,6 +81,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param schema The schema
      */
     public StSchema(final XML schema) {
@@ -91,40 +95,45 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Validate it.
+     *
      * @param schema The schema
      * @param xml The XML
      * @return The same XML
      */
     private static XML validate(final XML schema, final XML xml) {
-        if(Objects.nonNull(schema)) {
-            final Collection<SAXParseException> violations = xml.validate(schema);
-            if (!violations.isEmpty()) {
-                final Collection<String> msgs = new ArrayList<>(violations.size());
-                for (final SAXParseException violation : violations) {
-                    msgs.add(StSchema.asMessage(violation));
-                }
-                if (Logger.isDebugEnabled(StSchema.class)) {
-                    Logger.debug(
-                        StSchema.class,
-                        "There are %d XSD violation(s) in this XML %[list]s:%n%s",
-                        violations.size(), msgs,
-                        xml
-                    );
-                }
-                throw new IllegalStateException(
-                    String.format(
-                        "There are %d XSD violation(s): %s",
-                        violations.size(),
-                        String.join("; ", msgs)
-                    )
+        final Collection<SAXParseException> violations;
+        if (Objects.isNull(schema)) {
+            violations = Collections.emptyList();
+        } else {
+            violations = xml.validate(schema);
+        }
+        if (!violations.isEmpty()) {
+            final Collection<String> msgs = new ArrayList<>(violations.size());
+            for (final SAXParseException violation : violations) {
+                msgs.add(StSchema.asMessage(violation));
+            }
+            if (Logger.isDebugEnabled(StSchema.class)) {
+                Logger.debug(
+                    StSchema.class,
+                    "There are %d XSD violation(s) in this XML %[list]s:%n%s",
+                    violations.size(), msgs,
+                    xml
                 );
             }
+            throw new IllegalStateException(
+                String.format(
+                    "There are %d XSD violation(s): %s",
+                    violations.size(),
+                    String.join("; ", msgs)
+                )
+            );
         }
         return xml;
     }
 
     /**
      * Turn violation into a message.
+     *
      * @param violation The violation
      * @return The message
      */
@@ -148,6 +157,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Make XSD safely.
+     *
      * @param path Path in classpath
      * @return XSD
      */
