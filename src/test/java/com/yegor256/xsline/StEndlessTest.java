@@ -74,6 +74,32 @@ final class StEndlessTest {
         );
     }
 
+    @Test
+    void changesLargeXmlDocs() {
+        final String initial = StEndlessTest.largeXml("initial");
+        final String updated = StEndlessTest.largeXml("updated");
+        MatcherAssert.assertThat(
+            "We expect large XMLs are transformed fast",
+            new StEndless(new Dummy(2, updated)).apply(0, new XMLDocument(initial)),
+            XhtmlMatchers.hasXPaths("/updated")
+        );
+    }
+
+    /**
+     * Generate large XML.
+     *
+     * @return Large XML.
+     */
+    private static String largeXml(final String root) {
+        final StringBuilder xml = new StringBuilder(0);
+        xml.append('<').append(root).append('>');
+        for (int idx = 0; idx < 10_000; ++idx) {
+            xml.append("<item>").append(idx).append("</item>");
+        }
+        xml.append("</").append(root).append('>');
+        return xml.toString();
+    }
+
     /**
      * A dummy shift that does nothing and returns a constant XML.
      * However, it can be applied only twice, and then it throws an exception.
@@ -88,21 +114,38 @@ final class StEndlessTest {
         private final AtomicInteger attempts;
 
         /**
-         * Ctor.
-         *
-         * @param attempts How many times are allowed to transform.
+         * XML to return.
          */
-        Dummy(final int attempts) {
-            this(new AtomicInteger(attempts));
-        }
+        private final String xml;
 
         /**
          * Ctor.
          *
          * @param attempts How many times are allowed to transform.
          */
-        private Dummy(final AtomicInteger attempts) {
+        Dummy(final int attempts) {
+            this(attempts, "<dummy>I just do nothing</dummy>");
+        }
+
+        /**
+         * Ctor.
+         *
+         * @param attempts How many times are allowed to transform.
+         * @param xml XML to return.
+         */
+        Dummy(final int attempts, final String xml) {
+            this(new AtomicInteger(attempts), xml);
+        }
+
+        /**
+         * Ctor.
+         *
+         * @param attempts How many times are allowed to transform.
+         * @param xml XML to return.
+         */
+        private Dummy(final AtomicInteger attempts, final String xml) {
             this.attempts = attempts;
+            this.xml = xml;
         }
 
         @Override
@@ -113,7 +156,7 @@ final class StEndlessTest {
         @Override
         public XML apply(final int position, final XML xml) {
             if (this.attempts.decrementAndGet() >= 0) {
-                return new XMLDocument("<dummy>I just do nothing</dummy>");
+                return new XMLDocument(this.xml);
             }
             throw new IllegalStateException("This shift was already used, but it shouldn't");
         }
