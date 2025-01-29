@@ -24,6 +24,7 @@
 package com.yegor256.xsline;
 
 import com.jcabi.log.Logger;
+import com.jcabi.xml.ClasspathResolver;
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import java.io.FileNotFoundException;
@@ -32,6 +33,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -60,6 +62,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param path The path of XSD document in classpath
      */
     public StSchema(final String path) {
@@ -68,8 +71,9 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param path The path of XSD document
-     * @throws FileNotFoundException If file not found
+     * @throws FileNotFoundException If file isn't found
      */
     public StSchema(final Path path) throws FileNotFoundException {
         this(new XMLDocument(path));
@@ -77,6 +81,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param schema The schema
      */
     public StSchema(final XML schema) {
@@ -90,14 +95,15 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Validate it.
+     *
      * @param schema The schema
      * @param xml The XML
      * @return The same XML
      */
     private static XML validate(final XML schema, final XML xml) {
         final Collection<SAXParseException> violations;
-        if (schema == null) {
-            violations = xml.validate();
+        if (Objects.isNull(schema)) {
+            violations = xml.validate(new ClasspathResolver());
         } else {
             violations = xml.validate(schema);
         }
@@ -127,6 +133,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Turn violation into a message.
+     *
      * @param violation The violation
      * @return The message
      */
@@ -150,6 +157,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Make XSD safely.
+     *
      * @param path Path in classpath
      * @return XSD
      */

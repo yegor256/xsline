@@ -44,7 +44,7 @@ final class TrBeforeTest {
                 (position, xml) -> new XMLDocument(
                     new Xembler(
                         new Directives().xpath("/*").attr("a", 1).set("boom")
-                    ).applyQuietly(xml.node())
+                    ).applyQuietly(xml.inner())
                 )
             )
         ).with(new StClasspath("add-brackets.xsl"));
