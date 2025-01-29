@@ -88,12 +88,14 @@ final class StEndlessTest {
     /**
      * Generate large XML.
      *
+     * @param root Root element.
      * @return Large XML.
      */
     private static String largeXml(final String root) {
-        final StringBuilder xml = new StringBuilder(0);
+        final int capacity = 10_000;
+        final StringBuilder xml = new StringBuilder(capacity);
         xml.append('<').append(root).append('>');
-        for (int idx = 0; idx < 10_000; ++idx) {
+        for (int idx = 0; idx < capacity; ++idx) {
             xml.append("<item>").append(idx).append("</item>");
         }
         xml.append("</").append(root).append('>');
@@ -154,7 +156,7 @@ final class StEndlessTest {
         }
 
         @Override
-        public XML apply(final int position, final XML xml) {
+        public XML apply(final int position, final XML node) {
             if (this.attempts.decrementAndGet() >= 0) {
                 return new XMLDocument(this.xml);
             }
