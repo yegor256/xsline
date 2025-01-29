@@ -32,6 +32,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -95,32 +96,29 @@ public final class StSchema extends StEnvelope {
      * @return The same XML
      */
     private static XML validate(final XML schema, final XML xml) {
-        final Collection<SAXParseException> violations;
-        if (schema == null) {
-            violations = xml.validate();
-        } else {
-            violations = xml.validate(schema);
-        }
-        if (!violations.isEmpty()) {
-            final Collection<String> msgs = new ArrayList<>(violations.size());
-            for (final SAXParseException violation : violations) {
-                msgs.add(StSchema.asMessage(violation));
-            }
-            if (Logger.isDebugEnabled(StSchema.class)) {
-                Logger.debug(
-                    StSchema.class,
-                    "There are %d XSD violation(s) in this XML %[list]s:%n%s",
-                    violations.size(), msgs,
-                    xml
+        if(Objects.nonNull(schema)) {
+            final Collection<SAXParseException> violations = xml.validate(schema);
+            if (!violations.isEmpty()) {
+                final Collection<String> msgs = new ArrayList<>(violations.size());
+                for (final SAXParseException violation : violations) {
+                    msgs.add(StSchema.asMessage(violation));
+                }
+                if (Logger.isDebugEnabled(StSchema.class)) {
+                    Logger.debug(
+                        StSchema.class,
+                        "There are %d XSD violation(s) in this XML %[list]s:%n%s",
+                        violations.size(), msgs,
+                        xml
+                    );
+                }
+                throw new IllegalStateException(
+                    String.format(
+                        "There are %d XSD violation(s): %s",
+                        violations.size(),
+                        String.join("; ", msgs)
+                    )
                 );
             }
-            throw new IllegalStateException(
-                String.format(
-                    "There are %d XSD violation(s): %s",
-                    violations.size(),
-                    String.join("; ", msgs)
-                )
-            );
         }
         return xml;
     }
