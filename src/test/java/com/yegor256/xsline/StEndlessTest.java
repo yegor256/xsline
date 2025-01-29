@@ -54,8 +54,22 @@ final class StEndlessTest {
     @Test
     void changesXmlOnce() {
         MatcherAssert.assertThat(
+            "We expect a shift is used twice",
+            new StEndless(new Dummy(2)).apply(0, new XMLDocument("<dog/>")),
+            XhtmlMatchers.hasXPaths("/dummy")
+        );
+    }
+
+    @Test
+    void understandsDifferenceBetweenDocumentAndFirstNode() {
+        MatcherAssert.assertThat(
             "We expect a shift is applied twice",
-            new StEndless(new Twice()).apply(0, new XMLDocument("<dog/>")),
+            new StEndless(new Dummy(2)).apply(
+                0,
+                new XMLDocument(
+                    new XMLDocument("<dummy>I just do nothing</dummy>").inner().getFirstChild()
+                )
+            ),
             XhtmlMatchers.hasXPaths("/dummy")
         );
     }
@@ -66,15 +80,29 @@ final class StEndlessTest {
      *
      * @since 0.34
      */
-    private static class Twice implements Shift {
+    private static class Dummy implements Shift {
 
         /**
          * How many times are allowed to transform.
          */
         private final AtomicInteger attempts;
 
-        Twice() {
-            this.attempts = new AtomicInteger(2);
+        /**
+         * Ctor.
+         *
+         * @param attempts How many times are allowed to transform.
+         */
+        Dummy(final int attempts) {
+            this(new AtomicInteger(attempts));
+        }
+
+        /**
+         * Ctor.
+         *
+         * @param attempts How many times are allowed to transform.
+         */
+        private Dummy(final AtomicInteger attempts) {
+            this.attempts = attempts;
         }
 
         @Override
