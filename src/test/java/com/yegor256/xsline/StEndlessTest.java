@@ -24,9 +24,11 @@
 package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
+import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import com.jcabi.xml.XSLDocument;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 
@@ -47,6 +49,46 @@ final class StEndlessTest {
             ).apply(0, new XMLDocument("<hello/>")),
             XhtmlMatchers.hasXPaths("/hello")
         );
+    }
+
+    @Test
+    void changesXmlOnce() {
+        MatcherAssert.assertThat(
+            "We expect a shift is applied twice",
+            new StEndless(new Twice()).apply(0, new XMLDocument("<dog/>")),
+            XhtmlMatchers.hasXPaths("/dummy")
+        );
+    }
+
+    /**
+     * A dummy shift that does nothing and returns a constant XML.
+     * However, it can be applied only twice, and then it throws an exception.
+     *
+     * @since 0.34
+     */
+    private static class Twice implements Shift {
+
+        /**
+         * How many times are allowed to transform.
+         */
+        private final AtomicInteger attempts;
+
+        Twice() {
+            this.attempts = new AtomicInteger(2);
+        }
+
+        @Override
+        public String uid() {
+            return "twice-dummy";
+        }
+
+        @Override
+        public XML apply(final int position, final XML xml) {
+            if (this.attempts.decrementAndGet() >= 0) {
+                return new XMLDocument("<dummy>I just do nothing</dummy>");
+            }
+            throw new IllegalStateException("This shift was already used, but it shouldn't");
+        }
     }
 
 }
