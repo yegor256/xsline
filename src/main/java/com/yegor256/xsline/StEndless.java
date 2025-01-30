@@ -68,7 +68,7 @@ public final class StEndless extends StEnvelope {
                     boolean more;
                     do {
                         after = shift.apply(position, before);
-                        more = !after.toString().equals(before.toString());
+                        more = !after.inner().isEqualNode(before.inner());
                         before = after;
                     } while (more);
                     return after;
