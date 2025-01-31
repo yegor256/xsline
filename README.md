@@ -36,7 +36,7 @@ You add this to your `pom.xml`:
 <dependency>
   <groupId>com.yegor256</groupId>
   <artifactId>xsline</artifactId>
-  <version>0.22.1</version>
+  <version>0.23.1</version>
 </dependency>
 ```
 
