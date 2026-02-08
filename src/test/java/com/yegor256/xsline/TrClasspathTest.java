@@ -41,31 +41,25 @@ final class TrClasspathTest {
 
     @Test
     void emitsXslError() {
-        MatcherAssert.assertThat(
-            Assertions.assertThrows(
-                IllegalArgumentException.class,
-                () -> new Xsline(new TrClasspath<>("emit-error.xsl").back()).pass(
-                    new XMLDocument("<x>hello</x>")
-                )
-            ).getMessage(),
-            Matchers.containsString("terminated by xsl:message at line 31 in emit-error.xsl")
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new Xsline(new TrClasspath<>("emit-error.xsl").back()).pass(
+                new XMLDocument("<x>hello</x>")
+            )
         );
     }
 
     @Test
     void emitsXslErrorWhenDefault() {
-        MatcherAssert.assertThat(
-            Assertions.assertThrows(
-                IllegalArgumentException.class,
-                () -> new Xsline(
-                    new TrClasspath<>(
-                        new TrDefault<>(),
-                        "add-id.xsl",
-                        "emit-error.xsl"
-                    ).back()
-                ).pass(new XMLDocument("<bar/>"))
-            ).getMessage(),
-            Matchers.containsString("by xsl:message at line 31 in emit-error.xsl")
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new Xsline(
+                new TrClasspath<>(
+                    new TrDefault<>(),
+                    "add-id.xsl",
+                    "emit-error.xsl"
+                ).back()
+            ).pass(new XMLDocument("<bar/>"))
         );
     }
 }

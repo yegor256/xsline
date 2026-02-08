@@ -48,6 +48,7 @@ public interface Train<T> extends Iterable<T> {
      * @param <X> Type of elements inside
      * @since 0.4.0
      */
+    @FunctionalInterface
     interface Temporary<X> {
         /**
          * Return the original one.

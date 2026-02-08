@@ -141,16 +141,17 @@ public final class StSequence extends StEnvelope {
     private static BiFunctionChecked<Integer, XML, XML> apply(
         final FunctionChecked<XML, Boolean> fun,
         final Iterable<Shift> train) {
-        return (position, xml) -> {
+        return (position, input) -> {
+            XML output = input;
             int pos = 0;
             for (final Shift shift : train) {
-                if (!fun.apply(xml)) {
+                if (!fun.apply(output)) {
                     break;
                 }
-                xml = shift.apply(pos, xml);
+                output = shift.apply(pos, output);
                 ++pos;
             }
-            return xml;
+            return output;
         };
     }
 

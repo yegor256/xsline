@@ -4,7 +4,9 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,13 +18,17 @@ final class TrFastTest {
 
     @Test
     void simpleScenario() {
-        new Xsline(
-            new TrFast(
-                new TrClasspath<>().with("add-brackets.xsl").back(),
-                TrFastTest.class,
-                1L
-            )
-        ).pass(new XMLDocument("<foo/>"));
+        MatcherAssert.assertThat(
+            "Fast train applies transformation correctly",
+            new Xsline(
+                new TrFast(
+                    new TrClasspath<>().with("add-brackets.xsl").back(),
+                    TrFastTest.class,
+                    1L
+                )
+            ).pass(new XMLDocument("<foo/>")),
+            XhtmlMatchers.hasXPaths("/foo")
+        );
     }
 
 }

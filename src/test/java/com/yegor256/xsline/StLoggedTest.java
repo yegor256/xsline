@@ -4,8 +4,10 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.matchers.XhtmlMatchers;
 import com.jcabi.xml.XMLDocument;
 import java.util.logging.Level;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,28 +19,36 @@ final class StLoggedTest {
 
     @Test
     void logsWhenChangesHappen() {
-        new Xsline(
-            new TrDefault<>(
-                new StLogged(
-                    new StClasspath("add-id.xsl"),
-                    StLoggedTest.class,
-                    Level.FINE
+        MatcherAssert.assertThat(
+            "XML must be transformed with added id attribute",
+            new Xsline(
+                new TrDefault<>(
+                    new StLogged(
+                        new StClasspath("add-id.xsl"),
+                        StLoggedTest.class,
+                        Level.FINE
+                    )
                 )
-            )
-        ).pass(new XMLDocument("<foo/>"));
+            ).pass(new XMLDocument("<foo/>")),
+            XhtmlMatchers.hasXPaths("/foo[@id]")
+        );
     }
 
     @Test
     void logsWhenNoChangesHappen() {
-        new Xsline(
-            new TrDefault<>(
-                new StLogged(
-                    new StClasspath("void.xsl"),
-                    StLoggedTest.class,
-                    Level.FINE
+        MatcherAssert.assertThat(
+            "XML must remain unchanged after void transformation",
+            new Xsline(
+                new TrDefault<>(
+                    new StLogged(
+                        new StClasspath("void.xsl"),
+                        StLoggedTest.class,
+                        Level.FINE
+                    )
                 )
-            )
-        ).pass(new XMLDocument("<bar/>"));
+            ).pass(new XMLDocument("<bar/>")),
+            XhtmlMatchers.hasXPaths("/bar")
+        );
     }
 
 }

@@ -1,4 +1,9 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+*.iml
 .classpath
+.claude/
 .DS_Store
 .idea
 .idea/
@@ -6,6 +11,5 @@
 .project
 .recommenders
 .settings
-*.iml
 node_modules/
 target/

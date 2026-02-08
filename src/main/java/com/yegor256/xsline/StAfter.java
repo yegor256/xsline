@@ -4,6 +4,8 @@
  */
 package com.yegor256.xsline;
 
+import com.jcabi.xml.XML;
+
 /**
  * A shift that makes another shifts after itself.
  *
@@ -25,12 +27,12 @@ public final class StAfter extends StEnvelope {
         super(
             new StLambda(
                 shift::uid,
-                (position, xml) -> {
-                    xml = shift.apply(position, xml);
+                (position, input) -> {
+                    XML output = shift.apply(position, input);
                     for (final Shift next : after) {
-                        xml = next.apply(position, xml);
+                        output = next.apply(position, output);
                     }
-                    return xml;
+                    return output;
                 }
             )
         );

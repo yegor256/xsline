@@ -53,36 +53,40 @@ final class TrLambdaTest {
 
     @Test
     void withStLambda() {
-        final Train<Shift> train = new TrLambda(
-            new TrDefault<>(),
-            shift -> new StLambda(
-                shift::uid,
-                (pos, xml) -> TrLambdaTest.ADD_ID.apply(0, xml)
-            )
-        ).with(TrLambdaTest.VOID);
         MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<a>test</a>")),
+            "Lambda train transforms with custom shift",
+            new Xsline(
+                new TrLambda(
+                    new TrDefault<>(),
+                    shift -> new StLambda(
+                        shift::uid,
+                        (pos, xml) -> TrLambdaTest.ADD_ID.apply(0, xml)
+                    )
+                ).with(TrLambdaTest.VOID)
+            ).pass(new XMLDocument("<a>test</a>")),
             XhtmlMatchers.hasXPaths("/a[@id]")
         );
     }
 
     @Test
     void withListOfPostProcessing() {
-        final Train<Shift> train = new TrLambda(
-            shift -> new StAfter(
-                shift,
-                new StLambda(
-                    shift::uid,
-                    (pos, xml) -> TrLambdaTest.ADD_ID.apply(0, xml)
-                ),
-                new StLambda(
-                    shift::uid,
-                    (pos, xml) -> TrLambdaTest.ADD_BRACKETS.apply(1, xml)
-                )
-            )
-        ).with(TrLambdaTest.VOID);
         MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<a>test</a>")),
+            "Lambda train applies multiple post-processing shifts",
+            new Xsline(
+                new TrLambda(
+                    shift -> new StAfter(
+                        shift,
+                        new StLambda(
+                            shift::uid,
+                            (pos, xml) -> TrLambdaTest.ADD_ID.apply(0, xml)
+                        ),
+                        new StLambda(
+                            shift::uid,
+                            (pos, xml) -> TrLambdaTest.ADD_BRACKETS.apply(1, xml)
+                        )
+                    )
+                ).with(TrLambdaTest.VOID)
+            ).pass(new XMLDocument("<a>test</a>")),
             XhtmlMatchers.hasXPaths(
                 "/a[@id]",
                 "/a[text()=\"{test}\"]"
@@ -104,7 +108,7 @@ final class TrLambdaTest {
     }
 
     @Test
-    void shouldThrowsExceptions() {
+    void throwsExceptionOnMissingClasspath() {
         Assertions.assertThrows(
             IllegalArgumentException.class,
             () -> new Xsline(
@@ -115,6 +119,10 @@ final class TrLambdaTest {
                 ).with(TrLambdaTest.VOID)
             ).pass(new XMLDocument("<a>test</a>"))
         );
+    }
+
+    @Test
+    void throwsExceptionOnIoError() {
         Assertions.assertThrows(
             IllegalStateException.class,
             () -> new Xsline(

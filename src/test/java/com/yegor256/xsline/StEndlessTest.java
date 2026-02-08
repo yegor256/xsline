@@ -57,11 +57,11 @@ final class StEndlessTest {
 
     @Test
     void changesLargeXmlDocs() {
-        final String initial = StEndlessTest.largeXml("initial");
-        final String updated = StEndlessTest.largeXml("updated");
         MatcherAssert.assertThat(
             "We expect large XMLs are transformed fast",
-            new StEndless(new Dummy(2, updated)).apply(0, new XMLDocument(initial)),
+            new StEndless(
+                new Dummy(2, StEndlessTest.largeXml("updated"))
+            ).apply(0, new XMLDocument(StEndlessTest.largeXml("initial"))),
             XhtmlMatchers.hasXPaths("/updated")
         );
     }
@@ -89,7 +89,7 @@ final class StEndlessTest {
      *
      * @since 0.34
      */
-    private static class Dummy implements Shift {
+    private static final class Dummy implements Shift {
 
         /**
          * How many times are allowed to transform.

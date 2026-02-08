@@ -58,7 +58,6 @@ public final class Xsline {
      * @return The output XML
      */
     public XML pass(final XML input) {
-        final long start = System.currentTimeMillis();
         XML output = input;
         int pos = 0;
         final Collection<String> ids = new LinkedList<>();
@@ -67,13 +66,10 @@ public final class Xsline {
             ++pos;
             ids.add(shift.uid());
         }
-        if (Logger.isDebugEnabled(this)) {
-            Logger.debug(
-                this, "Transformed XML through %d shift(s) in %[ms]s: %s",
-                pos, System.currentTimeMillis() - start,
-                String.join(", ", ids)
-            );
-        }
+        Logger.debug(
+            this, "Transformed XML through %d shift(s): %s",
+            pos, String.join(", ", ids)
+        );
         return output;
     }
 

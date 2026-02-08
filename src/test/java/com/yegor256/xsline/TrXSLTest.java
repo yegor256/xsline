@@ -22,11 +22,13 @@ final class TrXSLTest {
 
     @Test
     void testPipe() throws IOException {
-        final XSL xsl = new XSLDocument(this.getClass().getResource("void.xsl"));
-        final Train<Shift> train = new TrXSL<>()
-            .with(xsl)
-            .back();
-        MatcherAssert.assertThat(train, Matchers.iterableWithSize(1));
+        MatcherAssert.assertThat(
+            "Train must contain exactly one shift",
+            new TrXSL<>()
+                .with(new XSLDocument(this.getClass().getResource("void.xsl")))
+                .back(),
+            Matchers.iterableWithSize(1)
+        );
     }
 
     @Test

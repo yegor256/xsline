@@ -90,7 +90,7 @@ public final class StLambda implements Shift {
     }
 
     @Override
-    @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public XML apply(final int position, final XML xml) {
         try {
             return this.lambda.apply(position, xml);

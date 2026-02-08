@@ -20,17 +20,19 @@ final class TrAfterTest {
 
     @Test
     void simpleScenario() {
-        final Train<Shift> train = new TrAfter(
-            new StLambda(
-                (position, xml) -> new XMLDocument(
-                    new Xembler(
-                        new Directives().xpath("/*").attr("a", 1).set("boom")
-                    ).applyQuietly(xml.inner())
-                )
-            )
-        ).with(new StClasspath("add-id.xsl")).with(new StClasspath("add-brackets.xsl"));
         MatcherAssert.assertThat(
-            new Xsline(train).pass(new XMLDocument("<x>test</x>")),
+            "Train applies shifts after each transformation",
+            new Xsline(
+                new TrAfter(
+                    new StLambda(
+                        (position, xml) -> new XMLDocument(
+                            new Xembler(
+                                new Directives().xpath("/*").attr("a", 1).set("boom")
+                            ).applyQuietly(xml.inner())
+                        )
+                    )
+                ).with(new StClasspath("add-id.xsl")).with(new StClasspath("add-brackets.xsl"))
+            ).pass(new XMLDocument("<x>test</x>")),
             XhtmlMatchers.hasXPaths(
                 "/x[@a and .='boom']",
                 "/x[@id]"

@@ -56,9 +56,7 @@ public final class TrJoined<T> implements Train<T> {
         if (trains.isEmpty()) {
             trains.add(new TrDefault<T>().with(shift));
         } else {
-            final Train<T> last = trains.get(trains.size() - 1);
-            trains.remove(trains.size() - 1);
-            trains.add(last.with(shift));
+            trains.add(trains.remove(trains.size() - 1).with(shift));
         }
         return new TrJoined<>(trains);
     }

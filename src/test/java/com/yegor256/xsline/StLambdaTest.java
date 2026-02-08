@@ -33,21 +33,25 @@ final class StLambdaTest {
     @Test
     void shouldReturnUidFromCtor() {
         final String uuid = UUID.randomUUID().toString();
-        final Shift lambda = new StLambda(uuid, (integer, xml) -> xml);
         MatcherAssert.assertThat(
-            uuid,
-            Matchers.is(lambda.uid())
+            "The UID must be the same as specified in constructor",
+            new StLambda(uuid, (integer, xml) -> xml).uid(),
+            Matchers.is(uuid)
         );
     }
 
     @Test
-    void shouldThrowsExceptions() {
+    void throwsExceptionOnMissingClasspath() {
         Assertions.assertThrows(
             IllegalArgumentException.class,
             () -> new StLambda(
                 (pos, xml) -> new StClasspath("not-found").apply(pos, xml)
             ).apply(0, new XMLDocument("<x>test</x>"))
         );
+    }
+
+    @Test
+    void throwsExceptionOnIoError() {
         Assertions.assertThrows(
             IllegalStateException.class,
             () -> new StLambda(

@@ -5,9 +5,7 @@
 package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
-import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
-import com.jcabi.xml.XSL;
 import com.jcabi.xml.XSLDocument;
 import java.io.IOException;
 import org.hamcrest.MatcherAssert;
@@ -22,28 +20,26 @@ final class XslineTest {
 
     @Test
     void simpleScenario() throws IOException {
-        final XSL xsl = new XSLDocument(
-            this.getClass().getResource("add-brackets.xsl")
-        );
-        final Train<Shift> train = new TrLogged()
-            .with(
-                new StEndless(
-                    new XSLDocument(
-                        this.getClass().getResource("void.xsl")
-                    )
-                )
-            )
-            .with(
-                new StRepeated(
-                    xsl,
-                    xml -> xml.nodes("/x[starts-with(., '{{')]").isEmpty()
-                )
-            );
-        final XML output = new Xsline(train).pass(
-            new XMLDocument("<x>hello</x>")
-        );
         MatcherAssert.assertThat(
-            output,
+            "Xsline transforms XML through repeated shifts",
+            new Xsline(
+                new TrLogged()
+                    .with(
+                        new StEndless(
+                            new XSLDocument(
+                                this.getClass().getResource("void.xsl")
+                            )
+                        )
+                    )
+                    .with(
+                        new StRepeated(
+                            new XSLDocument(
+                                this.getClass().getResource("add-brackets.xsl")
+                            ),
+                            xml -> xml.nodes("/x[starts-with(., '{{')]").isEmpty()
+                        )
+                    )
+            ).pass(new XMLDocument("<x>hello</x>")),
             XhtmlMatchers.hasXPaths("/x[.='{{hello}}']")
         );
     }

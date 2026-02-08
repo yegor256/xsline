@@ -41,7 +41,7 @@ final class Alterator<T> implements Iterator<T> {
     }
 
     @Override
-    @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public T next() {
         try {
             return this.lambda.apply(this.origin.next());
