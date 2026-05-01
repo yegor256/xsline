@@ -147,7 +147,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.9.1.0</version>
+        <version>4.9.8.3</version>
         <executions>
           <execution>
             <goals>
@@ -159,14 +159,14 @@
           <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs</artifactId>
-            <version>4.9.1</version>
+            <version>4.9.8</version>
           </dependency>
         </dependencies>
       </plugin>
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-        <version>1.18.2</version>
+        <version>1.23.1</version>
         <executions>
           <execution>
             <goals>
