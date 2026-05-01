@@ -16,8 +16,8 @@ import java.util.function.Supplier;
  * do the transformation.</p>
  *
  * @since 0.13.0
- * @checkstyle IllegalCatchCheck (500 lines)
  */
+// @checkstyle IllegalCatchCheck (500 lines)
 public final class StLambda implements Shift {
 
     /**
@@ -103,5 +103,4 @@ public final class StLambda implements Shift {
             throw new IllegalStateException(ex);
         }
     }
-
 }

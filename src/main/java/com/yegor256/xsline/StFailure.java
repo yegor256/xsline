@@ -34,6 +34,7 @@ public final class StFailure extends StEnvelope {
      * @param error The error to throw
      */
     public StFailure(final Exception error) {
+        // @checkstyle ConstructorsCodeFreeCheck (8 lines)
         super(
             new StLambda(
                 StFailure.class.getCanonicalName(),

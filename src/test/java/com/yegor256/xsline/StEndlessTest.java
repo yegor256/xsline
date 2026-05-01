@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StEndless}.
- *
  * @since 0.1.0
  */
 final class StEndlessTest {
@@ -36,7 +35,7 @@ final class StEndlessTest {
     void changesXmlOnce() {
         MatcherAssert.assertThat(
             "We expect a shift is used twice",
-            new StEndless(new Dummy(2)).apply(0, new XMLDocument("<dog/>")),
+            new StEndless(new StEndlessTest.Dummy(2)).apply(0, new XMLDocument("<dog/>")),
             XhtmlMatchers.hasXPaths("/dummy")
         );
     }
@@ -45,7 +44,7 @@ final class StEndlessTest {
     void understandsDifferenceBetweenDocumentAndFirstNode() {
         MatcherAssert.assertThat(
             "We expect a shift is applied twice",
-            new StEndless(new Dummy(2)).apply(
+            new StEndless(new StEndlessTest.Dummy(2)).apply(
                 0,
                 new XMLDocument(
                     new XMLDocument("<dummy>I just do nothing</dummy>").inner().getFirstChild()
@@ -60,7 +59,7 @@ final class StEndlessTest {
         MatcherAssert.assertThat(
             "We expect large XMLs are transformed fast",
             new StEndless(
-                new Dummy(2, StEndlessTest.largeXml("updated"))
+                new StEndlessTest.Dummy(2, StEndlessTest.largeXml("updated"))
             ).apply(0, new XMLDocument(StEndlessTest.largeXml("initial"))),
             XhtmlMatchers.hasXPaths("/updated")
         );
@@ -68,9 +67,8 @@ final class StEndlessTest {
 
     /**
      * Generate large XML.
-     *
-     * @param root Root element.
-     * @return Large XML.
+     * @param root Root element
+     * @return Large XML
      */
     private static String largeXml(final String root) {
         final int capacity = 10_000;
@@ -86,7 +84,6 @@ final class StEndlessTest {
     /**
      * A dummy shift that does nothing and returns a constant XML.
      * However, it can be applied only twice, and then it throws an exception.
-     *
      * @since 0.34
      */
     private static final class Dummy implements Shift {
@@ -103,8 +100,7 @@ final class StEndlessTest {
 
         /**
          * Ctor.
-         *
-         * @param attempts How many times are allowed to transform.
+         * @param attempts How many times are allowed to transform
          */
         Dummy(final int attempts) {
             this(attempts, "<dummy>I just do nothing</dummy>");
@@ -112,9 +108,8 @@ final class StEndlessTest {
 
         /**
          * Ctor.
-         *
-         * @param attempts How many times are allowed to transform.
-         * @param xml XML to return.
+         * @param attempts How many times are allowed to transform
+         * @param xml XML to return
          */
         Dummy(final int attempts, final String xml) {
             this(new AtomicInteger(attempts), xml);
@@ -122,9 +117,8 @@ final class StEndlessTest {
 
         /**
          * Ctor.
-         *
-         * @param attempts How many times are allowed to transform.
-         * @param xml XML to return.
+         * @param attempts How many times are allowed to transform
+         * @param xml XML to return
          */
         private Dummy(final AtomicInteger attempts, final String xml) {
             this.attempts = attempts;
@@ -144,5 +138,4 @@ final class StEndlessTest {
             throw new IllegalStateException("This shift was already used, but it shouldn't");
         }
     }
-
 }

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StLogged}.
- *
  * @since 0.21.1
  */
 final class StLoggedTest {
@@ -50,5 +49,4 @@ final class StLoggedTest {
             XhtmlMatchers.hasXPaths("/bar")
         );
     }
-
 }

@@ -21,6 +21,7 @@ public final class StOfTrain extends StEnvelope {
      * @param train The train
      */
     public StOfTrain(final Train<Shift> train) {
+        // @checkstyle ConstructorsCodeFreeCheck (3 lines)
         super(
             new StSequence(train)
         );
@@ -31,10 +32,11 @@ public final class StOfTrain extends StEnvelope {
      * @param uid The UID to use
      * @param train The train
      */
+    // @checkstyle ConstructorsOrderCheck (5 lines)
     public StOfTrain(final String uid, final Train<Shift> train) {
+        // @checkstyle ConstructorsCodeFreeCheck (3 lines)
         super(
             new StSequence(uid, train)
         );
     }
-
 }

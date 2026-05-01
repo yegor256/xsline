@@ -29,5 +29,4 @@ public final class StBefore extends StEnvelope {
             )
         );
     }
-
 }

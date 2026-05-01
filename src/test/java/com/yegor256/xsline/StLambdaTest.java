@@ -15,23 +15,20 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StLambda}.
- *
  * @since 0.13.0
  */
 final class StLambdaTest {
 
     @Test
-    void shouldReturnFormattedUid() {
-        final Shift lambda = new StLambda((integer, xml) -> xml);
-        final String uid = lambda.uid();
+    void returnsFormattedUid() {
         MatcherAssert.assertThat(
-            uid.startsWith("λ-"),
+            new StLambda((integer, xml) -> xml).uid().startsWith("λ-"),
             Matchers.is(true)
         );
     }
 
     @Test
-    void shouldReturnUidFromCtor() {
+    void returnsUidFromCtor() {
         final String uuid = UUID.randomUUID().toString();
         MatcherAssert.assertThat(
             "The UID must be the same as specified in constructor",
@@ -64,5 +61,4 @@ final class StLambdaTest {
             ).apply(0, new XMLDocument("<x>test</x>"))
         );
     }
-
 }

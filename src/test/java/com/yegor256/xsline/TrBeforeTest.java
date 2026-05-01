@@ -13,7 +13,6 @@ import org.xembly.Xembler;
 
 /**
  * Test case for {@link TrBefore}.
- *
  * @since 0.4.0
  */
 final class TrBeforeTest {
@@ -36,5 +35,4 @@ final class TrBeforeTest {
             XhtmlMatchers.hasXPaths("/x[@a and .='{boom}']")
         );
     }
-
 }

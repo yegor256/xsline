@@ -11,14 +11,13 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StSequence}.
- *
  * @since 0.14.0
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class StSequenceTest {
 
     @Test
-    void shouldStopPipeline() {
+    void stopsPipeline() {
         MatcherAssert.assertThat(
             new Xsline(
                 new StSequence(
@@ -50,5 +49,4 @@ final class StSequenceTest {
             XhtmlMatchers.hasXPaths("/x[.='{hello}']")
         );
     }
-
 }

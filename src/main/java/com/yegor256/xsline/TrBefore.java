@@ -9,7 +9,6 @@ import java.util.Iterator;
 /**
  * Train with a pre-processing shift being inserted before each
  * shift you add to the train.
- *
  * @since 0.3.0
  */
 public final class TrBefore implements Train<Shift> {

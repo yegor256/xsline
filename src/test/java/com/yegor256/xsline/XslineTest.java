@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link Xsline}.
- *
  * @since 0.1.0
  */
 final class XslineTest {
@@ -23,25 +22,22 @@ final class XslineTest {
         MatcherAssert.assertThat(
             "Xsline transforms XML through repeated shifts",
             new Xsline(
-                new TrLogged()
-                    .with(
-                        new StEndless(
-                            new XSLDocument(
-                                this.getClass().getResource("void.xsl")
-                            )
+                new TrLogged().with(
+                    new StEndless(
+                        new XSLDocument(
+                            this.getClass().getResource("void.xsl")
                         )
                     )
-                    .with(
-                        new StRepeated(
-                            new XSLDocument(
-                                this.getClass().getResource("add-brackets.xsl")
-                            ),
-                            xml -> xml.nodes("/x[starts-with(., '{{')]").isEmpty()
-                        )
+                ).with(
+                    new StRepeated(
+                        new XSLDocument(
+                            this.getClass().getResource("add-brackets.xsl")
+                        ),
+                        xml -> xml.nodes("/x[starts-with(., '{{')]").isEmpty()
                     )
+                )
             ).pass(new XMLDocument("<x>hello</x>")),
             XhtmlMatchers.hasXPaths("/x[.='{{hello}}']")
         );
     }
-
 }

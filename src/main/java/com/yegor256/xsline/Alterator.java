@@ -8,11 +8,10 @@ import java.util.Iterator;
 
 /**
  * Iterator that modifies its items on retrieval.
- *
  * @param <T> Type of items
  * @since 0.4.0
- * @checkstyle IllegalCatchCheck (500 lines)
  */
+// @checkstyle IllegalCatchCheck (500 lines)
 final class Alterator<T> implements Iterator<T> {
 
     /**

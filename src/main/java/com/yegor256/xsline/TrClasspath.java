@@ -41,22 +41,11 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
     /**
      * Ctor.
      * @param train Original
-     */
-    @SuppressWarnings("unchecked")
-    public TrClasspath(final Train<T> train) {
-        this.origin = new TrMapped<>(
-            train,
-            path -> (T) new StClasspath(path)
-        );
-    }
-
-    /**
-     * Ctor.
-     * @param train Original
      * @param paths List of paths to add immediately
      * @since 0.6.0
      */
     public TrClasspath(final Train<T> train, final String... paths) {
+        // @checkstyle ConstructorsCodeFreeCheck (4 lines)
         this(
             new TrBulk<>(
                 new TrClasspath<>(train)
@@ -71,6 +60,18 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
      */
     public TrClasspath(final String... paths) {
         this(new TrDefault<>(), paths);
+    }
+
+    /**
+     * Ctor.
+     * @param train Original
+     */
+    @SuppressWarnings("unchecked")
+    public TrClasspath(final Train<T> train) {
+        this.origin = new TrMapped<>(
+            train,
+            path -> (T) new StClasspath(path)
+        );
     }
 
     @Override

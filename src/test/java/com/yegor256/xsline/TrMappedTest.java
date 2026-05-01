@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrMapped}.
- *
  * @since 0.16.0
  */
 final class TrMappedTest {

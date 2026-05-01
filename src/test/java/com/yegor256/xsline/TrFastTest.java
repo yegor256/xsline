@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrFast}.
- *
  * @since 0.12.0
  */
 final class TrFastTest {
@@ -30,5 +29,4 @@ final class TrFastTest {
             XhtmlMatchers.hasXPaths("/foo")
         );
     }
-
 }

@@ -6,9 +6,9 @@ package com.yegor256.xsline;
 
 import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 
 /**
  * Chain of XSL transformations.
@@ -41,6 +41,7 @@ public final class Xsline {
      * @since 0.20.0
      */
     public Xsline(final Shift shift) {
+        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(Collections.singletonList(shift));
     }
 
@@ -60,7 +61,7 @@ public final class Xsline {
     public XML pass(final XML input) {
         XML output = input;
         int pos = 0;
-        final Collection<String> ids = new LinkedList<>();
+        final Collection<String> ids = new ArrayList<>(0);
         for (final Shift shift : this.shifts) {
             output = shift.apply(pos, output);
             ++pos;
@@ -72,5 +73,4 @@ public final class Xsline {
         );
         return output;
     }
-
 }
