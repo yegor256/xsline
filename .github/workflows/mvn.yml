@@ -32,4 +32,7 @@ jobs:
             ${{ runner.os }}-jdk-${{ matrix.java }}-maven-
       - run: java -version
       - run: mvn -version
-      - run: mvn --errors --batch-mode clean install -Pqulice
+      - if: matrix.java == 21
+        run: mvn --errors --batch-mode clean install -Pqulice
+      - if: matrix.java != 21
+        run: mvn --errors --batch-mode clean install

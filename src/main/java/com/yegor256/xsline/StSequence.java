@@ -105,17 +105,14 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
-     * @param uid The UID to use
      * @param fun The predicate
      * @param train The train
      */
-    public StSequence(final String uid,
-        final FunctionChecked<XML, Boolean> fun,
+    public StSequence(final FunctionChecked<XML, Boolean> fun,
         final Iterable<Shift> train) {
-        // @checkstyle ConstructorsCodeFreeCheck (5 lines)
+        // @checkstyle ConstructorsCodeFreeCheck (4 lines)
         super(
             new StLambda(
-                uid,
                 StSequence.apply(fun, train)
             )
         );
@@ -123,15 +120,18 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     * @param uid The UID to use
      * @param fun The predicate
      * @param train The train
      */
-    // @checkstyle ConstructorsOrderCheck (4 lines)
-    public StSequence(final FunctionChecked<XML, Boolean> fun,
+    // @checkstyle ConstructorsOrderCheck (5 lines)
+    public StSequence(final String uid,
+        final FunctionChecked<XML, Boolean> fun,
         final Iterable<Shift> train) {
-        // @checkstyle ConstructorsCodeFreeCheck (4 lines)
+        // @checkstyle ConstructorsCodeFreeCheck (5 lines)
         super(
             new StLambda(
+                uid,
                 StSequence.apply(fun, train)
             )
         );
