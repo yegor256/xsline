@@ -41,12 +41,7 @@ public final class TrFast extends TrEnvelope {
      * @param target The target
      */
     public TrFast(final Train<Shift> train, final Object target) {
-        super(
-            new TrLambda(
-                train,
-                x -> new StFast(x, target)
-            )
-        );
+        this(train, target, 100L);
     }
 
     /**
@@ -56,6 +51,7 @@ public final class TrFast extends TrEnvelope {
      * @param msec Threshold in milliseconds
      */
     public TrFast(final Train<Shift> train, final Object target, final long msec) {
+        // @checkstyle ConstructorsCodeFreeCheck (5 lines)
         super(
             new TrLambda(
                 train,

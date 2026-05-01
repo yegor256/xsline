@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StSchema}.
- *
  * @since 0.10.0
  */
 final class StSchemaTest {
@@ -31,7 +30,7 @@ final class StSchemaTest {
     }
 
     @Test
-    void shouldThrow() {
+    void throwsOnInvalid() {
         Assertions.assertThrows(
             IllegalStateException.class,
             () -> new Xsline(
@@ -61,5 +60,4 @@ final class StSchemaTest {
             XhtmlMatchers.hasXPaths("/foo")
         );
     }
-
 }

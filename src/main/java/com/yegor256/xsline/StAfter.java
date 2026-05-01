@@ -37,5 +37,4 @@ public final class StAfter extends StEnvelope {
             )
         );
     }
-
 }

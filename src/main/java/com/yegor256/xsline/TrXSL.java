@@ -30,8 +30,8 @@ import java.util.Iterator;
  *
  * @param <T> Type of elements inside
  * @since 0.3.0
- * @checkstyle AbbreviationAsWordInNameCheck (10 lines)
  */
+// @checkstyle AbbreviationAsWordInNameCheck (10 lines)
 public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary<T> {
 
     /**
@@ -41,7 +41,6 @@ public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary
 
     /**
      * Ctor.
-     *
      * @since 0.18.0
      */
     public TrXSL() {
@@ -50,7 +49,6 @@ public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary
 
     /**
      * Ctor.
-     *
      * @param train Original
      */
     public TrXSL(final Train<T> train) {
@@ -89,5 +87,4 @@ public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary
     public TrXSL<T> with(final Shift shift) {
         return new TrXSL<>(this.origin.with((T) shift));
     }
-
 }

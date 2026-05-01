@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  * Default train.
@@ -43,6 +42,7 @@ public final class TrDefault<T> implements Train<T> {
      */
     @SafeVarargs
     public TrDefault(final T... items) {
+        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(Arrays.asList(items));
     }
 
@@ -56,7 +56,7 @@ public final class TrDefault<T> implements Train<T> {
 
     @Override
     public Train<T> with(final T element) {
-        final Collection<T> items = new LinkedList<>();
+        final Collection<T> items = new ArrayList<>(0);
         for (final T item : this.list) {
             items.add(item);
         }

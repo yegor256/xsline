@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrJoined}.
- *
  * @since 0.16.0
  */
 final class TrJoinedTest {
@@ -52,5 +51,4 @@ final class TrJoinedTest {
             XhtmlMatchers.hasXPaths("/x[.='{boom}']")
         );
     }
-
 }

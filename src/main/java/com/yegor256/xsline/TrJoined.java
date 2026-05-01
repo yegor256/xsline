@@ -4,10 +4,10 @@
  */
 package com.yegor256.xsline;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -36,6 +36,7 @@ public final class TrJoined<T> implements Train<T> {
      */
     @SafeVarargs
     public TrJoined(final Train<T>... trains) {
+        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(Arrays.asList(trains));
     }
 
@@ -49,7 +50,7 @@ public final class TrJoined<T> implements Train<T> {
 
     @Override
     public Train<T> with(final T shift) {
-        final List<Train<T>> trains = new LinkedList<>();
+        final List<Train<T>> trains = new ArrayList<>(0);
         for (final Train<T> train : this.chain) {
             trains.add(train);
         }
@@ -63,7 +64,7 @@ public final class TrJoined<T> implements Train<T> {
 
     @Override
     public Train<T> empty() {
-        final List<Train<T>> trains = new LinkedList<>();
+        final List<Train<T>> trains = new ArrayList<>(0);
         for (final Train<T> train : this.chain) {
             trains.add(train.empty());
         }
@@ -72,7 +73,7 @@ public final class TrJoined<T> implements Train<T> {
 
     @Override
     public Iterator<T> iterator() {
-        final Collection<T> shifts = new LinkedList<>();
+        final Collection<T> shifts = new ArrayList<>(0);
         for (final Train<T> train : this.chain) {
             for (final T shift : train) {
                 shifts.add(shift);

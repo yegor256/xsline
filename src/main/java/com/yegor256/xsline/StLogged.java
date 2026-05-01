@@ -98,10 +98,11 @@ public final class StLogged implements Shift {
                         position, this.uid()
                     );
                 } else {
+                    // @checkstyle ProhibitLineSeparatorInStringsCheck (13 lines)
                     Logger.log(
                         this.level,
                         this.target,
-                        "Shift #%d via '%s' produced (%d->%d chars):\n%s<EOF>",
+                        "Shift #%d via '%s' produced (%d->%d chars):%n%s<EOF>",
                         position,
                         this.uid(),
                         before.length(),

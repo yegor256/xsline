@@ -29,19 +29,20 @@ import java.net.URL;
  * documentation of {@link ClasspathSources} class.</p>
  *
  * @since 0.4.0
- * @checkstyle AbbreviationAsWordInNameCheck (3 lines)
  */
+// @checkstyle AbbreviationAsWordInNameCheck (3 lines)
 public final class StClasspath extends StEnvelope {
 
     /**
      * Ctor.
      * @param path Path in classpath
      * @param args Arguments to send to the XSL separated with by a space,
-     *  e.g. {@code "arg1 hello world!"} means argument {@code arg1} with the
-     *  {@code "hello world!"} value.
+     *  e.g. {@code "name hello world!"} means argument {@code name} with the
+     *  {@code "hello world!"} value
      * @since 0.16.0
      */
     public StClasspath(final String path, final String... args) {
+        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         super(new StXSL(StClasspath.make(path, args)));
     }
 
@@ -76,5 +77,4 @@ public final class StClasspath extends StEnvelope {
         }
         return xsl;
     }
-
 }

@@ -31,8 +31,8 @@ import java.util.Iterator;
  * @param <T> Type of elements inside
  * @param <R> Type of returning train
  * @since 0.3.0
- * @checkstyle AbbreviationAsWordInNameCheck (10 lines)
  */
+// @checkstyle AbbreviationAsWordInNameCheck (10 lines)
 public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, Train.Temporary<T> {
 
     /**
@@ -43,18 +43,11 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
     /**
      * Ctor.
      * @param train The train to start with
-     */
-    public TrBulk(final R train) {
-        this.origin = train;
-    }
-
-    /**
-     * Ctor.
-     * @param train The train to start with
      * @param bulk List of elements to add immediately
      * @since 0.6.0
      */
     public TrBulk(final R train, final Iterable<T> bulk) {
+        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(new TrBulk<>(train).with(bulk).back());
     }
 
@@ -66,7 +59,16 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
      */
     @SafeVarargs
     public TrBulk(final R train, final T... bulk) {
+        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(train, Arrays.asList(bulk));
+    }
+
+    /**
+     * Ctor.
+     * @param train The train to start with
+     */
+    public TrBulk(final R train) {
+        this.origin = train;
     }
 
     @Override
@@ -96,5 +98,4 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
     public R back() {
         return this.origin;
     }
-
 }
