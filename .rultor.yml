@@ -12,7 +12,7 @@ install: |
   pdd --file=/dev/null
 merge:
   script: |
-    mvn clean install -Pqulice --errors -Dstyle.color=never
+    mvn clean install -ntp -Pqulice --errors -Dstyle.color=never
 release:
   pre: false
   script: |-
@@ -20,4 +20,4 @@ release:
     mvn versions:set "-DnewVersion=${tag}" -Dstyle.color=never
     git commit -am "${tag}"
     export MAVEN_OPTS="--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
-    mvn clean deploy -Pxsline -Psonatype --errors --settings ../settings.xml -Dstyle.color=never
+    mvn clean deploy -ntp -Pxsline -Psonatype --errors --settings ../settings.xml -Dstyle.color=never
