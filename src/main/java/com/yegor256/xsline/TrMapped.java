@@ -11,7 +11,6 @@ import java.util.function.Function;
 /**
  * Train that accepts elements of any type and turns them into
  * elements of type {@link Shift}.
- *
  * @param <I> Type of input elements, for example a {@link String}
  * @param <T> Type of elements inside, usually {@link Shift}
  * @since 0.12.0
@@ -41,21 +40,12 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
      * Ctor.
      * @param train Original
      * @param fun Mapping function
-     */
-    public TrMapped(final Train<T> train, final Function<I, T> fun) {
-        this.origin = train;
-        this.func = fun;
-    }
-
-    /**
-     * Ctor.
-     * @param train Original
-     * @param fun Mapping function
      * @param items List of items to add immediately
      */
     @SafeVarargs
     public TrMapped(final Train<T> train, final Function<I, T> fun,
         final I... items) {
+        // @checkstyle ConstructorsCodeFreeCheck (4 lines)
         this(
             new TrBulk<>(
                 new TrMapped<>(train, fun)
@@ -72,6 +62,16 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
     @SafeVarargs
     public TrMapped(final Function<I, T> fun, final I... items) {
         this(new TrDefault<>(), fun, items);
+    }
+
+    /**
+     * Ctor.
+     * @param train Original
+     * @param fun Mapping function
+     */
+    public TrMapped(final Train<T> train, final Function<I, T> fun) {
+        this.origin = train;
+        this.func = fun;
     }
 
     @Override
@@ -97,5 +97,4 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
     public Train<T> back() {
         return this.origin;
     }
-
 }

@@ -43,16 +43,15 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
-     *
      * @param path The path of XSD document in classpath
      */
     public StSchema(final String path) {
+        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(StSchema.make(path));
     }
 
     /**
      * Ctor.
-     *
      * @param path The path of XSD document
      * @throws FileNotFoundException If file isn't found
      */
@@ -62,7 +61,6 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
-     *
      * @param schema The schema
      */
     public StSchema(final XML schema) {
@@ -76,7 +74,6 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Validate it.
-     *
      * @param schema The schema
      * @param xml The XML
      * @return The same XML
@@ -114,7 +111,6 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Turn violation into a message.
-     *
      * @param violation The violation
      * @return The message
      */
@@ -138,7 +134,6 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Make XSD safely.
-     *
      * @param path Path in classpath
      * @return XSD
      */
@@ -160,5 +155,4 @@ public final class StSchema extends StEnvelope {
             );
         }
     }
-
 }

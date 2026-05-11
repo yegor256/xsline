@@ -9,7 +9,6 @@ import java.util.Iterator;
 /**
  * Train with a post-processing shifts inserted automatically
  * after each shift, which you add to it.
- *
  * @since 0.3.0
  */
 public final class TrAfter implements Train<Shift> {

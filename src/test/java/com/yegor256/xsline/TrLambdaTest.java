@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrLambda}.
- *
  * @since 0.4.0
  */
 final class TrLambdaTest {
@@ -95,7 +94,7 @@ final class TrLambdaTest {
     }
 
     @Test
-    void shouldReturnEmptyTrain() {
+    void returnsEmptyTrain() {
         MatcherAssert.assertThat(
             new TrLambda(
                 shift -> new StLambda(
@@ -137,5 +136,4 @@ final class TrLambdaTest {
             ).pass(new XMLDocument("<a>test</a>"))
         );
     }
-
 }

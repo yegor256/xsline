@@ -9,10 +9,9 @@ import com.jcabi.xml.XSL;
 
 /**
  * Simple {@link Shift} through a single XSL.
- *
  * @since 0.1.0
- * @checkstyle AbbreviationAsWordInNameCheck (3 lines)
  */
+// @checkstyle AbbreviationAsWordInNameCheck (3 lines)
 public final class StXSL extends StEnvelope {
 
     /**
@@ -27,5 +26,4 @@ public final class StXSL extends StEnvelope {
             )
         );
     }
-
 }

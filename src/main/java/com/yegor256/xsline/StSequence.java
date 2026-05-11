@@ -73,6 +73,7 @@ public final class StSequence extends StEnvelope {
      */
     public StSequence(final FunctionChecked<XML, Boolean> fun,
         final Shift... shifts) {
+        // @checkstyle ConstructorsCodeFreeCheck (7 lines)
         this(
             fun,
             new TrBulk<>(
@@ -91,6 +92,7 @@ public final class StSequence extends StEnvelope {
     public StSequence(final String uid,
         final FunctionChecked<XML, Boolean> fun,
         final Shift... shifts) {
+        // @checkstyle ConstructorsCodeFreeCheck (8 lines)
         this(
             uid,
             fun,
@@ -108,6 +110,7 @@ public final class StSequence extends StEnvelope {
      */
     public StSequence(final FunctionChecked<XML, Boolean> fun,
         final Iterable<Shift> train) {
+        // @checkstyle ConstructorsCodeFreeCheck (4 lines)
         super(
             new StLambda(
                 StSequence.apply(fun, train)
@@ -121,9 +124,11 @@ public final class StSequence extends StEnvelope {
      * @param fun The predicate
      * @param train The train
      */
+    // @checkstyle ConstructorsOrderCheck (5 lines)
     public StSequence(final String uid,
         final FunctionChecked<XML, Boolean> fun,
         final Iterable<Shift> train) {
+        // @checkstyle ConstructorsCodeFreeCheck (5 lines)
         super(
             new StLambda(
                 uid,
@@ -154,5 +159,4 @@ public final class StSequence extends StEnvelope {
             return output;
         };
     }
-
 }
