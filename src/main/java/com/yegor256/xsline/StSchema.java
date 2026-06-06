@@ -138,7 +138,7 @@ public final class StSchema extends StEnvelope {
      * @return XSD
      */
     private static XML make(final String path) {
-        final URL url = StClasspath.class.getResource(path);
+        final URL url = StSchema.class.getResource(path);
         if (url == null) {
             throw new IllegalArgumentException(
                 String.format(
