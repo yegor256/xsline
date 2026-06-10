@@ -6,6 +6,7 @@ package com.yegor256.xsline;
 
 import com.jcabi.log.Logger;
 import com.jcabi.xml.XML;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A {@link Shift} that logs a warning if XSL transformation takes too long.
@@ -71,14 +72,14 @@ public final class StFast implements Shift {
 
     @Override
     public XML apply(final int position, final XML xml) {
-        return this.timed(position, xml, System.currentTimeMillis());
+        return this.timed(position, xml, System.nanoTime());
     }
 
     /**
      * Applies shift and logs a warning if it took too long.
      * @param position Position in the pipeline
      * @param xml Input XML
-     * @param before Start time in milliseconds
+     * @param before Start time in nanoseconds from {@link System#nanoTime()}
      * @return Transformed XML
      */
     private XML timed(final int position, final XML xml, final long before) {
@@ -88,15 +89,16 @@ public final class StFast implements Shift {
     /**
      * Logs a warning if transformation took too long.
      * @param result The transformation result
-     * @param before Start time in milliseconds
+     * @param before Start time in nanoseconds from {@link System#nanoTime()}
      * @return The same result unchanged
      */
     private XML checked(final XML result, final long before) {
-        if (System.currentTimeMillis() - before > this.threshold) {
+        final long elapsed = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - before);
+        if (elapsed > this.threshold) {
             Logger.warn(
                 this.target,
                 "XSL '%s' took %[ms]s (over %[ms]s)",
-                this.uid(), System.currentTimeMillis() - before,
+                this.uid(), elapsed,
                 this.threshold
             );
         }
