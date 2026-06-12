@@ -5,9 +5,12 @@
 package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
+import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import java.util.logging.Level;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -47,6 +50,37 @@ final class StLoggedTest {
                 )
             ).pass(new XMLDocument("<bar/>")),
             XhtmlMatchers.hasXPaths("/bar")
+        );
+    }
+
+    @Test
+    void wrapsRuntimeFailureAsIllegalStateWithCause() {
+        final IllegalStateException thrown = Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new StLogged(
+                new Shift() {
+                    @Override
+                    public String uid() {
+                        return "boom";
+                    }
+
+                    @Override
+                    public XML apply(final int position, final XML xml) {
+                        throw new IllegalArgumentException("downstream failure");
+                    }
+                }
+            ).apply(0, new XMLDocument("<x/>")),
+            "StLogged must rewrap downstream RuntimeException as IllegalStateException"
+        );
+        MatcherAssert.assertThat(
+            "Original RuntimeException must be preserved as the cause",
+            thrown.getCause(),
+            Matchers.instanceOf(IllegalArgumentException.class)
+        );
+        MatcherAssert.assertThat(
+            "Original exception message must be reachable through getCause()",
+            thrown.getCause().getMessage(),
+            Matchers.equalTo("downstream failure")
         );
     }
 }

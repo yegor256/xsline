@@ -16,8 +16,10 @@ import java.util.logging.Level;
  * This may be pretty verbose, be careful when using this class.</p>
  *
  * <p>The decorator catches all children of {@link RuntimeException},
- * logs them, and then re-throws as instances of
- * {@link IllegalArgumentException}.</p>
+ * logs them together with their stack trace, and then re-throws as
+ * instances of {@link IllegalStateException} so the wrapping does not
+ * collide with the {@link IllegalArgumentException} contract callers use
+ * for input-validation failures.</p>
  *
  * @since 0.1.0
  */
@@ -118,8 +120,12 @@ public final class StLogged implements Shift {
             }
         // @checkstyle IllegalCatchCheck (1 line)
         } catch (final RuntimeException ex) {
-            Logger.error(this.target, "The error happened here:%n%s", xml);
-            throw new IllegalArgumentException(
+            Logger.error(
+                this.target,
+                "Shift '%s' failed on XML:%n%s%n%[exception]s",
+                this.origin, xml, ex
+            );
+            throw new IllegalStateException(
                 String.format("Shift '%s' failed", this.origin),
                 ex
             );
