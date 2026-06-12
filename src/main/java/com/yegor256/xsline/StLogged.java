@@ -122,8 +122,7 @@ public final class StLogged implements Shift {
         } catch (final RuntimeException ex) {
             Logger.error(
                 this.target,
-                "Shift '%s' failed on XML:%n%s%n%[exception]s",
-                this.origin, xml, ex
+                "The error happened here:%n%s%n%[exception]s", xml, ex
             );
             throw new IllegalStateException(
                 String.format("Shift '%s' failed", this.origin),
