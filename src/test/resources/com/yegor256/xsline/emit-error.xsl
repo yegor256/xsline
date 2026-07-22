@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
- * SPDX-License-Identifier: MIT
+* SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
+* SPDX-License-Identifier: MIT
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" id="emit-error" version="2.0">
   <!--
