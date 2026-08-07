@@ -7,7 +7,7 @@ package com.yegor256.xsline;
 /**
  * Bi-Function that accepts two arguments.
  *
- * Same as {@link java.util.function.BiFunction}, but throws
+ * <p>Same as {@link java.util.function.BiFunction}, but throws
  * an Exception.
  *
  * @param <X> Type of input

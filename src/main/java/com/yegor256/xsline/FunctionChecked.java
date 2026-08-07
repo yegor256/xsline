@@ -7,7 +7,7 @@ package com.yegor256.xsline;
 /**
  * Function that accepts one argument.
  *
- * Same as {@link java.util.function.Function}, but throws
+ * <p>Same as {@link java.util.function.Function}, but throws
  * an Exception.
  *
  * @param <X> Type of input

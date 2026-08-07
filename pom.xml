@@ -233,15 +233,7 @@
           <plugin>
             <groupId>com.qulice</groupId>
             <artifactId>qulice-maven-plugin</artifactId>
-            <version>0.30.2</version>
-            <configuration>
-              <excludes combine.children="append">
-                <!-- UseDiamondOperator false positive on an anonymous class,
-                  which requires source 9+ to compile with a diamond,
-                  see https://github.com/yegor256/qulice/issues/1690 -->
-                <exclude>pmd:.*/src/main/java/com/yegor256/xsline/StLambda\.java</exclude>
-              </excludes>
-            </configuration>
+            <version>0.30.5</version>
           </plugin>
         </plugins>
       </build>

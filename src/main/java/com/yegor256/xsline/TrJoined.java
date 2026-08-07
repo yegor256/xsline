@@ -13,9 +13,9 @@ import java.util.List;
 /**
  * Train that consequently joins a number of trains.
  *
- * The class is immutable, you can't add any more Shifts to it.
+ * <p>The class is immutable, you can't add any more Shifts to it.
  *
- * When constructed, an object of this class doesn't touch the encapsulated
+ * <p>When constructed, an object of this class doesn't touch the encapsulated
  * Trains. Only when you call {@link #iterator()}, all Trains are checked,
  * their Shifts are retrieved, a new collection is built and its iterator
  * is returned.

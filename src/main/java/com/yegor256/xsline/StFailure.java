@@ -7,7 +7,7 @@ package com.yegor256.xsline;
 /**
  * A {@link Shift} that intentionally throws an exception.
  *
- * This may be useful for testing.
+ * <p>This may be useful for testing.
  *
  * @since 0.21.0
  */
