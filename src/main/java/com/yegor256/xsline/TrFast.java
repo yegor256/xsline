@@ -51,7 +51,6 @@ public final class TrFast extends TrEnvelope {
      * @param msec Threshold in milliseconds
      */
     public TrFast(final Train<Shift> train, final Object target, final long msec) {
-        // @checkstyle ConstructorsCodeFreeCheck (5 lines)
         super(
             new TrLambda(
                 train,

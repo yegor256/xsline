@@ -32,7 +32,6 @@ import java.util.Iterator;
  * @param <R> Type of returning train
  * @since 0.3.0
  */
-// @checkstyle AbbreviationAsWordInNameCheck (10 lines)
 public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, Train.Temporary<T> {
 
     /**
@@ -47,7 +46,6 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
      * @since 0.6.0
      */
     public TrBulk(final R train, final Iterable<T> bulk) {
-        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(new TrBulk<>(train).with(bulk).back());
     }
 
@@ -59,7 +57,6 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
      */
     @SafeVarargs
     public TrBulk(final R train, final T... bulk) {
-        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(train, Arrays.asList(bulk));
     }
 

@@ -36,7 +36,6 @@ public final class TrJoined<T> implements Train<T> {
      */
     @SafeVarargs
     public TrJoined(final Train<T>... trains) {
-        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(Arrays.asList(trains));
     }
 

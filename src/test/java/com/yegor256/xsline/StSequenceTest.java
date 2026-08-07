@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
  * Test case for {@link StSequence}.
  * @since 0.14.0
  */
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class StSequenceTest {
 
     @Test

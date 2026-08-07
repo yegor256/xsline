@@ -45,7 +45,6 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
      * @since 0.6.0
      */
     public TrClasspath(final Train<T> train, final String... paths) {
-        // @checkstyle ConstructorsCodeFreeCheck (4 lines)
         this(
             new TrBulk<>(
                 new TrClasspath<>(train)

@@ -46,7 +46,6 @@ public final class StSchema extends StEnvelope {
      * @param path The path of XSD document in classpath
      */
     public StSchema(final String path) {
-        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(StSchema.make(path));
     }
 

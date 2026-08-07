@@ -42,7 +42,6 @@ public final class TrDefault<T> implements Train<T> {
      */
     @SafeVarargs
     public TrDefault(final T... items) {
-        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(Arrays.asList(items));
     }
 

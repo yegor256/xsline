@@ -18,7 +18,6 @@ public final class TrWith extends TrEnvelope {
      * @param shifts Shifts to add
      */
     public TrWith(final Train<Shift> train, final Shift... shifts) {
-        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         super(new TrBulk<>(train).with(Arrays.asList(shifts)).back());
     }
 }

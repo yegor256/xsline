@@ -30,7 +30,6 @@ import java.net.URL;
  *
  * @since 0.4.0
  */
-// @checkstyle AbbreviationAsWordInNameCheck (3 lines)
 public final class StClasspath extends StEnvelope {
 
     /**
@@ -42,7 +41,6 @@ public final class StClasspath extends StEnvelope {
      * @since 0.16.0
      */
     public StClasspath(final String path, final String... args) {
-        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         super(new StXSL(StClasspath.make(path, args)));
     }
 

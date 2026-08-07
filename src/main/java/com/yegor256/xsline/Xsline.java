@@ -41,7 +41,6 @@ public final class Xsline {
      * @since 0.20.0
      */
     public Xsline(final Shift shift) {
-        // @checkstyle ConstructorsCodeFreeCheck (1 line)
         this(Collections.singletonList(shift));
     }
 

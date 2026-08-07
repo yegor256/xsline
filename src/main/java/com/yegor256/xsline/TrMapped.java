@@ -45,7 +45,6 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
     @SafeVarargs
     public TrMapped(final Train<T> train, final Function<I, T> fun,
         final I... items) {
-        // @checkstyle ConstructorsCodeFreeCheck (4 lines)
         this(
             new TrBulk<>(
                 new TrMapped<>(train, fun)
