@@ -74,23 +74,10 @@ public final class StFast implements Shift {
         return this.timed(position, xml, System.currentTimeMillis());
     }
 
-    /**
-     * Applies shift and logs a warning if it took too long.
-     * @param position Position in the pipeline
-     * @param xml Input XML
-     * @param before Start time in milliseconds
-     * @return Transformed XML
-     */
     private XML timed(final int position, final XML xml, final long before) {
         return this.checked(this.origin.apply(position, xml), before);
     }
 
-    /**
-     * Logs a warning if transformation took too long.
-     * @param result The transformation result
-     * @param before Start time in milliseconds
-     * @return The same result unchanged
-     */
     private XML checked(final XML result, final long before) {
         if (System.currentTimeMillis() - before > this.threshold) {
             Logger.warn(

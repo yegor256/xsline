@@ -71,12 +71,6 @@ public final class StSchema extends StEnvelope {
         );
     }
 
-    /**
-     * Validate it.
-     * @param schema The schema
-     * @param xml The XML
-     * @return The same XML
-     */
     private static XML validate(final XML schema, final XML xml) {
         final Collection<SAXParseException> violations;
         if (Objects.isNull(schema)) {
@@ -108,11 +102,6 @@ public final class StSchema extends StEnvelope {
         return xml;
     }
 
-    /**
-     * Turn violation into a message.
-     * @param violation The violation
-     * @return The message
-     */
     private static String asMessage(final SAXParseException violation) {
         final StringBuilder msg = new StringBuilder(100);
         if (violation.getLineNumber() >= 0) {
@@ -131,11 +120,6 @@ public final class StSchema extends StEnvelope {
         return msg.toString();
     }
 
-    /**
-     * Make XSD safely.
-     * @param path Path in classpath
-     * @return XSD
-     */
     private static XML make(final String path) {
         final URL url = StSchema.class.getResource(path);
         if (url == null) {
