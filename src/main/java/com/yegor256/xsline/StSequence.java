@@ -133,6 +133,12 @@ public final class StSequence extends StEnvelope {
         );
     }
 
+    /**
+     * Applies {@link Shift}-s, while provided predicate is true.
+     * @param fun The predicate
+     * @param train The train
+     * @return BiFunction that sets behavior for {@link StLambda}
+     */
     private static BiFunctionChecked<Integer, XML, XML> apply(
         final FunctionChecked<XML, Boolean> fun,
         final Iterable<Shift> train) {
