@@ -5,9 +5,11 @@
 package com.yegor256.xsline;
 
 import com.jcabi.matchers.XhtmlMatchers;
+import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import java.util.logging.Level;
 import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -48,5 +50,34 @@ final class StLoggedTest {
             ).pass(new XMLDocument("<bar/>")),
             XhtmlMatchers.hasXPaths("/bar")
         );
+    }
+
+    @Test
+    void rewrapsDownstreamRuntimeFailureAsIllegalState() {
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new StLogged(
+                new StLoggedTest.ExplodingShift()
+            ).apply(0, new XMLDocument("<x/>")),
+            "StLogged must rewrap downstream RuntimeException as IllegalStateException"
+        );
+    }
+
+    /**
+     * A {@link Shift} that always throws when applied, used to exercise the
+     * failure-wrapping branch of {@link StLogged#apply(int, XML)}.
+     * @since 0.21.1
+     */
+    private static final class ExplodingShift implements Shift {
+
+        @Override
+        public String uid() {
+            return "boom";
+        }
+
+        @Override
+        public XML apply(final int position, final XML xml) {
+            throw new IllegalArgumentException("downstream failure");
+        }
     }
 }
