@@ -65,6 +65,11 @@ final class StEndlessTest {
         );
     }
 
+    /**
+     * Generate large XML.
+     * @param root Root element
+     * @return Large XML
+     */
     private static String largeXml(final String root) {
         final int capacity = 10_000;
         final StringBuilder xml = new StringBuilder(capacity);

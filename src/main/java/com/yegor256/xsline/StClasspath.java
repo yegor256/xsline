@@ -44,6 +44,12 @@ public final class StClasspath extends StEnvelope {
         super(new StXSL(StClasspath.make(path, args)));
     }
 
+    /**
+     * Make XSL safely.
+     * @param path Path in classpath
+     * @param args Arguments to send to the XSL
+     * @return XSL
+     */
     private static XSL make(final String path, final String... args) {
         final URL url = StClasspath.class.getResource(path);
         if (url == null) {
