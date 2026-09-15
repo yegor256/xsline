@@ -30,6 +30,7 @@ public final class TrLambda implements Train<Shift> {
 
     /**
      * Ctor.
+     *
      * @param fun The function
      * @since 0.18.0
      */
@@ -39,6 +40,7 @@ public final class TrLambda implements Train<Shift> {
 
     /**
      * Ctor.
+     *
      * @param train Original
      * @param fun The function
      */

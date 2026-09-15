@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrXSL}.
+ *
  * @since 0.6.0
  */
 // @checkstyle AbbreviationAsWordInNameCheck (500 lines)

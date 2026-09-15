@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 /**
  * Iterator that modifies its items on retrieval.
+ *
  * @param <T> Type of items
  * @since 0.4.0
  */
@@ -26,6 +27,7 @@ final class Alterator<T> implements Iterator<T> {
 
     /**
      * Ctor.
+     *
      * @param iterator Original
      * @param fun The function
      */

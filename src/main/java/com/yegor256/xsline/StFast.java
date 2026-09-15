@@ -37,6 +37,7 @@ public final class StFast implements Shift {
 
     /**
      * Ctor.
+     *
      * @param shift The shift
      */
     public StFast(final Shift shift) {
@@ -45,6 +46,7 @@ public final class StFast implements Shift {
 
     /**
      * Ctor.
+     *
      * @param shift The shift
      * @param tgt The target to log against
      */
@@ -54,6 +56,7 @@ public final class StFast implements Shift {
 
     /**
      * Ctor.
+     *
      * @param shift The shift
      * @param tgt The target to log against
      * @param msec Threshold in msec

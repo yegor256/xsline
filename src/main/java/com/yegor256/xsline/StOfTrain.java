@@ -18,6 +18,7 @@ public final class StOfTrain extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param train The train
      */
     public StOfTrain(final Train<Shift> train) {
@@ -28,6 +29,7 @@ public final class StOfTrain extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param uid The UID to use
      * @param train The train
      */

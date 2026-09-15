@@ -7,7 +7,7 @@ package com.yegor256.xsline;
 /**
  * A {@link Shift} that intentionally throws an exception.
  *
- * <p>This may be useful for testing.
+ * <p>This may be useful for testing.</p>
  *
  * @since 0.21.0
  */
@@ -15,6 +15,7 @@ public final class StFailure extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @since 0.21.1
      */
     public StFailure() {
@@ -23,6 +24,7 @@ public final class StFailure extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param msg The message to throw
      */
     public StFailure(final String msg) {
@@ -31,6 +33,7 @@ public final class StFailure extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param error The error to throw
      */
     public StFailure(final Exception error) {

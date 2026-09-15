@@ -13,12 +13,12 @@ import java.util.List;
 /**
  * Train that consequently joins a number of trains.
  *
- * <p>The class is immutable, you can't add any more Shifts to it.
+ * <p>The class is immutable, you can't add any more Shifts to it.</p>
  *
  * <p>When constructed, an object of this class doesn't touch the encapsulated
  * Trains. Only when you call {@link #iterator()}, all Trains are checked,
  * their Shifts are retrieved, a new collection is built and its iterator
- * is returned.
+ * is returned.</p>
  *
  * @param <T> Type of elements
  * @since 0.16.0
@@ -32,6 +32,7 @@ public final class TrJoined<T> implements Train<T> {
 
     /**
      * Ctor.
+     *
      * @param trains Chain of trains
      */
     @SafeVarargs
@@ -41,6 +42,7 @@ public final class TrJoined<T> implements Train<T> {
 
     /**
      * Ctor.
+     *
      * @param trains Chain of trains
      */
     public TrJoined(final Iterable<Train<T>> trains) {

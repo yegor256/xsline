@@ -65,6 +65,7 @@ public final class StLogged implements Shift {
 
     /**
      * Ctor.
+     *
      * @param shift The shift
      * @param tgt The target to log against
      * @param lvl The logging level

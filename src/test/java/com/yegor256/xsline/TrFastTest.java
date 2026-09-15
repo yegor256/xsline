@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrFast}.
+ *
  * @since 0.12.0
  */
 final class TrFastTest {

@@ -41,6 +41,7 @@ public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary
 
     /**
      * Ctor.
+     *
      * @since 0.18.0
      */
     public TrXSL() {
@@ -49,6 +50,7 @@ public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary
 
     /**
      * Ctor.
+     *
      * @param train Original
      */
     public TrXSL(final Train<T> train) {
@@ -80,6 +82,7 @@ public final class TrXSL<T extends Shift> implements Train<XSL>, Train.Temporary
 
     /**
      * Add shift.
+     *
      * @param shift The shift to add
      * @return New train
      */

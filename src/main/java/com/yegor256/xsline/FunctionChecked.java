@@ -8,7 +8,7 @@ package com.yegor256.xsline;
  * Function that accepts one argument.
  *
  * <p>Same as {@link java.util.function.Function}, but throws
- * an Exception.
+ * an Exception.</p>
  *
  * @param <X> Type of input
  * @param <Y> Type of input
@@ -19,6 +19,7 @@ public interface FunctionChecked<X, Y> {
 
     /**
      * Apply it.
+     *
      * @param input The argument
      * @return The result
      * @throws Exception If fails

@@ -20,6 +20,7 @@ public final class StAfter extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param shift Original shift
      * @param after Collection of Shifts to be applied after original Shift
      */

@@ -25,6 +25,7 @@ public class TrEnvelope implements Train<Shift> {
 
     /**
      * Ctor.
+     *
      * @param train Original
      */
     public TrEnvelope(final Train<Shift> train) {

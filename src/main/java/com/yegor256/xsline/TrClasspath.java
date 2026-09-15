@@ -40,6 +40,7 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
 
     /**
      * Ctor.
+     *
      * @param train Original
      * @param paths List of paths to add immediately
      * @since 0.6.0
@@ -54,6 +55,7 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
 
     /**
      * Ctor with {@link TrDefault}.
+     *
      * @param paths List of paths to add immediately
      * @since 0.16.0
      */
@@ -63,6 +65,7 @@ public final class TrClasspath<T extends Shift> implements Train<String>, Train.
 
     /**
      * Ctor.
+     *
      * @param train Original
      */
     @SuppressWarnings("unchecked")

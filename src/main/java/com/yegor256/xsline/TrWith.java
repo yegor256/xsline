@@ -8,12 +8,14 @@ import java.util.Arrays;
 
 /**
  * Train that joins existing train and a few shifts.
+ *
  * @since 0.8.0
  */
 public final class TrWith extends TrEnvelope {
 
     /**
      * Ctor.
+     *
      * @param train Original
      * @param shifts Shifts to add
      */

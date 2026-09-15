@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrLogged}.
+ *
  * @since 0.21.1
  */
 final class TrLoggedTest {

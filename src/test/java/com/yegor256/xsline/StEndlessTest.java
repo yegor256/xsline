@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StEndless}.
+ *
  * @since 0.1.0
  */
 final class StEndlessTest {
@@ -79,6 +80,7 @@ final class StEndlessTest {
     /**
      * A dummy shift that does nothing and returns a constant XML.
      * However, it can be applied only twice, and then it throws an exception.
+     *
      * @since 0.34
      */
     private static final class Dummy implements Shift {
@@ -95,6 +97,7 @@ final class StEndlessTest {
 
         /**
          * Ctor.
+         *
          * @param attempts How many times are allowed to transform
          */
         Dummy(final int attempts) {
@@ -103,6 +106,7 @@ final class StEndlessTest {
 
         /**
          * Ctor.
+         *
          * @param attempts How many times are allowed to transform
          * @param xml XML to return
          */
@@ -112,6 +116,7 @@ final class StEndlessTest {
 
         /**
          * Ctor.
+         *
          * @param attempts How many times are allowed to transform
          * @param xml XML to return
          */

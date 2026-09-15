@@ -32,6 +32,7 @@ public final class StLambda implements Shift {
 
     /**
      * Ctor.
+     *
      * @param fun The function
      * @since 0.13.0
      */
@@ -41,6 +42,7 @@ public final class StLambda implements Shift {
 
     /**
      * Ctor.
+     *
      * @param uid The ID
      * @param fun The function
      * @since 0.13.0
@@ -51,6 +53,7 @@ public final class StLambda implements Shift {
 
     /**
      * Ctor.
+     *
      * @param fun The function
      */
     public StLambda(final BiFunctionChecked<Integer, XML, XML> fun) {
@@ -67,6 +70,7 @@ public final class StLambda implements Shift {
 
     /**
      * Ctor.
+     *
      * @param uid The ID
      * @param fun The function
      */
@@ -76,6 +80,7 @@ public final class StLambda implements Shift {
 
     /**
      * Ctor.
+     *
      * @param uid The ID
      * @param fun The function
      */

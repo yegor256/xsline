@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrDefault}.
+ *
  * @since 0.4.0
  */
 final class TrDefaultTest {

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StClasspath}.
+ *
  * @since 0.6.0
  */
 final class StClasspathTest {

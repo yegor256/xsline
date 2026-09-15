@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrLambda}.
+ *
  * @since 0.4.0
  */
 final class TrLambdaTest {

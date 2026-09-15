@@ -29,6 +29,7 @@ public interface Shift {
 
     /**
      * Apply it to an XML and get a new one back.
+     *
      * @param position The position of this shift run in the pipeline line
      * @param xml The XML document
      * @return New XML after the modifications applied

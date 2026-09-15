@@ -26,6 +26,7 @@ public class StEnvelope implements Shift {
 
     /**
      * Ctor.
+     *
      * @param shift The shift
      */
     public StEnvelope(final Shift shift) {

@@ -18,6 +18,7 @@ public final class StBefore extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param shift Original shift
      * @param prev Previous one
      */

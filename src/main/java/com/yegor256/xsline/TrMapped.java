@@ -11,6 +11,7 @@ import java.util.function.Function;
 /**
  * Train that accepts elements of any type and turns them into
  * elements of type {@link Shift}.
+ *
  * @param <I> Type of input elements, for example a {@link String}
  * @param <T> Type of elements inside, usually {@link Shift}
  * @since 0.12.0
@@ -29,6 +30,7 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
 
     /**
      * Ctor.
+     *
      * @param fun Mapping function
      * @since 0.18.0
      */
@@ -38,6 +40,7 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
 
     /**
      * Ctor.
+     *
      * @param train Original
      * @param fun Mapping function
      * @param items List of items to add immediately
@@ -55,6 +58,7 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
 
     /**
      * Ctor.
+     *
      * @param fun Mapping function
      * @param items List of items to add immediately
      */
@@ -65,6 +69,7 @@ public final class TrMapped<I, T extends Shift> implements Train<I>, Train.Tempo
 
     /**
      * Ctor.
+     *
      * @param train Original
      * @param fun Mapping function
      */

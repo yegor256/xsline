@@ -8,7 +8,7 @@ package com.yegor256.xsline;
  * Bi-Function that accepts two arguments.
  *
  * <p>Same as {@link java.util.function.BiFunction}, but throws
- * an Exception.
+ * an Exception.</p>
  *
  * @param <X> Type of input
  * @param <Y> Type of input
@@ -20,6 +20,7 @@ public interface BiFunctionChecked<X, Y, Z> {
 
     /**
      * Apply it.
+     *
      * @param first The first argument
      * @param second The second argument
      * @return The result

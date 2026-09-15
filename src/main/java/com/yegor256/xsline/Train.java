@@ -23,6 +23,7 @@ public interface Train<T> extends Iterable<T> {
 
     /**
      * Add new element and return a new train.
+     *
      * @param element New element
      * @return New train
      */
@@ -43,6 +44,7 @@ public interface Train<T> extends Iterable<T> {
 
     /**
      * Temporary train.
+     *
      * @param <X> Type of elements inside
      * @since 0.4.0
      */
@@ -51,6 +53,7 @@ public interface Train<T> extends Iterable<T> {
 
         /**
          * Return the original one.
+         *
          * @return Original train
          */
         Train<X> back();

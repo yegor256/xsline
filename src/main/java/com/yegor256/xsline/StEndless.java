@@ -29,6 +29,7 @@ public final class StEndless extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param xsl The XSL document
      */
     public StEndless(final XSL xsl) {
@@ -37,6 +38,7 @@ public final class StEndless extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param shift The shift
      */
     public StEndless(final Shift shift) {

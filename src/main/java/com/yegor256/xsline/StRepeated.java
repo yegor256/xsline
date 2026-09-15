@@ -26,6 +26,7 @@ public final class StRepeated extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param xsl The XSL
      * @param fun The predicate
      */
@@ -35,6 +36,7 @@ public final class StRepeated extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param shift The shift
      * @param pred The predicate
      */

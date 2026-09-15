@@ -13,6 +13,7 @@ import org.xembly.Xembler;
 
 /**
  * Test case for {@link TrAfter}.
+ *
  * @since 0.4.0
  */
 final class TrAfterTest {

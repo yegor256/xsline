@@ -41,6 +41,7 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
 
     /**
      * Ctor.
+     *
      * @param train The train to start with
      * @param bulk List of elements to add immediately
      * @since 0.6.0
@@ -51,6 +52,7 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
 
     /**
      * Ctor.
+     *
      * @param train The train to start with
      * @param bulk List of elements to add immediately
      * @since 0.10.0
@@ -62,6 +64,7 @@ public final class TrBulk<T, R extends Train<T>> implements Train<Iterable<T>>, 
 
     /**
      * Ctor.
+     *
      * @param train The train to start with
      */
     public TrBulk(final R train) {

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StLambda}.
+ *
  * @since 0.13.0
  */
 final class StLambdaTest {

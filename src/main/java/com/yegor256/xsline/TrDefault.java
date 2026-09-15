@@ -38,6 +38,7 @@ public final class TrDefault<T> implements Train<T> {
 
     /**
      * Ctor.
+     *
      * @param items Items
      */
     @SafeVarargs
@@ -47,6 +48,7 @@ public final class TrDefault<T> implements Train<T> {
 
     /**
      * Ctor.
+     *
      * @param items Items
      */
     public TrDefault(final Iterable<T> items) {

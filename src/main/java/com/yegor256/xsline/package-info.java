@@ -5,6 +5,7 @@
 
 /**
  * Chain of XSL transformations.
+ *
  * @since 0.1
  * @see <a href="https://github.com/yegor256/xsline/">README</a>
  */

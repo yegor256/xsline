@@ -21,6 +21,7 @@ public final class TrFast extends TrEnvelope {
 
     /**
      * Ctor.
+     *
      * @since 0.18.0
      */
     public TrFast() {
@@ -29,6 +30,7 @@ public final class TrFast extends TrEnvelope {
 
     /**
      * Ctor.
+     *
      * @param train Original
      */
     public TrFast(final Train<Shift> train) {
@@ -37,6 +39,7 @@ public final class TrFast extends TrEnvelope {
 
     /**
      * Ctor.
+     *
      * @param train Original
      * @param target The target
      */
@@ -46,6 +49,7 @@ public final class TrFast extends TrEnvelope {
 
     /**
      * Ctor.
+     *
      * @param train Original
      * @param target The target
      * @param msec Threshold in milliseconds

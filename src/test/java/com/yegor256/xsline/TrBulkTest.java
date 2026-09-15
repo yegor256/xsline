@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link TrBulk}.
+ *
  * @since 0.4.0
  */
 final class TrBulkTest {

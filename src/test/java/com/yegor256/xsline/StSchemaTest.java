@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StSchema}.
+ *
  * @since 0.10.0
  */
 final class StSchemaTest {

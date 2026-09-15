@@ -20,6 +20,7 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param train The train
      */
     public StSequence(final Iterable<Shift> train) {
@@ -31,6 +32,7 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param uid The UID to use
      * @param train The train
      */
@@ -44,6 +46,7 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param shifts Shifts to apply
      */
     public StSequence(final Shift... shifts) {
@@ -55,6 +58,7 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param uid The UID to use
      * @param shifts Shifts to apply
      */
@@ -68,6 +72,7 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param fun The predicate
      * @param shifts Shifts to apply
      */
@@ -84,6 +89,7 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param uid The UID to use
      * @param fun The predicate
      * @param shifts Shifts to apply
@@ -103,6 +109,7 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param fun The predicate
      * @param train The train
      */
@@ -117,6 +124,7 @@ public final class StSequence extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param uid The UID to use
      * @param fun The predicate
      * @param train The train

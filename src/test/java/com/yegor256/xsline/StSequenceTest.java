@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StSequence}.
+ *
  * @since 0.14.0
  */
 final class StSequenceTest {

@@ -23,6 +23,7 @@ public final class TrLogged extends TrEnvelope {
 
     /**
      * Ctor.
+     *
      * @since 0.18.0
      */
     public TrLogged() {
@@ -56,6 +57,7 @@ public final class TrLogged extends TrEnvelope {
 
     /**
      * Ctor.
+     *
      * @param train Original
      * @param target The target
      * @param level Logging level

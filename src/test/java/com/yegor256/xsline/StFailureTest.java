@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StFailure}.
+ *
  * @since 0.21.0
  */
 final class StFailureTest {

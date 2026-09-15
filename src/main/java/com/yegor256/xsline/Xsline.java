@@ -37,6 +37,7 @@ public final class Xsline {
 
     /**
      * Ctor.
+     *
      * @param shift One shift to use
      * @since 0.20.0
      */
@@ -46,6 +47,7 @@ public final class Xsline {
 
     /**
      * Ctor.
+     *
      * @param list List of shifts
      */
     public Xsline(final Iterable<Shift> list) {
@@ -54,6 +56,7 @@ public final class Xsline {
 
     /**
      * Run it all with the given XML.
+     *
      * @param input The input XML
      * @return The output XML
      */

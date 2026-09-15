@@ -43,6 +43,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param path The path of XSD document in classpath
      */
     public StSchema(final String path) {
@@ -51,6 +52,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param path The path of XSD document
      * @throws FileNotFoundException If file isn't found
      */
@@ -60,6 +62,7 @@ public final class StSchema extends StEnvelope {
 
     /**
      * Ctor.
+     *
      * @param schema The schema
      */
     public StSchema(final XML schema) {
