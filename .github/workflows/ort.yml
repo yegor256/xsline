@@ -15,7 +15,7 @@ env:
 jobs:
   ort:
     timeout-minutes: 15
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ vars.RUN_WORKFLOW == 'true' }}
     steps:
       - uses: actions/checkout@v7
