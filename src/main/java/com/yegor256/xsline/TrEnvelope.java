@@ -34,7 +34,7 @@ public class TrEnvelope implements Train<Shift> {
 
     @Override
     public final Train<Shift> with(final Shift element) {
-        return this.origin.with(new StLogged(element));
+        return this.origin.with(element);
     }
 
     @Override
