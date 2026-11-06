@@ -66,6 +66,13 @@ public final class StClasspath extends StEnvelope {
         xsl = xsl.with(new ClasspathSources());
         for (final String arg : args) {
             final String[] parts = arg.split(" ", 2);
+            if (parts.length != 2) {
+                throw new IllegalArgumentException(
+                    String.format(
+                        "Argument '%s' must have the form 'name value'", arg
+                    )
+                );
+            }
             xsl = xsl.with(parts[0], parts[1]);
         }
         return xsl;
